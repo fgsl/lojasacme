@@ -1,0 +1,5 @@
+.project
+.buildpath
+.settings/
+data/cache/
+vendor/

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Modelo da classe Usuario 
  * @filesource
@@ -11,43 +12,44 @@
 namespace Model;
 
 use Zend\Db\TableGateway\TableGatewayInterface;
+
 class UsuarioTable {
 	/**
+	 *
 	 * @var TableGatewayInterface
 	 */
 	protected $tableGateway;
-	
-	public function __construct(TableGatewayInterface $tableGateway){
+	public function __construct(TableGatewayInterface $tableGateway) {
 		$this->tableGateway = $tableGateway;
 	}
-	
-	public function insert(Usuario $usuario){
-		$set = $usuario->toArray();
-		$this->tableGateway->insert($set);
+	public function insert(Usuario $usuario) {
+		$set = $usuario->toArray ();
+		$this->tableGateway->insert ( $set );
 	}
-	
-	public function update(Usuario $usuario, $where){
-		$set = $usuario->toArray();
-		$this->tableGateway->update($set, $where);		
+	public function update(Usuario $usuario, $where) {
+		$set = $usuario->toArray ();
+		$this->tableGateway->update ( $set, $where );
 	}
-	
 	public function delete($where) {
-		$this->tableGateway->delete($where);
+		$this->tableGateway->delete ( $where );
 	}
 	
 	/**
-	 * @param array | string | Where $where
+	 *
+	 * @param
+	 *        	array | string | Where $where
 	 */
 	public function getAll($where) {
-		return $this->tableGateway->select($where);
+		return $this->tableGateway->select ( $where );
 	}
-	
 	public function getOne($codigo) {
-		$where = ['codigo' => $codigo];
-		$rowSet = $this->getAll($where);
-		if ($rowset->count() == 0) {
-			return new Usuario();
+		$where = [ 
+				'codigo' => $codigo 
+		];
+		$rowSet = $this->getAll ( $where );
+		if ($rowset->count () == 0) {
+			return new Usuario ();
 		}
-		return $rowSet->current();
-	}	
+		return $rowSet->current ();
+	}
 }

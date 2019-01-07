@@ -1,6 +1,6 @@
 <?php
 /**
- * Modelo da classe Usuario 
+ * Modelo da classe Pedido
  * @filesource
  * @author Felipe Godoi
  * @copyright Copyright 2012 SERPRO
@@ -9,8 +9,8 @@
  * @version 1.0
  */
 
-namespace Application\Model;
+namespace Model;
 
-class Usuario {
+class Pedido {
 	
-}
+} 

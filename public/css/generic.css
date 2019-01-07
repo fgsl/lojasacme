@@ -1,0 +1,64 @@
+@CHARSET "UTF-8";
+
+#header {
+	background-color: green;
+	border: 1px solid black;
+	Width: 100%
+}
+
+#logomarca_customer {
+	background-color: green;
+	color: white;
+	font-family: Verdana;
+	font-size: xx-large;
+	font-weight: bold;
+	text-align: center;
+}
+
+#menu {
+	background-color: yellow;
+	border: 1px solid black;
+	color: darkblue;
+	font-family: Verdana;
+	font-size: medium;
+	font-weight: bold;
+	text-align: center;
+	width: 100%
+}
+
+#footer {
+	background-color: blue;
+	border: 1px solid black;
+	width: 100%;
+}
+
+#logomarca_maker {
+	background-color: blue;
+	color: white;
+	font-family: Verdana;
+	font-size: xx-large;
+	font-weight: bold;
+	text-align: center;
+}
+
+#sample {
+	background-color: deepskyblue;
+	border: 1px solid black;
+	width: 100%;
+}
+
+#product_box {
+	border: 1px;
+	border-style: solid;
+	font-size: large;
+	font-weight: bold;
+	text-align: left;
+}
+
+#buy_button {
+	background-color: red;
+	border: 1px solid black;
+	color: yellow;
+	font-family: Arial;
+	font-weight: bold;
+}

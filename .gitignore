@@ -3,3 +3,4 @@
 .settings/
 data/cache/
 vendor/
+local.php

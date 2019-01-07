@@ -13,4 +13,13 @@
 
 return [
     // ...
+    'db' => [
+    		'driver' => 'PDO',
+    		'dsn' => 'mysql:host=localhost;port=5432;dbname=acme'    		
+    ],
+	'service_manager' => [
+				'factories' => [
+						'DbAdapter' => 'Zend\Db\Adapter\AdapterServiceFactory'
+				]
+	]	
 ];

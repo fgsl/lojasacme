@@ -19,7 +19,7 @@ return [
     ],
 	'service_manager' => [
 				'factories' => [
-						'DbAdapter' => 'Zend\Db\Adapter\AdapterServiceFactory'
+						'DbAdapter' => 'Fgsl\Mock\Db\Adapter\AdapterServiceFactory'
 				]
 	]	
 ];

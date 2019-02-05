@@ -1,0 +1,20 @@
+<?php
+if ($this->partialCounter % 2 !== 0):
+?>
+<tr>
+<?php	
+endif;
+?>
+<td id="product_box">
+<?=$this->escapeHtml($this->produto->nome)?><br/>
+<?=$this->escapeHtml($this->produto->valor)?><br/>
+<?=$this->escapeHtml('Quantidade disponível: ')?>
+<?=$this->escapeHtml($this->produto->quantidade)?><br/>
+</td>
+<?php
+if ($this->partialCounter % 2 == 0):
+?>
+</tr>
+<?php	
+endif;
+?>

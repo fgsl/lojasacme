@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Modelo da classe Usuario 
+ * Modelo da classe Usuario
  * @filesource
  * @author Felipe Godoi
  * @copyright Copyright 2012 SERPRO
@@ -10,15 +11,17 @@
  */
 namespace Application\Model;
 
+use Application\Model\Usuario;
 use Zend\Db\TableGateway\TableGatewayInterface;
 
-class UsuarioTable{
+class UsuarioTable {
+
 	/**
+	 *
 	 * @var TableGatewayInterface
 	 */
 	protected $tableGateway;
-	
-	public function __construct(TableGatewayInterface $tableGateway){
+	public function __construct(TableGatewayInterface $tableGateway) {
 		$this->tableGateway = $tableGateway;
 	}
 	
@@ -41,15 +44,16 @@ class UsuarioTable{
 	 */
 	public function getAll($where = null) {
 		return $this->tableGateway->select($where);
+
 	}
-	
 	public function getOne($codigo) {
-	$where = ['codigo' => $codigo];
-	$rowSet = $this->getAll($where);
-	if ($rowSet->count() == 0) {
-		return new Usuario();
+		$where = [ 
+				'codigo' => $codigo 
+		];
+		$rowSet = $this->getAll ( $where );
+		if ($rowSet->count () == 0) {
+			return new Usuario ();
+		}
+		return $rowSet->current ();
 	}
-	return $rowSet->current();
-}
-  
 }

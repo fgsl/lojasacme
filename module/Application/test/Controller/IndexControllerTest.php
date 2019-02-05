@@ -19,12 +19,7 @@ class IndexControllerTest extends AbstractHttpControllerTestCase
         // You can override configuration here with test case specific values,
         // such as sample view templates, path stacks, module_listener_options,
         // etc.
-        $configOverrides = [];
-
-        $this->setApplicationConfig(ArrayUtils::merge(
-            include __DIR__ . '/../../../../config/application.config.php',
-            $configOverrides
-        ));
+        $this->setApplicationConfig(include __DIR__ . '/../../../../config/mock.config.php');
 
         parent::setUp();
     }
@@ -37,12 +32,6 @@ class IndexControllerTest extends AbstractHttpControllerTestCase
         $this->assertControllerName(IndexController::class); // as specified in router's controller name alias
         $this->assertControllerClass('IndexController');
         $this->assertMatchedRouteName('home');
-    }
-
-    public function testIndexActionViewModelTemplateRenderedWithinLayout()
-    {
-        $this->dispatch('/', 'GET');
-        $this->assertQuery('.container .jumbotron');
     }
 
     public function testInvalidRouteDoesNotCrash()

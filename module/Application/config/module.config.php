@@ -9,7 +9,6 @@ namespace Application;
 
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
-use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
     'router' => [
@@ -38,7 +37,7 @@ return [
     ],
     'controllers' => [
         'factories' => [
-            Controller\IndexController::class => InvokableFactory::class,
+            Controller\IndexController::class => 'Application\Controller\IndexControllerFactory'
         ],
     ],
     'view_manager' => [
@@ -57,4 +56,9 @@ return [
             __DIR__ . '/../view',
         ],
     ],
+	'service_manager' => [
+			'factories' => [
+					'ProdutoTable' => 'Application\Model\ProdutoTableFactory'
+			]
+	]	
 ];

@@ -26,7 +26,7 @@ class ItemTable {
 		$set = $item->toArray ();
 		$this->tableGateway->insert ( $set );
 	}
-	public function update(Item $item, $where) {
+	public function update(Item $item, $where) 
 		$set = $item->toArray ();
 		$this->tableGateway->update ( $set, $where );
 	}

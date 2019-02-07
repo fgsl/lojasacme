@@ -1,6 +1,8 @@
 <?php
 
-class CarrinhoController extends Zend_Controller_Action
+use Zend\Mvc\Controller\AbstractActionController;
+
+class CarrinhoController extends AbstractActionController
 {
     /**
      * Este método será executado sempre que a classe for
@@ -11,12 +13,6 @@ class CarrinhoController extends Zend_Controller_Action
      *
      * @return void
      */
-    public function init()
-    {
-        Zend_Loader::loadClass('Usuarios');
-        Zend_Loader::loadClass('Produtos');
-        Zend_Loader::loadClass('Itens');
-        Zend_Loader::loadClass('Pedidos');
         
         /* Página do carrinho de compras */
         public function comprarAction()
@@ -27,9 +23,9 @@ class CarrinhoController extends Zend_Controller_Action
                 $_SESSION['carrinho'] = array();
             }
             $carrinho = $_SESSION['carrinho'];
-            if (!is_null($this->_request->getParam('id')))
+            if (!is_null($this->params()('id')))
             {
-                $id = (int)$this->_request->getParam('id');
+                $id = (int)$this->params()('id');
                 $incluido = FALSE;
                 foreach ($carrinho as $produto)
                 {
@@ -45,20 +41,19 @@ class CarrinhoController extends Zend_Controller_Action
                 }
                 If (!$incluindo)
                 {
-                    $produtos = new Produtos();
-                    $item = $produtos→ find($id)→toArray();
+                    $produtos = new Produto();
+                    $item = $produtos-> find($id)->toArray();
                     $item[0][‘quantidade’]=1;
                     $carrinho[] = $item[0];
                     $_SESSION[‘carrinho’] = $carrinho;
                 }
             }
-            $view = Zend_Registry:: get (‘view’);
+            $viewModel = $viewModel = new ViewModel();
             
-            $view→ assign(‘mensagem’,$mensagem);
-            $view→ assign(‘itens’,$carrinho);
+            $viewModel->mensagem =  $mensagem;
+            $viewModel-> assign(‘itens’,$carrinho);
             
-            $view→assign(‘header’,’pageHeader.phtml’);
-            $view→assign(‘body’,’comprar.phtml’);
-            $view→assign(‘footer’,‘PageFooter.phtml’);
-            $this→_response→setBody($view→render(‘default.phtml’));
+            
+            $viewModel→assign(‘body’,’comprar.phtml’);
+            $this->_response→setBody($viewModel->render(‘default.phtml’));
         } 

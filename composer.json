@@ -7,7 +7,8 @@
     "zendframework/zend-mvc" : "^3.0.1",
     "zfcampus/zf-development-mode" : "^3.0",
     "zendframework/zend-db" : "^2.9.3",
-    "zendframework/zend-test": "^3.2"
+    "zendframework/zend-test": "^3.2",
+    "fgsl/mock": "1.2.0"
   },
   "license" : "BSD-3-Clause",
   "keywords" : [ "framework", "mvc", "zf" ],

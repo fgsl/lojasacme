@@ -1,6 +1,7 @@
 .project
 .buildpath
 .settings/
+.metadata/
 data/cache/
 vendor/
 local.php

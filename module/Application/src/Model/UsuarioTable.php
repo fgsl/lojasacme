@@ -50,7 +50,7 @@ class UsuarioTable {
 		$where = [ 
 				'codigo' => $codigo 
 		];
-		$rowSet = $this->getAll ( $where );
+		$rowSet = $this->getAll ($where);
 		if ($rowSet->count () == 0) {
 			return new Usuario ();
 		}

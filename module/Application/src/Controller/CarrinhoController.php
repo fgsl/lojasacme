@@ -42,18 +42,20 @@ class CarrinhoController extends AbstractActionController
                 If (!$incluindo)
                 {
                     $produtos = new Produto();
-                    $item = $produtos-> find($id)->toArray();
+                    $item = $produtos-> getOne($id)->toArray();
                     $item[0][‘quantidade’]=1;
                     $carrinho[] = $item[0];
                     $_SESSION[‘carrinho’] = $carrinho;
                 }
             }
-            $viewModel = $viewModel = new ViewModel();
+            $viewModel = $viewModel = new View Model();
             
-            $viewModel->mensagem =  $mensagem;
+            $viewModel->mensagem = $mensagem;
             $viewModel-> assign(‘itens’,$carrinho);
             
             
-            $viewModel→assign(‘body’,’comprar.phtml’);
+            $viewModel->assign(‘body’,’comprar.phtml’);
             $this->_response→setBody($viewModel->render(‘default.phtml’));
-        } 
+        
+        
+        }} 

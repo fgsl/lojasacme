@@ -27,4 +27,19 @@ class IndexController extends AbstractActionController {
 				'produtos' => $this->sm->get('ProdutoTable')->getAll()
 		]);
 	}
+	
+	public function buscarAction()
+	{
+	    return new ViewModel();
+	}
+	
+	public function acessarAction()
+	{
+	    return new ViewModel();
+	}
+	
+	public function cadastrarAction()
+	{
+	    return new ViewModel();
+	}
 }

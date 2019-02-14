@@ -1,4 +1,4 @@
-z \<?php
+<?php
 
 /**
  * Modelo da classe ProdutoTable

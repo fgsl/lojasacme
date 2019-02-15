@@ -48,7 +48,7 @@ class ItemTable {
 				'codigo' => $codigo
 		];
 		$rowSet = $this->getAll ( $where );
-		if ($rowset->count () == 0) {
+		if ($rowSetset->count () == 0) {
 			return new Item ();
 		}
 		return $rowSet->current ();

@@ -1,6 +1,8 @@
 <?php
 
 use Zend\Mvc\Controller\AbstractActionController;
+use Application\Model\Produto;
+use Zend\View\Model\ViewModel;
 
 class CarrinhoController extends AbstractActionController
 {
@@ -48,7 +50,7 @@ class CarrinhoController extends AbstractActionController
                     $_SESSION[‘carrinho’] = $carrinho;
                 }
             }
-            $viewModel = $viewModel = new View Model();
+            $viewModel = $viewModel = new ViewModel();
             
             $viewModel->mensagem = $mensagem;
             $viewModel-> assign(‘itens’,$carrinho);

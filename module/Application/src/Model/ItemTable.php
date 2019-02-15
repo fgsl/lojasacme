@@ -9,7 +9,7 @@
 * @subpackage Model
 * @version 1.0
 */
-namespace Model;
+namespace Application\Model;
 
 use Zend\Db\TableGateway\TableGatewayInterface;
 
@@ -26,7 +26,8 @@ class ItemTable {
 		$set = $item->toArray ();
 		$this->tableGateway->insert ( $set );
 	}
-	public function update(Item $item, $where);
+	public function update(Item $item, $where)
+	{
 		$set = $item->toArray ();
 		$this->tableGateway->update ( $set, $where );
 	}

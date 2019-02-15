@@ -9,7 +9,7 @@
  * @version 1.0
  */
 
-namespace Model;
+namespace Application\Model;
 
 class Pedido {
 	

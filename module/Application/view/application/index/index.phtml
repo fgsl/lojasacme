@@ -1,5 +1,5 @@
-<div id="header">
-<h1 id="logomarca_customer">Lojas Acme</h1>
+<div id="cabecalho">
+<h1 id="logomarca_cliente">Lojas Acme</h1>
 </div>
 <div id="menu">
 <form action="<?=$this->url('application',['action'=>'buscar'])?>" method="post">
@@ -11,7 +11,6 @@
 <input type="submit" value="Pesquisar" />
 </form>
 </div>
-<table id="sample">
+<table id="lista_de_produtos">
 <?=$this->partialLoop('produtos.phtml',$this->produtos)?>
 </table>
-<a href="<?=$this->url('application',['controller'=>'carrinho','action'=>'comprar'])?>">Comprar</a>	

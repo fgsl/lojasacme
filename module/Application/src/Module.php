@@ -7,7 +7,7 @@
 
 namespace Application;
 
-class Module
+class Module 
 {
     const VERSION = '3.0.3-dev';
 

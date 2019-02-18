@@ -1,20 +1,21 @@
 <?php
-if ($this->partialCounter % 2 !== 0):
+if ($this->partialLoop()->getPartialCounter() % 2 !== 0):
 ?>
 <tr>
 <?php	
 endif;
 ?>
-<td id="product_box">
-<?=$this->escapeHtml($this->produto->nome)?><br/>
-<?=$this->escapeHtml($this->produto->valor)?><br/>
+<td id="produto">
+<?=htmlentities($this->nome,0,'iso-8859-1')?><br/>
+<?=$this->escapeHtml($this->valor)?><br/>
 <?=$this->escapeHtml('Quantidade disponível: ')?>
-<?=$this->escapeHtml($this->produto->quantidade)?><br/>
+<?=$this->escapeHtml($this->quantidade)?><br/>
+<a id="botao_comprar" href="<?=$this->url('application',['controller'=>'carrinho','action'=>'comprar'])?>">Comprar</a>
 </td>
 <?php
-if ($this->partialCounter % 2 == 0):
+if ($this->partialLoop()->getPartialCounter() % 2 == 0):
 ?>
 </tr>
-<?php	
+<?php
 endif;
 ?>

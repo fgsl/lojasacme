@@ -11,7 +11,6 @@
  */
 namespace Application\Model;
 
-use Application\Model\Usuario;
 use Zend\Db\TableGateway\TableGatewayInterface;
 
 class UsuarioTable {

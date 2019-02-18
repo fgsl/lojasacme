@@ -1,0 +1,19 @@
+<center>
+<form action="/zend/acme/carrinho/alterar"
+method="post">
+<?php
+if (isset($this->produtoSelecionado['id']))
+{
+echo '<b>Produto: '.$this-
+>produtoSelecionado['nome'].'</b><br/>';
+echo '<b>Preço: '.$this-
+>produtoSelecionado['valor'].'</b><br/>';
+<input name="quantidade" value="<?=$this >produtoSelecionado['quantidade']?>" id="nome"type="text">
+<input name="id" value="<?=$this->produtoSelecionado['id']?>" id="id"type="hidden">
+<?php
+}
+?>
+<input type="submit" name="alterar"value="Alterar"/>
+</form>
+</center>
+<a href="/zend/acme/carrinho/">Carrinho de compras</a>

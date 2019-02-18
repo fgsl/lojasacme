@@ -58,4 +58,73 @@ class CarrinhoController extends AbstractActionController
             $this->_response→setBody($viewModel->render(‘default.phtml’));
         
         
-        }} 
+        }
+        public function indexAction()
+        {
+            $this→_redirect('/carrinho/comprar');
+        }
+        
+        public function excluirAction()
+        {
+            $id = (int)$this->_request->getParam('id');
+            if (is_null($id))
+            {
+                $this->_redirect('/carrinho/');
+                exit;
+            }
+            foreach ($_SESSION['carrinho'] as $chave => $produto)
+            {
+                if ($produto['id'] == $id )
+                {
+                    unset($_SESSION['carrinho'][$chave]);
+                    break;
+                }
+            }
+            $this->_redirect('/carrinho/');
+        }
+        $viewModel = new ViewModel();
+        $viewModel->assign('produtoSelecionado' $produtoSelecionado);
+        
+        $viewModel->assign('body','editar.phtml');
+        $thisModel->_response->setBody($viewModel->render('default.phtml'));
+      
+        
+      public function alterarAction()
+        {
+             Alteração de quantidade de um item do carrinho
+            $id = (int)$this→_request→getParam('id');
+            
+            if (is_null($id))
+            {
+                $this->_redirect('/carrinho/');
+                exit;
+            }
+          $quantidade = (int) $this->_request->getParam('quantidade');
+ 			 	foreach ($_SESSION['carrinho'] as $chave => $produto)
+ 			 		{
+ 				 			 	if (isset($produto['id']))
+ 			 		 	{
+ 						 				 		If ($produto['id'] == $id )
+ 					 				 		{
+ 					 			 			 $_SESSION['carrinho'][$chave]['quantidade']= $quantidade;
+ 				 			 		break;
+ 	 	 	 		 	}
+ 				 	 	}
+ 			 	}
+ 			$this→_redirect('/carrinho/');
+     
+        
+       Fechamento da compra 
+ 		public function fecharAction()
+ 		{
+ 			if (!isset($_SESSION['cliente']))
+ 			{
+ 				$this->_redirect('/index/acessar');
+ 				exit;
+ 			}
+}
+
+$viewModel = Zend_Registry::get('view');
+$viewModel->assign('body','fechar.phtml');
+$this->_response→setBody($view->render('default.phtml'));
+} 

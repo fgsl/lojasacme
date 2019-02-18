@@ -15,3 +15,5 @@
 <?=$this->partialLoop('produtos.phtml',$this->produtos)?>
 </table>
 <a href="<?=$this->url('application',['controller'=>'carrinho','action'=>'comprar'])?>">Comprar</a>	
+<a id="buy_button" href="./carrinho/comprar?id=<?=$produto['id']?>"
+>Comprar</a>

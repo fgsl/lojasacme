@@ -63,7 +63,7 @@ class CarrinhoController extends AbstractActionController
         }
         public function indexAction()
         {
-            $this→_redirect('/carrinho/comprar');
+            $this->redirect('/carrinho/comprar');
         }
         
         public function excluirAction()
@@ -126,7 +126,7 @@ class CarrinhoController extends AbstractActionController
  			}
 }
 
-$viewModel = Zend_Registry::get('view');
+$viewModel = new ViewModel();
 $viewModel->assign('body','fechar.phtml');
-$this->_response→setBody($view->render('default.phtml'));
+$this->_response->setBody($view->render('default.phtml'));
 } 

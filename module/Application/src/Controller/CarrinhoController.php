@@ -58,7 +58,7 @@ class CarrinhoController extends AbstractActionController
             
             $viewModel->assign(‘body’,’comprar.phtml’);
             $this->_response→setBody($viewModel->render(‘default.phtml’));
-        
+            return $viewModel;
         
         }
         public function indexAction()
@@ -83,18 +83,18 @@ class CarrinhoController extends AbstractActionController
                 }
             }
             $this->_redirect('/carrinho/');
-        }
+        
         $viewModel = new ViewModel();
-        $viewModel->assign('produtoSelecionado' $produtoSelecionado);
+        $viewModel->assign ('produtoSelecionado', $produtoSelecionado);
         
         $viewModel->assign('body','editar.phtml');
         $thisModel->_response->setBody($viewModel->render('default.phtml'));
-      
+        }
         
       public function alterarAction()
         {
-             Alteração de quantidade de um item do carrinho
-            $id = (int)$this→_request→getParam('id');
+          /*   Alteração de quantidade de um item do carrinho */
+            $id = (int)$this->request->getParam('id');
             
             if (is_null($id))
             {
@@ -113,10 +113,10 @@ class CarrinhoController extends AbstractActionController
  	 	 	 		 	}
  				 	 	}
  			 	}
- 			$this→_redirect('/carrinho/');
+ 			$this->_redirect('/carrinho/');
      
         
-       Fechamento da compra 
+  /*     Fechamento da compra */
  		public function fecharAction()
  		{
  			if (!isset($_SESSION['cliente']))
@@ -129,4 +129,5 @@ class CarrinhoController extends AbstractActionController
 $viewModel = new ViewModel();
 $viewModel->assign('body','fechar.phtml');
 $this->_response->setBody($view->render('default.phtml'));
-} 
+}
+}

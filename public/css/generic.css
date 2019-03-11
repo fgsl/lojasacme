@@ -57,3 +57,7 @@ footer {
     font-family: Arial;
     font-weight: bold;
 }
+
+#warning {
+	color : red;
+}

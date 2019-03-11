@@ -7,8 +7,10 @@
 
 namespace Application;
 
+
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
+use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
     'router' => [
@@ -32,12 +34,23 @@ return [
                         'action'     => 'index',
                     ],
                 ],
+            ],   
+            'carrinho' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/carrinho[/:action]', 
+                    'defaults' => [
+                        'controller' => Controller\CarrinhoController::class,
+                        'action'     => 'comprar',
+                    ],
+                ],
             ],
         ],
     ],
     'controllers' => [
         'factories' => [
-            Controller\IndexController::class => 'Application\Controller\IndexControllerFactory'
+            Controller\IndexController::class => 'Application\Controller\IndexControllerFactory',
+            /* Controller\CarrinhoController::class =>  , */
         ],
     ],
     'view_manager' => [
@@ -60,5 +73,5 @@ return [
 			'factories' => [
 					'ProdutoTable' => 'Application\Model\ProdutoTableFactory'
 			]
-	]	
+	]	    
 ];

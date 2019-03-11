@@ -47,7 +47,7 @@ class ProdutoTable {
 				'codigo' => $codigo
 		];
 		$rowSet = $this->getAll ( $where );
-		if ($rowset->count () == 0) {
+		if ($rowSet->count () == 0) {
 			return new Produto ();
 		}
 		return $rowSet->current ();

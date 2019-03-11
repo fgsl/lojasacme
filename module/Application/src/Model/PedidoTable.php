@@ -47,7 +47,7 @@ class PedidoTable {
 				'codigo' => $codigo
 		];
 		$rowSet = $this->getAll ( $where );
-		if ($rowset->count () == 0) {
+		if ($rowSet->count () == 0) {
 			return new Pedido ();
 		}
 		return $rowSet->current ();

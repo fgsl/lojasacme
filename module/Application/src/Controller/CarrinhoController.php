@@ -16,32 +16,52 @@ class CarrinhoController extends AbstractActionController
             $_SESSION['carrinho'] = array();
         }
         $carrinho = $_SESSION['carrinho'];
-        if (! is_null($this->_request->getParam('id'))) {
-            $id = (int) $this->_request->getParam('id');
-            $incluido = FALSE;
+        if (! is_null($this->params('id'))) {
+            $id = (int) $this->params('id');
+            $incluindo = FALSE;
             foreach ($carrinho as $produto) {
                 if (isset($produto['id'])) {
                     if ($produto['id'] == $id) {
-                        $incluido = TRUE;
+                        $incluindo = TRUE;
                         $mensagem = 'Produto já selecionado';
                         break;
                     }
                 }
-            }
-            If (! $incluido) {
-                $produtos = new Produto();
-                $item = $produtos->find($id)->toArray();
-                $item[0][‘quantidade’] = 1;
-                $carrinho[] = $item[0];
-                $_SESSION[‘carrinho’] = $carrinho;
+
+                If (! $incluindo) {
+                    $produtos = new Produto();
+                    $item = $produtos->getOne($id)->toArray();
+                    $item[0]['quantidade'] = 1;
+                    $carrinho[] = $item[0];
+                    $_SESSION['carrinho'] = $carrinho;
+                }
             }
         }
-        $viewModel = new ViewModel();
-
+        $viewModel = $viewModel = new ViewModel();
+        
         $viewModel->mensagem = $mensagem;
-        $viewModel->assign(‘itens’, $carrinho);
+        $viewModel->itens =  $carrinho;
+        return $viewModel;        
+    }
 
-        $viewModel->assign(‘body’, ’comprar . phtml’);
-        $this->response->setBody($viewModel->render(‘default . phtml’));
+    public function indexAction()
+    {
+        $this->redirect('/carrinho/comprar');
+    }
+
+    public function excluirAction()
+    {
+        $id = (int) $this->params('id');
+        if (is_null($id)) {
+            $this->_redirect('/carrinho/');
+            exit();
+        }
+        foreach ($_SESSION['carrinho'] as $chave => $produto) {
+            if ($produto['id'] == $id) {
+                unset($_SESSION['carrinho'][$chave]);
+                break;
+            }
+        }
+        $this->_redirect('/carrinho/');
     }
 }

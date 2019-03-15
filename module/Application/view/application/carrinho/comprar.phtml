@@ -1,4 +1,14 @@
 <h3 id="warning"><?=$this->mensagem?></h3>
+<div id="menu">
+<form action="<?=$this->url('application',['action'=>'buscar'])?>" method="post">
+<a href="<?=$this->url('application',['action' => 'acessar'])?>">Acessar</a>
+&nbsp;
+<a href="<?=$this->url('application',['action' => 'cadastrar'])?>" >Cadastrar</a>
+<label>Busca produtos:</label>
+<input name="nome" value="" id="nome" type="text">
+<input type="submit" value="Pesquisar" />
+</form>
+</div>
 <table id="carrinho">
 	<thead>
 <?php

@@ -46,14 +46,14 @@ class CarrinhoController extends AbstractActionController
 
     public function indexAction()
     {
-        $this->redirect('/carrinho/comprar');
+            $this->redirect('carrinho');
     }
 
     public function excluirAction()
     {
         $id = (int) $this->params('id');
         if (is_null($id)) {
-            $this->_redirect('/carrinho/');
+            $this->redirect('carrinho');
             exit();
         }
         foreach ($_SESSION['carrinho'] as $chave => $produto) {
@@ -62,6 +62,6 @@ class CarrinhoController extends AbstractActionController
                 break;
             }
         }
-        $this->_redirect('/carrinho/');
+        $this->redirect('carrinho');
     }
 }

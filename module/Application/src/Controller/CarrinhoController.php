@@ -46,7 +46,7 @@ class CarrinhoController extends AbstractActionController
 
     public function indexAction()
     {
-            $this->redirect('carrinho');
+            $viewModel->produtoSelecionado = $produtoSelecionado;
     }
 
     public function excluirAction()

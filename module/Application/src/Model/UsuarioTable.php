@@ -56,4 +56,3 @@ class UsuarioTable {
 		return $rowSet->current ();
 	}
 }
-aaa

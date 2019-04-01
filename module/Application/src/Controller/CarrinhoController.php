@@ -4,6 +4,7 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Application\Model\Produto;
 use Zend\View\Model\ViewModel;
+use Zend\Http\Header\Range;
 
 class CarrinhoController extends AbstractActionController
 {
@@ -46,15 +47,14 @@ class CarrinhoController extends AbstractActionController
 
     public function indexAction()
     {
-            $this->redirect('carrinho');
+           return $this->redirect('carrinho');
     }
 
     public function excluirAction()
     {
         $id = (int) $this->params('id');
         if (is_null($id)) {
-            $this->redirect('carrinho');
-            exit();
+            return $this->redirect('carrinho');
         }
         foreach ($_SESSION['carrinho'] as $chave => $produto) {
             if ($produto['id'] == $id) {
@@ -62,6 +62,6 @@ class CarrinhoController extends AbstractActionController
                 break;
             }
         }
-        $this->redirect('carrinho');
+        return $this->redirect('carrinho');
     }
 }

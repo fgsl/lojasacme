@@ -1,5 +1,5 @@
 <center>
-<form action="/zend/acme/carrinho/alterar"
+<form action="url('carrinho',['action'=>'alterar'])?>"
 method="post">
 <?php
 if (isset($this->produtoSelecionado['id']))

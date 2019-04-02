@@ -24,15 +24,15 @@ class ItemTable {
 	}
 	public function insert(Item $item) {
 		$set = $item->toArray ();
-		$this->tableGateway->insert ( $set );
+		return $this->tableGateway->insert ( $set );
 	}
 	public function update(Item $item, $where)
 	{
 		$set = $item->toArray ();
-		$this->tableGateway->update ( $set, $where );
+		return $this->tableGateway->update ( $set, $where );
 	}
 	public function delete($where) {
-		$this->tableGateway->delete ( $where );
+	    return $this->tableGateway->delete ( $where );
 	}
 
 	/**

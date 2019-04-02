@@ -48,7 +48,6 @@ public function testInsert(){
 }
 
 public function testUpdate(){
-	
 	$this->where->equalTo('id', 1);
 	$this->assertEquals(1,$this->usuarioTable->update($this->usuario, $this->where));
 }

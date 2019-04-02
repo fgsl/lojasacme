@@ -24,14 +24,14 @@ class PedidoTable {
 	}
 	public function insert(Pedido $pedido) {
 		$set = $pedido->toArray ();
-		$this->tableGateway->insert ( $set );
+		return $this->tableGateway->insert ( $set );
 	}
 	public function update(Pedido $pedido, $where) {
 		$set = $pedido->toArray ();
-		$this->tableGateway->update ( $set, $where );
+		return $this->tableGateway->update ( $set, $where );
 	}
 	public function delete($where) {
-		$this->tableGateway->delete ( $where );
+	    return $this->tableGateway->delete ( $where );
 	}
 
 	/**

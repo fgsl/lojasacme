@@ -24,14 +24,14 @@ class ProdutoTable {
 	}
 	public function insert(Produto $produto) {
 		$set = $produto->toArray ();
-		$this->tableGateway->insert ( $set );
+		return $this->tableGateway->insert ( $set );
 	}
 	public function update(Produto $produto, $where) {
 		$set = $produto->toArray ();
-		$this->tableGateway->update ( $set, $where );
+		return $this->tableGateway->update ( $set, $where );
 	}
 	public function delete($where) {
-		$this->tableGateway->delete ( $where );
+	    return $this->tableGateway->delete ( $where );
 	}
 
 	/**

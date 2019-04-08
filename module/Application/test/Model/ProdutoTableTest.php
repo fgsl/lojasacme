@@ -32,14 +32,6 @@ class ProdutoTableTest extends AbstractHttpControllerTestCase
         $this->where = new Where();
     }
 
-    public function setProduto()
-    {
-        $this->produto->setId(1);
-        $this->produto->setNome("estilingue");
-        $this->produto->setValor(100);
-        $this->produto->setQuantidade(5);
-    }
-
     public function testToArray()
     {
         $this->assertContainsOnly('array', [
@@ -64,7 +56,7 @@ class ProdutoTableTest extends AbstractHttpControllerTestCase
         $this->where->equalTo('id', 1);
 
         $this->produto->setId(1);
-
+        
         $produto2 = new Produto();
         $produto2->setId(2);
 

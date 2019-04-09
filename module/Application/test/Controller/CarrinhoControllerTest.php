@@ -14,12 +14,14 @@ use Application\Controller\CarrinhoController;
 
 class CarrinhoControllerTest extends AbstractHttpControllerTestCase
 {
+    private $carrinho;
     public function setUp()
     {
         // The module configuration should still be applicable for tests.
         // You can override configuration here with test case specific values,
         // such as sample view templates, path stacks, module_listener_options,
         // etc.
+        $this->carrinho= new CarrinhoController();
         $this->setApplicationConfig(include __DIR__ . '/../../../../config/mock.config.php');
 
         parent::setUp();
@@ -33,5 +35,13 @@ class CarrinhoControllerTest extends AbstractHttpControllerTestCase
         $this->assertControllerName(CarrinhoController::class); // as specified in router's controller name alias
         $this->assertControllerClass('CarrinhoController');
         $this->assertMatchedRouteName('carrinho');
+    }
+    
+    public function testComprarAction(){
+        $this->dispatch('/carrinho/comprar', 'GET');
+        $this->assertResponseStatusCode(200);
+        $this->assertModuleName('application');
+        $this->assertControllerName(CarrinhoController::class);
+        $this->assertControllerClass('CarrinhoController');
     }
 }

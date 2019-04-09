@@ -11,6 +11,7 @@ use Zend\Db\Sql\Where;
 
 class ProdutoTableTest extends AbstractHttpControllerTestCase
 {
+
     private $produtoTable;
     private $produto;
     private $driver;
@@ -56,7 +57,7 @@ class ProdutoTableTest extends AbstractHttpControllerTestCase
         $this->where->equalTo('id', 1);
 
         $this->produto->setId(1);
-        
+
         $produto2 = new Produto();
         $produto2->setId(2);
 

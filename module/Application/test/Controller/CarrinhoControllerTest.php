@@ -44,4 +44,20 @@ class CarrinhoControllerTest extends AbstractHttpControllerTestCase
         $this->assertControllerName(CarrinhoController::class);
         $this->assertControllerClass('CarrinhoController');
     }
+    
+    public function testIndexAction(){
+        $this->dispatch('/carrinho/index', 'GET');
+        $this->assertResponseStatusCode(200);
+        $this->assertModuleName('application');
+        $this->assertControllerName(CarrinhoController::class);
+        $this->assertControllerClass('CarrinhoController');
+    }
+    
+    public function testExcluirAction(){
+        $this->dispatch('/carrinho/excluir', 'GET');
+        $this->assertResponseStatusCode(200);
+        $this->assertModuleName('application');
+        $this->assertControllerName(CarrinhoController::class);
+        $this->assertControllerClass('CarrinhoController');
+    }
 }

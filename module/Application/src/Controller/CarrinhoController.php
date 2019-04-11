@@ -53,7 +53,7 @@ class CarrinhoController extends AbstractActionController
     public function excluirAction()
     {
         $id = (int) $this->params('id');
-        if (is_null($id)) {
+        if (empty($id)) {
             return $this->redirect('carrinho');
         }
         foreach ($_SESSION['carrinho'] as $chave => $produto) {

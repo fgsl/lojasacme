@@ -38,7 +38,7 @@ return [
             'carrinho' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/carrinho[/:action]', 
+                    'route'    => '/carrinho[/:action[/:id]]', 
                     'defaults' => [
                         'controller' => Controller\CarrinhoController::class,
                         'action'     => 'comprar',

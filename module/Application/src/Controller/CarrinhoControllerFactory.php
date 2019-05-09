@@ -13,6 +13,6 @@ class CarrinhoControllerFactory implements FactoryInterface
     {
         $sessionManager = new SessionManager();
         $sessionManager->start();
-        return new IndexController($container);
+        return new CarrinhoController($container);
     }
 }

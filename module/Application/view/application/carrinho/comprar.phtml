@@ -32,7 +32,7 @@ $somaTotal = 0;
 foreach ($this->itens as $item)
 {
  		$codigo = $item['id'];
- 		$nome = $this->escapeHtml($item['nome']);
+ 		$nome = htmlentities($item['nome'],0,'iso-8859-1');
  		$quantidade = $this->escapeHtml($item['quantidade']);
  		$preco = $this->escapeHtml($item['valor']);
 

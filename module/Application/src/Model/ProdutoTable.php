@@ -42,9 +42,9 @@ class ProdutoTable {
 	public function getAll($where = null) {
 		return $this->tableGateway->select ( $where );
 	}
-	public function getOne($codigo) {
+	public function getOne($id) {
 		$where = [
-				'codigo' => $codigo
+				'id' => $id
 		];
 		$rowSet = $this->getAll ( $where );
 		if ($rowSet->count () == 0) {

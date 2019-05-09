@@ -5,39 +5,64 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Application\Model\Produto;
 use Zend\View\Model\ViewModel;
 use Zend\Http\Header\Range;
-
+use Application\Model\ProdutoTable;
+use Interop\Container\ContainerInterface;
+/* use Zend\Db\TableGateway\TableGateway;
+use Fgsl\Mock\Db\Adapter\Mock as Adapter;
+use Fgsl\Mock\Db\Adapter\Driver\Mock as Driver;
+ */
 class CarrinhoController extends AbstractActionController
 {
-
+    /**
+     * @var ContainerInterface
+     */
+    private $container;
+    /* private $produto;
+    private $driver;
+    private $adapter;
+    private $tableGateway;
+    
+    public function setUp(){
+        $this->produto = new Produto();
+        $this->driver = new Driver();
+        $this->adapter = new Adapter($this->driver);
+        $this->tableGateway = new TableGateway("produto", $this->adapter);
+    } */
+    
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
+    
     /* Página do carrinho de compras */
     public function comprarAction()
     {
         $mensagem = '';
-        if (! isset($_SESSION['carrinho'])) {
-            $_SESSION['carrinho'] = array();
+        if (! isset($_SESSION['carrinho'])) { // se a seção não esta iniciada
+            $_SESSION['carrinho'] = array();    // a seção recebe array()
         }
         $carrinho = $_SESSION['carrinho'];
         if (! is_null($this->params('id'))) {
             $id = (int) $this->params('id');
-            $incluindo = FALSE;
-            foreach ($carrinho as $produto) {
-                if (isset($produto['id'])) {
-                    if ($produto['id'] == $id) {
-                        $incluindo = TRUE;
+            $incluindo = FALSE;  //produto não selecionado
+            foreach ($carrinho as $produto) { // laço que detecta se os produtos tem id ou id repetido
+                if (isset($produto['id'])) { //continua se tiver id
+                    if ($produto['id'] == $id) {  //continua se tiver id repetido
+                        $incluindo = TRUE;  //produto selecionado
                         $mensagem = 'Produto já selecionado';
                         break;
                     }
-                }
-
-                If (! $incluindo) {
-                    $produtos = new Produto();
-                    $item = $produtos->getOne($id)->toArray();
-                    $item[0]['quantidade'] = 1;
-                    $carrinho[] = $item[0];
-                    $_SESSION['carrinho'] = $carrinho;
-                }
+                 }
             }
+            if (! $incluindo) { // se incluindo for falso
+                $produtoTable = $this->container->get('ProdutoTable');
+                $item = $produtoTable->getOne($id)->getArrayCopy();
+                $item['quantidade'] = 1;
+                $carrinho[] = $item;
+                $_SESSION['carrinho'] = $carrinho;
+            }            
         }
+        
         $viewModel = $viewModel = new ViewModel();
         
         $viewModel->mensagem = $mensagem;

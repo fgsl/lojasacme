@@ -50,7 +50,7 @@ return [
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => 'Application\Controller\IndexControllerFactory',
-            Controller\CarrinhoController::class => InvokableFactory::class
+            Controller\CarrinhoController::class => 'Application\Controller\CarrinhoControllerFactory'
         ],
     ],
     'view_manager' => [

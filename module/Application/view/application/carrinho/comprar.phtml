@@ -1,4 +1,3 @@
-<h3 id="warning"><?=$this->mensagem?></h3>
 <div id="menu">
 <form action="<?=$this->url('application',['action'=>'buscar'])?>" method="post">
 <a href="<?=$this->url('application',['action' => 'acessar'])?>">Acessar</a>
@@ -9,6 +8,7 @@
 <input type="submit" value="Pesquisar" />
 </form>
 </div>
+<h3 id="warning"><?=$this->mensagem?></h3>
 <table id="carrinho">
 	<thead>
 <?php
@@ -39,11 +39,11 @@ foreach ($this->itens as $item)
  		// Aqui foi necessário forçar o preço a assumir o formato americano
  		// porque ele não estava convertendo a moeda corretamente
 
- 		$moeda = str_replace('.','',substr($preco,2));
+ 		$moeda = str_replace('.','',$preco); //$moeda = str_replace('.','',substr($preco,2));
  		$moeda = str_replace(',','.',$moeda);
  		$valorTotal = (float)$quantidade * (float)$moeda;
  		$totalItem = $this->escapeHtml(money_format('%.2n',$valorTotal));
-
+ 		
 		$editar = '<a href="./editar?id=' . $codigo.'">E</a>';
  		$excluir= '<a href="./excluir?id='.$codigo.'">X</a>';
 

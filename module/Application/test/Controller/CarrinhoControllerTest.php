@@ -7,10 +7,9 @@
 
 namespace ApplicationTest\Controller;
 
-use Application\Controller\IndexController;
-use Zend\Stdlib\ArrayUtils;
-use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
 use Application\Controller\CarrinhoController;
+use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
+use Zend\ServiceManager\ServiceManager;
 
 class CarrinhoControllerTest extends AbstractHttpControllerTestCase
 {
@@ -21,7 +20,9 @@ class CarrinhoControllerTest extends AbstractHttpControllerTestCase
         // You can override configuration here with test case specific values,
         // such as sample view templates, path stacks, module_listener_options,
         // etc.
-        $this->carrinho= new CarrinhoController();
+        
+        $container = new ServiceManager();
+        $this->carrinho = new CarrinhoController($container);
         $this->setApplicationConfig(include __DIR__ . '/../../../../config/mock.config.php');
 
         parent::setUp();

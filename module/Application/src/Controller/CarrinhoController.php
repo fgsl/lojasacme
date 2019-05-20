@@ -17,17 +17,6 @@ class CarrinhoController extends AbstractActionController
      * @var ContainerInterface
      */
     private $container;
-    /* private $produto;
-    private $driver;
-    private $adapter;
-    private $tableGateway;
-    
-    public function setUp(){
-        $this->produto = new Produto();
-        $this->driver = new Driver();
-        $this->adapter = new Adapter($this->driver);
-        $this->tableGateway = new TableGateway("produto", $this->adapter);
-    } */
     
     public function __construct(ContainerInterface $container)
     {
@@ -72,14 +61,15 @@ class CarrinhoController extends AbstractActionController
 
     public function indexAction()
     {
-           return $this->redirect('carrinho');
+           return $this->redirect()->toRoute('carrinho');
     }
 
     public function excluirAction()
-    {
+    {       
         $id = (int) $this->params('id');
+        
         if (empty($id)) {
-            return $this->redirect('carrinho');
+            return $this->redirect()->toRoute('carrinho');
         }
         foreach ($_SESSION['carrinho'] as $chave => $produto) {
             if ($produto['id'] == $id) {
@@ -87,6 +77,6 @@ class CarrinhoController extends AbstractActionController
                 break;
             }
         }
-        return $this->redirect('carrinho');
+        return $this->redirect()->toRoute('carrinho');
     }
 }

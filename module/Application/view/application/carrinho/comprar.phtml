@@ -44,8 +44,12 @@ foreach ($this->itens as $item)
  		$valorTotal = (float)$quantidade * (float)$moeda;
  		$totalItem = $this->escapeHtml(money_format('%.2n',$valorTotal));
  		
-		$editar = '<a href="./editar?id=' . $codigo.'">E</a>';
- 		$excluir= '<a href="./excluir?id='.$codigo.'">X</a>';
+		/* $editar = '<a href=" . /editar?id=' . $codigo.'">E</a>';
+ 		$excluir= '<a href=" . /excluir?id=' . $codigo.'">X</a>'; */
+ 		
+ 		$excluir= "<a href='" . $this->url('carrinho',['action'=>'excluir','id'=>$item['id']]) . "'>X</a>";
+ 		
+ 		//$this->url('carrinho',['action'=>'comprar','id'=>$this->id]
 
  		$somaTotal += $valorTotal;
 
@@ -65,7 +69,7 @@ echo '<tr>';
  			echo '</td>';
 
  		}
-
+ 		
  		echo '</tr>';
 }
 ?>

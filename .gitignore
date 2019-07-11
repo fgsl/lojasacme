@@ -5,3 +5,4 @@
 data/cache/
 vendor/
 local.php
+config/development.config.php

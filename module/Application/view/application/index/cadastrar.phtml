@@ -1,0 +1,21 @@
+<h2 id="warning"><?=$this->mensagem?></h2>
+<center>
+<form action="<?=$this->url('application',['action'=>'gravar-cliente'])?>" method="post">
+CPF:
+<input name="cpf" value="" id="cpf"
+type="text">
+e-mail:
+<input name="email" value="" id="email"
+type="text">
+senha:
+<input name="senha" value="" id="senha"
+type="password">
+
+Confirme a senha:
+<input name="senha2" value="" id="senha2"
+type="password">
+<input type="submit" name="cadastrar"
+value="Cadastrar"/>
+</form>
+</center>
+<a href="<?=$this->url('carrinho')?>">Carrinho de compras</a>

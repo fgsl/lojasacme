@@ -71,7 +71,8 @@ return [
     ],
 	'service_manager' => [
 			'factories' => [
-					'ProdutoTable' => 'Application\Model\ProdutoTableFactory'
+					'ProdutoTable' => 'Application\Model\ProdutoTableFactory',
+			        'UsuarioTable' => 'Application\Model\UsuarioTableFactory',
 			]
 	]	    
 ];

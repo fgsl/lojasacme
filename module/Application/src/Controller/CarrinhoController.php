@@ -8,8 +8,8 @@ use Zend\Http\Header\Range;
 use Application\Model\ProdutoTable;
 use Interop\Container\ContainerInterface;
 /* use Zend\Db\TableGateway\TableGateway;
-use Fgsl\Mock\Db\Adapter\Mock as Adapter;
-use Fgsl\Mock\Db\Adapter\Driver\Mock as Driver;
+ use Fgsl\Mock\Db\Adapter\Mock as Adapter;
+ use Fgsl\Mock\Db\Adapter\Driver\Mock as Driver;
  */
 class CarrinhoController extends AbstractActionController
 {
@@ -26,6 +26,7 @@ class CarrinhoController extends AbstractActionController
     /* Página do carrinho de compras */
     public function comprarAction()
     {
+        $_SESSION['ultimaPagina'] = __METHOD__;
         $mensagem = '';
         if (! isset($_SESSION['carrinho'])) { // se a seção não esta iniciada
             $_SESSION['carrinho'] = array();    // a seção recebe array()
@@ -49,7 +50,7 @@ class CarrinhoController extends AbstractActionController
                 $item['quantidade'] = 1;
                 $carrinho[] = $item;
                 $_SESSION['carrinho'] = $carrinho;
-            }            
+            }
         }
         
         $viewModel = $viewModel = new ViewModel();
@@ -61,11 +62,13 @@ class CarrinhoController extends AbstractActionController
 
     public function indexAction()
     {
-           return $this->redirect()->toRoute('carrinho');
+        $_SESSION['ultimaPagina'] = __METHOD__;
+        return $this->redirect()->toRoute('carrinho',['action'=>'comprar']);
     }
 
     public function excluirAction()
     {       
+        $_SESSION['ultimaPagina'] = __METHOD__;
         $id = (int) $this->params('id');
         
         if (empty($id)) {

@@ -1,20 +1,17 @@
-</div>
 <div id="menu">
 <form action="<?=$this->url('application',['action'=>'buscar'])?>" method="post">
 <?php
-if ($cpf=='')
+if (!isset($_SESSION['cliente']))
 {
 ?>
 <a href="<?= $this->url('application',['action' => 'acessar']) ?>" >Acessar</a>&nbsp;
 <a href="<?= $this->url('application',['action' => 'cadastrar']) ?>" >Cadastrar</a>
-
-
 <?php
 }
 else
 {
 ?>
-<a href="/zend/acme/index/logout" >Sair</a>
+<a href="<?= $this->url('application', ['action' => 'logout']) ?>" >Sair</a>
 <?php
 }
 ?>
@@ -26,3 +23,7 @@ else
 <table id="lista_de_produtos">
 <?=$this->partialLoop('produtos.phtml',$this->produtos)?>
 </table>
+
+<!-- ir pro carrinho sem comprar nenhum produto
+<a id="botao_comprar" href="<?=$this->url('carrinho',['action'=>'comprar'])?>">Comprar</a>
+-->

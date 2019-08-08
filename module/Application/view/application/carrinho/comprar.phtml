@@ -1,8 +1,20 @@
 <div id="menu">
 <form action="<?=$this->url('application',['action'=>'buscar'])?>" method="post">
-<a href="<?=$this->url('application',['action' => 'acessar'])?>">Acessar</a>
-&nbsp;
-<a href="<?=$this->url('application',['action' => 'cadastrar'])?>" >Cadastrar</a>
+<?php
+if (!isset($_SESSION['cliente']))
+{
+?>
+<a href="<?= $this->url('application',['action' => 'acessar']) ?>" >Acessar</a>&nbsp;
+<a href="<?= $this->url('application',['action' => 'cadastrar']) ?>" >Cadastrar</a>
+<?php
+}
+else
+{
+?>
+<a href="<?= $this->url('application', ['action' => 'logout']) ?>" >Sair</a>
+<?php
+}
+?>
 <label>Busca produtos:</label>
 <input name="nome" value="" id="nome" type="text">
 <input type="submit" value="Pesquisar" />

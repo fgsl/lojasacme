@@ -8,6 +8,7 @@
 namespace Application;
 
 
+use Application\Controller\CarrinhoControllerFactory;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -50,7 +51,7 @@ return [
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => 'Application\Controller\IndexControllerFactory',
-            Controller\CarrinhoController::class => 'Application\Controller\CarrinhoControllerFactory'
+            CarrinhoControllerFactory::class => 'Application\Controller\CarrinhoControllerFactory'
         ],
     ],
     'view_manager' => [

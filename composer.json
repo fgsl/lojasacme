@@ -9,7 +9,8 @@
 		"zendframework/zend-db" : "^2.9.3",
 		"zendframework/zend-test" : "^3.2",
 		"fgsl/mock" : "1.2.0",
-		"zendframework/zend-session" : "^2.8"
+		"zendframework/zend-session" : "^2.8",
+		"zendframework/zend-authentication": "^2.7"
 	},
 	"license" : "BSD-3-Clause",
 	"keywords" : [

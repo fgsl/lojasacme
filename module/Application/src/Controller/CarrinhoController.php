@@ -7,11 +7,17 @@ use Zend\View\Model\ViewModel;
 use Zend\Http\Header\Range;
 use Application\Model\ProdutoTable;
 use Interop\Container\ContainerInterface;
+<<<<<<< HEAD
 
 /*
  * use Zend\Db\TableGateway\TableGateway;
  * use Fgsl\Mock\Db\Adapter\Mock as Adapter;
  * use Fgsl\Mock\Db\Adapter\Driver\Mock as Driver;
+=======
+/* use Zend\Db\TableGateway\TableGateway;
+ use Fgsl\Mock\Db\Adapter\Mock as Adapter;
+ use Fgsl\Mock\Db\Adapter\Driver\Mock as Driver;
+>>>>>>> c0ef476f40282208b4a8a52631b41679caf23172
  */
 class CarrinhoController extends AbstractActionController
 {
@@ -30,6 +36,7 @@ class CarrinhoController extends AbstractActionController
     /* Página do carrinho de compras */
     public function comprarAction()
     {
+        $_SESSION['ultimaPagina'] = __METHOD__;
         $mensagem = '';
         if (! isset($_SESSION['carrinho'])) { // se a seção não esta iniciada
             $_SESSION['carrinho'] = array(); // a seção recebe array()
@@ -65,11 +72,21 @@ class CarrinhoController extends AbstractActionController
 
     public function indexAction()
     {
+<<<<<<< HEAD
         return $this->redirect()->toRoute('carrinho');
     }
 
     public function excluirAction()
     {
+=======
+        $_SESSION['ultimaPagina'] = __METHOD__;
+        return $this->redirect()->toRoute('carrinho',['action'=>'comprar']);
+    }
+
+    public function excluirAction()
+    {       
+        $_SESSION['ultimaPagina'] = __METHOD__;
+>>>>>>> c0ef476f40282208b4a8a52631b41679caf23172
         $id = (int) $this->params('id');
 
         if (empty($id)) {

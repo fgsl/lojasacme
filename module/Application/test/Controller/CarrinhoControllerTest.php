@@ -7,9 +7,9 @@
 
 namespace ApplicationTest\Controller;
 
-use Application\Controller\CarrinhoController;
-use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
 use Zend\ServiceManager\ServiceManager;
+use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
+use Application\Controller\CarrinhoController;
 
 class CarrinhoControllerTest extends AbstractHttpControllerTestCase
 {

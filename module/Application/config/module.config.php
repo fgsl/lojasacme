@@ -12,6 +12,7 @@ use Application\Controller\CarrinhoControllerFactory;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
+use Application\Controller\CarrinhoController;
 
 return [
     'router' => [
@@ -41,7 +42,7 @@ return [
                 'options' => [
                     'route'    => '/carrinho[/:action[/:id]]', 
                     'defaults' => [
-                        'controller' => Controller\CarrinhoController::class,
+                        'controller' => CarrinhoController::class,
                         'action'     => 'comprar',
                     ],
                 ],
@@ -51,7 +52,7 @@ return [
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => 'Application\Controller\IndexControllerFactory',
-            CarrinhoControllerFactory::class => 'Application\Controller\CarrinhoControllerFactory'
+            CarrinhoController::class => 'Application\Controller\CarrinhoControllerFactory'
         ],
     ],
     'view_manager' => [

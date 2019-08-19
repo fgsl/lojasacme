@@ -4,10 +4,9 @@ method="post">
 <?php
 if (isset($this->produtoSelecionado['id']))
 {
-echo '<b>Produto: '.$this-
->produtoSelecionado['nome'].'</b><br/>';
-echo '<b>Preço: '.$this-
->produtoSelecionado['valor'].'</b><br/>';
+echo '<b>Produto: '.$this->produtoSelecionado['nome'].'</b><br/>';
+echo '<b>Preço: '.$this->produtoSelecionado['valor'].'</b><br/>';
+?>
 <input name="quantidade" value="<?=$this >produtoSelecionado['quantidade']?>" id="nome"type="text">
 <input name="id" value="<?=$this->produtoSelecionado['id']?>" id="id"type="hidden">
 <?php
@@ -16,4 +15,4 @@ echo '<b>Preço: '.$this-
 <input type="submit" name="alterar"value="Alterar"/>
 </form>
 </center>
-<a href="/zend/acme/carrinho/">Carrinho de compras</a>
+<a href="<?=$this->url('carrinho')?>">Carrinho de compras</a>

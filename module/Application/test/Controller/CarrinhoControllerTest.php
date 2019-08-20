@@ -48,7 +48,7 @@ class CarrinhoControllerTest extends AbstractHttpControllerTestCase
     
     public function testIndexAction(){
         $this->dispatch('/carrinho/index', 'GET');
-        $this->assertResponseStatusCode(200);
+        $this->assertResponseStatusCode(302                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 );
         $this->assertModuleName('application');
         $this->assertControllerName(CarrinhoController::class);
         $this->assertControllerClass('CarrinhoController');
@@ -56,7 +56,7 @@ class CarrinhoControllerTest extends AbstractHttpControllerTestCase
     
     public function testExcluirAction(){
         $this->dispatch('/carrinho/excluir', 'GET');
-        $this->assertResponseStatusCode(200);
+        $this->assertResponseStatusCode(302);
         $this->assertModuleName('application');
         $this->assertControllerName(CarrinhoController::class);
         $this->assertControllerClass('CarrinhoController');

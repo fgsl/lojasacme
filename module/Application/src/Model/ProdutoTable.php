@@ -27,13 +27,13 @@ class ProdutoTable
         $this->tableGateway = $tableGateway;
     }
 
-    public function insert(ProdutoTable $produto)
+    public function insert(Produto $produto)
     {
         $set = $produto->toArray();
         return $this->tableGateway-> insert($set);
     }
 
-    public function update(ProdutoTable $produto, $where)
+    public function update(Produto $produto, $where)
     {
         $set = $produto->toArray();
         return $this->tableGateway->update($set, $where);

@@ -11,5 +11,3 @@ $valorTotal  =  $this->quantidade * $this->valor;
 $somaTotal += $valorTotal;
 ?>
 <td><?=$this->escapeHtml(money_format('%.2n',$valorTotal))?></td>
-<td><a href="<?=$this->url('carrinho', ['action'=>'editar','id' => $itens->id])?>">E</a>'</td>
-<td><a href="<?=$this->url('carrinho', ['action'=>'excluir','id' => $itens->id])?>">X</a>'</td>

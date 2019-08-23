@@ -1,16 +1,18 @@
 <center>
-<form action="/zend/acme/carrinho/alterar"
-method="post">
+<form action="<?= $this->url('carrinho',['action','alterar']) ?>" method="post">
+
+<!-- <form action="/zend/acme/carrinho/alterar"
+method="post"> -->
 <?php
-if (isset($this->produtoSelecionado['id'])):
-    echo '<b>Produto: '.$this->produtoSelecionado['nome'].'</b><br/>';
-    echo '<b>Preço: '.$this->produtoSelecionado['valor'].'</b><br/>';
-?>    
-/* Quantidade */ 
-    <input name="quantidade" value="<?=$this->produtoSelecionado['quantidade']?>" id="nome" type="text">
-    <input name="id" value="<?=$this->produtoSelecionado['id']?>" id="id" type="hidden">
+if (isset($this->produtoSelecionado['id']))
+{
+echo '<b>Produto: '.$this->produtoSelecionado['nome'].'</b><br/>';
+echo '<b>Preço: '.$this->produtoSelecionado['valor'].'</b><br/>';
+?>
+<input name="quantidade" value="<?=$this >produtoSelecionado['quantidade']?>" id="nome"type="text">
+<input name="id" value="<?=$this->produtoSelecionado['id']?>" id="id"type="hidden">
 <?php
-endif;
+}
 ?>
 <input type="submit" name="alterar"value="Alterar"/>
 </form>

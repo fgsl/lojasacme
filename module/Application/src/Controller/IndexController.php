@@ -16,6 +16,8 @@ use Zend\Session\SessionManager;
 use Zend\Authentication\AuthenticationService;
 use Zend\Authentication\Adapter\DbTable;
 use Zend\Authentication\Adapter\DbTable\CredentialTreatmentAdapter;
+use Application\Model\Item;
+use Application\Model\Pedido;
 
 class IndexController extends AbstractActionController
 {
@@ -64,7 +66,7 @@ class IndexController extends AbstractActionController
         $senha = $this->request->getPost('senha');
         $senha2 = $this->request->getPost('senha2');
 
-        if ($senha != $senha2 || $cpf == null || $email == null || $senha == null || $senha2 == null) {
+        if ($senha != $senha2 || ! is_numeric($cpf) || $cpf == null || $email == null || $senha == null || $senha2 == null) {
             $_SESSION['mensagem'] = 'dados invalidos';
             return $this->redirect()->toRoute('application', [
                 'action' => 'cadastrar'
@@ -188,29 +190,23 @@ class IndexController extends AbstractActionController
     public function gravarCompra()
     {
         $formaEscolhida = $this->params()('formaPagamento');
-        $formasPagamento = array(
-            'boleto' => 'Boleto
-Bancário',
-            'cartao' => 'Cartão de Crédito'
-        );
-        $codigo = mt_rand(10000, 99999);
-        $pedidoTable = $this->sm->get('PedidoTable');
-        $idPedido = $pedidoTable->insert(array(
-            'codigo' => $codigo
-        ));
+        $formasPagamento = array('boleto'=>'Boleto
+Bancário','cartao'=>'Cartão de Crédito');
+        $codigo = mt_rand(10000,99999);
+        $pedido = new Pedido();
+        $idPedido = $pedido->insert(array('codigo'=>$codigo));
         $itens = $_SESSION['carrinho'];
-        foreach ($itens as $item) {
-            $dados = array(
-                'pedido_id' => $idPedido,
-                'produto_id' => $item['id'],
-                'valor' => $item['valor'],
-                'quantidade' => $item['quantidade']
-            );
-            $novoItem = $this->sm->get('ItemTable');
+        foreach ($itens as $item)
+        {
+            $dados = array('pedido_id'=>$idPedido,
+                'produto_id'=>$item['id'],
+                'valor'=>$item['valor'],
+                'quantidade'=>$item['quantidade']);
+            $novoItem = new Item();
             $novoItem->insert($dados);
         }
         unset($_SESSION['carrinho']);
-        $mensagem = "O pedido $codigo pago com {$formasPagamento[$formaEscolhida]} foi finalizado com sucesso";
-        $viewModel->mensagem = $mensagem;
+        $mensagem = "O pedido $codigo pago com{$formasPagamento[$formaEscolhida]} foi finalizado com sucesso";
+        $viewModel->mensagem=$mensagem;
     }
 }

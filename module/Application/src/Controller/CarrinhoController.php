@@ -81,23 +81,26 @@ class CarrinhoController extends AbstractActionController
 
     public function alterarAction()
     {
-        /* Alteração de quantidade de um item do carrinho */
-        $id = (int) $this->params('id');
-
-        if (is_null($id)) {
-            $this->redirect('carrinho');
-            exit();
+        /* Alteração de quantidade de um item do carrinho*/
+        $id = (int)$this->_request->getParam('id');
+        
+        if (is_null($id))
+        {
+            $this->redirect()->toRoute('carrinho');
+            exit;
         }
-
         $quantidade = (int) $this->params()->fromRoute('quantidade');
-        foreach ($_SESSION['carrinho'] as $chave => $produto) {
-            if (isset($produto['id'])) {
-                If ($produto['id'] == $id) {
-                    $_SESSION['carrinho'][$chave]['quantidade'] = $quantidade;
+        foreach ($_SESSION['carrinho'] as $chave => $produto)
+        {
+            if (isset($produto['id']))
+            {
+                If ($produto['id'] == $id )
+                {
+                    $_SESSION['carrinho'][$chave]['quantidade']= $quantidade;
                     break;
                 }
             }
         }
-        $this->redirect('carrinho');
+        $this->redirect()->toRoute('carrinho');
     }
 }

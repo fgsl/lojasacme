@@ -24,27 +24,27 @@ class CarrinhoController extends AbstractActionController
     {
         $_SESSION['ultimaPagina'] = __METHOD__;
         $mensagem = '';
-        if (! isset($_SESSION['carrinho'])) { // se a seção não esta iniciada
-            $_SESSION['carrinho'] = array(); // a seção recebe array()
+        if (! isset($_SESSION['carrinho'])) {
+            $_SESSION['carrinho'] = array();
         }
         $carrinho = $_SESSION['carrinho'];
         if (! is_null($this->params('id'))) {
             $id = (int) $this->params('id');
-            $incluindo = FALSE; // produto não selecionado
-            foreach ($carrinho as $produto) { // laço que detecta se os produtos tem id ou id repetido
-                if (isset($produto['id'])) { // continua se tiver id
-                    if ($produto['id'] == $id) { // continua se tiver id repetido
-                        $incluindo = TRUE; // produto selecionado
+            $incluindo = FALSE;
+            foreach ($carrinho as $produto) {
+                if (isset($produto['id'])) {
+                    if ($produto['id'] == $id) {
+                        $incluindo = TRUE;
                         $mensagem = 'Produto já selecionado';
                         break;
                     }
                 }
             }
-            if (! $incluindo) { // se incluindo for falso
+            if (! $incluindo) {
                 $produtoTable = $this->container->get('ProdutoTable');
                 $item = $produtoTable->getOne($id)->getArrayCopy();
                 $item['quantidade'] = 1;
-                $carrinho[] = $item;
+                $carrinho[$id] = $item;
                 $_SESSION['carrinho'] = $carrinho;
             }
         }
@@ -56,6 +56,13 @@ class CarrinhoController extends AbstractActionController
         return $viewModel;
     }
 
+    public function editarAction()
+    {
+        $id = $this->params('id');
+        $produtoSelecionado = $_SESSION['carrinho'][$id];
+        return new ViewModel(['produtoSelecionado' => $produtoSelecionado]);
+    }
+    
     public function indexAction()
     {
         $_SESSION['ultimaPagina'] = __METHOD__;
@@ -82,15 +89,16 @@ class CarrinhoController extends AbstractActionController
     public function alterarAction()
     {
         /* Alteração de quantidade de um item do carrinho*/
-        $id = (int)$this->_request->getParam('id');
+        $id = (int)$this->request->getPost('id');
         
-        if (is_null($id))
+        if (! is_numeric($id) || is_null($id))
         {
             $this->redirect()->toRoute('carrinho');
             exit;
         }
-        $quantidade = (int) $this->params()->fromRoute('quantidade');
+        $quantidade = (int) $this->request->getPost('quantidade');
         foreach ($_SESSION['carrinho'] as $chave => $produto)
+
         {
             if (isset($produto['id']))
             {

@@ -56,8 +56,7 @@ foreach ($this->itens as $item)
  		$valorTotal = (float)$quantidade * (float)$moeda;
  		$totalItem = $this->escapeHtml(money_format('%.2n',$valorTotal));
  		
- 		$editar= '<a href="' . $this->url('carrinho',['action'=>'editar']) . '">E</a>';
- 		//$editar= '<a href="' . $this->url('carrinho',['action'=>'editar','id'=>$item['id']]) . '">E</a>';
+ 		$editar= '<a href="' . $this->url('carrinho',['action'=>'editar','id'=>$item['id']]) . '">E</a>';
  		$excluir= '<a href="' . $this->url('carrinho',['action'=>'excluir','id'=>$item['id']]) . '">X</a>';
  		
  		$somaTotal += $valorTotal;
@@ -85,4 +84,4 @@ echo '<tr>';
 </table>
 <?='R$'.money_format('%.2n',$somaTotal)?><br />
 <a href="<?=$this->url('home')?>">Continuar comprando</a>
-<a href="<?=$this->url('carrinho',['action'=>'fechar/compra'])?>">Fechar compra</a>
+<a href="<?=$this->url('carrinho',['action'=>'fechar,compra'])?>">Fechar compra</a>

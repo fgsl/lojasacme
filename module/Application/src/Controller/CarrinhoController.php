@@ -91,14 +91,19 @@ class CarrinhoController extends AbstractActionController
         /* Alteração de quantidade de um item do carrinho*/
         $id = (int)$this->request->getPost('id');
         
-        if (! is_numeric($id) || is_null($id))
+        if (is_null($id))
         {
-            $this->redirect()->toRoute('carrinho');
-            exit;
+            return $this->redirect()->toRoute('carrinho');
         }
+        //validação do formulário
+        $quantidade = $this->request->getPost('quantidade');
+        if (!is_numeric($quantidade))
+        {
+            return $this->redirect()->toRoute('carrinho');
+        }
+        
         $quantidade = (int) $this->request->getPost('quantidade');
         foreach ($_SESSION['carrinho'] as $chave => $produto)
-
         {
             if (isset($produto['id']))
             {

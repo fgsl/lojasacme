@@ -1,9 +1,9 @@
 <center>
-<form action="/zend/acme/carrinho/gravarCompra" method="post">
+<form action="<?=$this->url('carrinho',['action'=>'gravar-compra'])?>" method="post">
 <h2>Forma de pagamento:</h2>
-<?=$this->escape('Boleto Bancário')?>
+<?=$this->escapeHtml('Boleto Bancário')?>
 <input name="formaPagamento" value="boleto" id="formaPagamento" type="radio"/>
-<?=$this->escape('Cartão de Crédito')?>
+<?=$this->escapeHtml('Cartão de Crédito')?>
 <input name="formaPagamento" value="cartao" id="formaPagamento" type="radio"/>
 <input type="submit" name="gravar" value="Gravar"/>
 </form>

@@ -4,6 +4,8 @@ namespace Application\Controller;
 use Interop\Container\ContainerInterface;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Application\Model\Pedido;
+use Application\Model\Item;
 
 class CarrinhoController extends AbstractActionController
 {
@@ -55,13 +57,6 @@ class CarrinhoController extends AbstractActionController
         $viewModel->itens = $carrinho;
         return $viewModel;
     }
-
-    public function editarAction()
-    {
-        $id = $this->params('id');
-        $produtoSelecionado = $_SESSION['carrinho'][$id];
-        return new ViewModel(['produtoSelecionado' => $produtoSelecionado]);
-    }
     
     public function indexAction()
     {
@@ -84,6 +79,13 @@ class CarrinhoController extends AbstractActionController
             }
         }
         return $this->redirect()->toRoute('carrinho');
+    }
+
+    public function editarAction()
+    {
+        $id = $this->params('id');
+        $produtoSelecionado = $_SESSION['carrinho'][$id];
+        return new ViewModel(['produtoSelecionado' => $produtoSelecionado]);
     }
 
     public function alterarAction()
@@ -114,6 +116,50 @@ class CarrinhoController extends AbstractActionController
                 }
             }
         }
-        $this->redirect()->toRoute('carrinho');
+        return $this->redirect()->toRoute('carrinho');
     }
+    
+    /* Fechamento da compra */
+    /* Fechamento da compra */
+    public function fecharAction()
+    {
+        if (!isset($_SESSION['cliente']))
+        {
+            return $this->redirect()->toRoute('application',['action' => 'acessar']);
+        }
+        return new ViewModel();
+    }
+    
+    /* Grava o pedido de compra */
+    public function gravarCompraAction()
+    {
+        $formaEscolhida = $this->request->getPost('formaPagamento');
+        $formasPagamento = array('boleto'=>'Boleto
+Bancário','cartao'=>'Cartão de Crédito');
+        $codigo = mt_rand(10000,99999);
+        $pedidoTable = $this->container->get('PedidoTable'); 
+        $pedido = new Pedido();
+        $pedido->setCodigo($codigo);
+        $idPedido = $pedidoTable->insert($pedido);
+        $itens = $_SESSION['carrinho'];
+        foreach ($itens as $itemDoCarrinho)
+        {
+            $item = new Item();
+            $item->setPedidoId($idPedido);
+            $item->setProdutoId($itemDoCarrinho['id']);
+            $item->setQuantidade($itemDoCarrinho['quantidade']);
+            $item->setValor($itemDoCarrinho['valor']);
+            
+            /* $item->setProdutoId(array('produto_id'=>$item['id']));
+            $item->setQuantidade(array('quantidade'=>$item['quantidade']));
+            $item->setValor(array('valor'=>$item['valor'])); */
+            
+            $novoItem = $this->container->get('ItemTable');
+            $novoItem->insert($item);
+        }
+        unset($_SESSION['carrinho']);
+        $mensagem = "O pedido $codigo pago com{$formasPagamento[$formaEscolhida]} foi finalizado com sucesso";
+        return new ViewModel(['mensagem' => $mensagem]);
+    }
+    
 }

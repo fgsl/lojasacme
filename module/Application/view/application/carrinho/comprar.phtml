@@ -1,5 +1,5 @@
 <div id="menu">
-<form action="<?=$this->url('application',['action'=>'buscar'])?>" method="post">
+<form action="<?= $this->url('application',['action'=>'buscar'])?>" method="post">
 <?php
 if (!isset($_SESSION['cliente']))
 {
@@ -84,4 +84,4 @@ echo '<tr>';
 </table>
 <?='R$'.money_format('%.2n',$somaTotal)?><br />
 <a href="<?=$this->url('home')?>">Continuar comprando</a>
-<a href="<?=$this->url('carrinho',['action'=>'fechar,compra'])?>">Fechar compra</a>
+<a href="<?=$this->url('carrinho',['action'=>'fechar'])?>">Fechar compra</a>

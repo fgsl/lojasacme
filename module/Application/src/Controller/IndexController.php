@@ -185,28 +185,4 @@ class IndexController extends AbstractActionController
         session_destroy();
         $this->redirect()->toRoute($route, ['action' => $action]);
     }
-
-    /* Grava o pedido de compra */
-    public function gravarCompra()
-    {
-        $formaEscolhida = $this->params()('formaPagamento');
-        $formasPagamento = array('boleto'=>'Boleto
-Bancário','cartao'=>'Cartão de Crédito');
-        $codigo = mt_rand(10000,99999);
-        $pedido = new Pedido();
-        $idPedido = $pedido->insert(array('codigo'=>$codigo));
-        $itens = $_SESSION['carrinho'];
-        foreach ($itens as $item)
-        {
-            $dados = array('pedido_id'=>$idPedido,
-                'produto_id'=>$item['id'],
-                'valor'=>$item['valor'],
-                'quantidade'=>$item['quantidade']);
-            $novoItem = new Item();
-            $novoItem->insert($dados);
-        }
-        unset($_SESSION['carrinho']);
-        $mensagem = "O pedido $codigo pago com{$formasPagamento[$formaEscolhida]} foi finalizado com sucesso";
-        $viewModel->mensagem=$mensagem;
-    }
 }

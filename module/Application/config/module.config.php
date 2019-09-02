@@ -75,6 +75,8 @@ return [
 			'factories' => [
 					'ProdutoTable' => 'Application\Model\ProdutoTableFactory',
 			        'UsuarioTable' => 'Application\Model\UsuarioTableFactory',
+			        'PedidoTable' => 'Application\Model\PedidoTableFactory',
+			        'ItemTable' => 'Application\Model\ItemTableFactory',
 			]
 	]	    
 ];

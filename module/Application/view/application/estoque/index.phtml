@@ -1,7 +1,6 @@
 <h2 id="warning"><?=$this->mensagem?></h2>
 <center>
-<form action="/zend/acme/estoque/login"
-method="post">
+<form action="<?= $this->url('estoque',['action'=>'login']) ?>" method="post">
 CPF:
 <input name="cpf" value="" id="cpf" type="text">
 senha:

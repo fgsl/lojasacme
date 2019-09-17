@@ -1,0 +1,68 @@
+<center>
+<form action="<?= $this->url('estoque',['action'=>'entrada'])?>" method="post">
+<?php
+if (isset($this->produtoSelecionado['id']))
+{
+echo '<b>Produto: '.$this->escapeHtml($this->produtoSelecionado['nome']).'</b><br/>';
+echo '<b>'.$this->escapeHtml('Preço: ').$this->produtoSelecionado['valor'].'</b><br/>';
+echo '<b>'.$this->escapeHtml('Posição de estoque:').$this->produtoSelecionado['quantidade'].'</b><br/>';
+}
+?>
+
+Quantidade:
+<input name="quantidade" value="" id="quantidade" type="text">
+<input name="id" value="<?=$this->produtoSelecionado['id']?>" id="id" type="hidden">
+<input type="submit" name="darentrada" value="Dar entrada"/>
+</form>
+<a href="<?=$this->url('estoque',['action'=>'manter-produto'])?>">Inventário</a>
+</center>
+
+<center>
+<form action="<?=$this->url('estoque',['action'=>'subtrair'])?>" method="post">
+<?php
+if (isset($this->produtoSelecionado['id']))
+{
+echo '<b>Produto: '.$this->escapeHtml($this->produtoSelecionado['nome']).'</b><br/>';
+echo '<b>'.$this->escapeHtml('Preço: ').$this->produtoSelecionado['valor'].'</b><br/>';
+echo '<b>'.$this->escapeHtml('Posição de estoque:').$this->produtoSelecionado['quantidade'].'</b><br/>';
+}
+?>
+</form>
+</center>
+
+<center>
+<form action="<?= $this->url('estoque',['action'=>'nome'])?>" method="post">
+<?php
+if (isset($this->produtoSelecionado['id']))
+{
+?>
+Nome:
+<input name="nome" value="<?=$this->escapeHtml($this->produtoSelecionado['nome'])?>" id="nome" type="text">
+<input name="id" value="<?=$this->produtoSelecionado['id']?>" id="id" type="hidden">
+<?php
+}
+
+?>
+<input type="submit" name="alterarnome"value="Alterar nome"/>
+</form>
+
+<a href="<?= $this->url('estoque',['action'=>'manter-produto'])?>">Inventário</a>
+</center>
+
+<center>
+<form action="<?= $this->url('estoque',['action'=>'preco'])?>" method="post">
+<?php
+if (isset($this->produtoSelecionado['id']))
+{
+?>
+Preço :
+<input name="preco" value="<?=$this->escapeHtml($this->produtoSelecionado['valor'])?>" id="preco" type="text">
+<input name="id" value="<?=$this->produtoSelecionado['id']?>" id="id"type="hidden">
+<?php
+}
+
+?>
+<input type="submit" name="alterarpreco" value="Alterar preço"/>
+</form>
+<a href="<?= $this->url('estoque',['action'=>'manter-produto'])?>">Inventário</a>
+</center>

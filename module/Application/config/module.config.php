@@ -13,6 +13,7 @@ use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
 use Application\Controller\CarrinhoController;
+use Application\Controller\EstoqueController;
 
 return [
     'router' => [
@@ -47,12 +48,24 @@ return [
                     ],
                 ],
             ],
+            'estoque' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/estoque[/:action]',
+                    'defaults' => [
+                        'controller' => EstoqueController::class,
+                        /* 'controller' => Controller\EstoqueController::class, */
+                        'action'     => 'index',
+                    ],
+                ],
+            ],  
         ],
     ],
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => 'Application\Controller\IndexControllerFactory',
-            CarrinhoController::class => 'Application\Controller\CarrinhoControllerFactory'
+            CarrinhoController::class => 'Application\Controller\CarrinhoControllerFactory',
+            EstoqueController::class => 'Application\Controller\EstoqueControllerFactory'
         ],
     ],
     'view_manager' => [

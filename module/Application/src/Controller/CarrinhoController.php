@@ -149,16 +149,12 @@ Bancário','cartao'=>'Cartão de Crédito');
             $item->setProdutoId($itemDoCarrinho['id']);
             $item->setQuantidade($itemDoCarrinho['quantidade']);
             $item->setValor($itemDoCarrinho['valor']);
-            
-            /* $item->setProdutoId(array('produto_id'=>$item['id']));
-            $item->setQuantidade(array('quantidade'=>$item['quantidade']));
-            $item->setValor(array('valor'=>$item['valor'])); */
-            
+     
             $novoItem = $this->container->get('ItemTable');
             $novoItem->insert($item);
         }
         unset($_SESSION['carrinho']);
-        $mensagem = "O pedido $codigo pago com{$formasPagamento[$formaEscolhida]} foi finalizado com sucesso";
+        $mensagem = "O pedido $codigo pago com {$formasPagamento[$formaEscolhida]} foi finalizado com sucesso";
         return new ViewModel(['mensagem' => $mensagem]);
     }
     

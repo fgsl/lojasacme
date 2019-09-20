@@ -1,0 +1,20 @@
+<center><h2 id="warning"><?=$this->mensagem?></h2>
+<form action="<?= $this->url('estoque',['action'=>'adicionar'])?>" method="post">
+<?php
+if (isset($this->produtoSelecionado['id']))
+{
+echo '<b>Produto: '.$this->escapeHtml($this->produtoSelecionado['nome']).'</b><br/>';
+echo '<b>'.$this->escapeHtml('Preço: ').$this->produtoSelecionado['valor'].'</b><br/>';
+echo '<b>'.$this->escapeHtml('Posição de estoque:').$this->produtoSelecionado['quantidade'].'</b><br/>';
+}
+?>
+
+Quantidade:
+<input name="quantidade" value="" id="quantidade" type="text">
+<input name="id" value="<?=$this->produtoSelecionado['id']?>" id="id" type="hidden">
+<input type="submit" name="darentrada" value="Dar entrada"/>
+</form>
+</center>
+
+<a href="<?= $this->url('estoque',['action'=>'manter-produto'])?>">Inventário</a>
+</center>

@@ -30,7 +30,7 @@ class ProdutoTable
     public function insert(Produto $produto)
     {
         $set = $produto->toArray();
-        return $this->tableGateway-> insert($set);
+        return $this->tableGateway->insert($set);
     }
 
     public function update(Produto $produto, $where)

@@ -1,8 +1,8 @@
 <?php
 namespace Application\Controller;
 
-use Zend\ServiceManager\Factory\FactoryInterface;
 use Interop\Container\ContainerInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\Session\SessionManager;
 
 class CarrinhoControllerFactory implements FactoryInterface

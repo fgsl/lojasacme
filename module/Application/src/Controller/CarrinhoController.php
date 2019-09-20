@@ -44,7 +44,7 @@ class CarrinhoController extends AbstractActionController
             }
             if (! $incluindo) {
                 $produtoTable = $this->container->get('ProdutoTable');
-                $item = $produtoTable->getOne($id)->getArrayCopy();
+                $item = $produtoTable->getOne($id)->toArray();
                 $item['quantidade'] = 1;
                 $carrinho[$id] = $item;
                 $_SESSION['carrinho'] = $carrinho;

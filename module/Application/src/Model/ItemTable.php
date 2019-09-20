@@ -40,7 +40,7 @@ class ItemTable {
 	 * @param
 	 *        	array | string | Where $where
 	 */
-	public function getAll($where) {
+	public function getAll($where = null) {
 		return $this->tableGateway->select ( $where );
 	}
 	public function getOne($codigo) {
@@ -53,4 +53,5 @@ class ItemTable {
 		}
 		return $rowSet->current ();
 	}
+	
 }

@@ -38,12 +38,20 @@ class Produto {
 	}
 	
 public function exchangeArray(array $data) {
-		$this->id = isset ( $data ['id'] ) ? $data ['id'] : null;
-		$this->nome = isset ( $data ['nome'] ) ? $data ['nome'] : null;
-		$this->valor = isset ( $data ['valor'] ) ? $data ['valor'] : null;
-		$this->quantidade = isset ( $data ['quantidade'] ) ? $data ['quantidade'] : null;
+		$this->id = (isset ( $data ['id'] ) ? $data ['id'] : null);
+		$this->nome = (isset ( $data ['nome'] ) ? $data ['nome'] : null);
+		$this->valor = (isset ( $data ['valor'] ) ? $data ['valor'] : null);
+		$this->quantidade = (isset ( $data ['quantidade'] ) ? $data ['quantidade'] : null);
 	}
 public function toArray() {
-    return get_object_vars ( $this );
-	}
+    $atributos = get_object_vars( $this );
+    $array = []; 
+    foreach($atributos as $atributo => $valor){
+        if (!empty($valor) || $valor === 0) {
+            $array[$atributo] = $valor;
+        }
+    }
+    return $array;
+}
+    
 }   

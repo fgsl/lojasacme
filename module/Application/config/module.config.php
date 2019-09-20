@@ -51,7 +51,7 @@ return [
             'estoque' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/estoque[/:action]',
+                    'route'    => '/estoque[/:action[/:id]]',
                     'defaults' => [
                         'controller' => EstoqueController::class,
                         /* 'controller' => Controller\EstoqueController::class, */

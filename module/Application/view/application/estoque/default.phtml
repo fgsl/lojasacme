@@ -14,8 +14,8 @@ Quantidade:
 <input name="id" value="<?=$this->produtoSelecionado['id']?>" id="id" type="hidden">
 <input type="submit" name="darentrada" value="Dar entrada"/>
 </form>
-<a href="<?=$this->url('estoque',['action'=>'manter-produto'])?>">Inventário</a>
 </center>
+<!-- entrada.phtml -->
 
 <center>
 <form action="<?=$this->url('estoque',['action'=>'subtrair'])?>" method="post">
@@ -30,6 +30,8 @@ echo '<b>'.$this->escapeHtml('Posição de estoque:').$this->produtoSelecionado[
 </form>
 </center>
 
+<!-- baixa.phtml -->
+
 <center>
 <form action="<?= $this->url('estoque',['action'=>'nome'])?>" method="post">
 <?php
@@ -41,13 +43,12 @@ Nome:
 <input name="id" value="<?=$this->produtoSelecionado['id']?>" id="id" type="hidden">
 <?php
 }
-
 ?>
 <input type="submit" name="alterarnome"value="Alterar nome"/>
 </form>
 
-<a href="<?= $this->url('estoque',['action'=>'manter-produto'])?>">Inventário</a>
 </center>
+<!-- baixa.phtml -->
 
 <center>
 <form action="<?= $this->url('estoque',['action'=>'preco'])?>" method="post">

@@ -1,0 +1,15 @@
+<?php
+use Zend\View\Helper\HeadScript;
+
+$content = file_get_contents(__DIR__ . '/incluir.js');
+$this->headScript(HeadScript::SCRIPT)->appendScript($content);
+?>
+<center>
+<h2 id="warning"><?=$this->mensagem?></h2>
+<form action="<?= $this->url('estoque',['action'=>'incluir-produto']) ?>" method="post">
+Nome:
+<input name="nome" value="" id="nome" type="text" onkeypress="validarTamanhoDoNome()">
+<input type="submit" name="incluir" value="Incluir"/>
+</form>
+</center>
+<a href="<?= $this->url('estoque',['action'=>'manter-produto']) ?>">Inventário</a>

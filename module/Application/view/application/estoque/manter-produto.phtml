@@ -1,0 +1,60 @@
+<h2 id="warning"><?=$this->mensagem?></h2>
+<h2>Estoquista: <?=$this->cpf?></h2>
+<table id="inventario">
+<thead>
+<?php
+$titulos = array('Código',
+ 					'Nome',
+ 					'Quantidade',
+ 					'Preço Unitário',
+ 					'Dar entrada',
+ 					'Dar baixa',
+ 					'Excluir');
+foreach ($titulos as $titulo)
+{
+ 	echo '<th>' . $this->escapeHtml($titulo) . '</th>';
+}
+?>
+
+</thead>
+<?php
+$somaTotal = 0;
+foreach ($this->itens as $item)
+{
+    $codigo = $item['id'];
+    $nome = '<a href="' . $this->url('estoque',['action'=>'nome','id'=>$codigo]) . '">'.$item['nome'].'</a>';
+    
+    $quantidade = (empty($item['quantidade']) ? '0' : $item['quantidade']);
+    
+    $preco ='<a href="' . $this->url('estoque',['action'=>'preco','id'=>$codigo]) . '">'.(empty($item['valor']) ? '0' : $item['valor']).'</a>';
+    
+    $entrada ='<a href="' . $this->url('estoque',['action'=>'entrada','id'=>$codigo]) . '">E</a>';
+    
+    $baixa ='<a	href="' . $this->url('estoque',['action'=>'baixa','id'=>$codigo]) . '">B</a>';
+    
+    $excluir = '<a href="' . $this->url('estoque',['action'=>'excluir','id'=>$codigo]) . '"> X </a>';
+
+    $colunas = array(
+        $codigo,
+        $nome,
+        $quantidade,
+        $preco,
+        $entrada,
+        $baixa,
+        $excluir
+    );
+    echo '<tr>';
+
+    foreach ($colunas as $coluna) {
+        echo '<td>';
+        echo $coluna;
+        echo '</td>';
+    }
+
+    echo '</tr>';
+}
+?> 	
+
+</table>
+<a href="<?= $this->url('estoque',['action' => 'logout']) ?>">Sair</a>
+<a href="<?= $this->url('estoque',['action' => 'incluir']) ?>">Inserir produto</a>

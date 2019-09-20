@@ -145,8 +145,7 @@ class IndexController extends AbstractActionController
             return $this->redirect()->toRoute('carrinho');
         } else {
             $_SESSION['mensagem'] = 'Dados inválidos';
-            return $this->redirect()->toRoute('application', [
-                'action' => 'acessar'
+            return $this->redirect()->toRoute('application', ['action' => 'acessar'
             ]);
         }
     }

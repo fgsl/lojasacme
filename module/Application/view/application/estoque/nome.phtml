@@ -1,0 +1,23 @@
+<?php
+use Zend\View\Helper\HeadScript;
+
+$content = file_get_contents(__DIR__ . '/incluir.js');
+$this->headScript(HeadScript::SCRIPT)->appendScript($content);
+?>
+<center><h2 id="warning"><?=$this->mensagem?></h2>
+<form action="<?= $this->url('estoque',['action'=>'alterar-nome'])?>" method="post">
+<?php
+if (isset($this->produtoSelecionado['id']))
+{
+?>
+Nome:
+<input name="nome" value="<?=$this->escapeHtml($this->produtoSelecionado['nome'])?>" id="nome" type="text" onkeypress="validarTamanhoDoNome()">
+<input name="id" value="<?=$this->produtoSelecionado['id']?>" id="id" type="hidden">
+<?php
+}
+?>
+<input type="submit" name="alterarnome"value="Alterar nome"/>
+</form>
+
+<a href="<?= $this->url('estoque',['action'=>'manter-produto'])?>">Inventário</a>
+</center>

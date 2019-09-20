@@ -1,0 +1,18 @@
+<center>
+<form action="<?= $this->url('estoque',['action'=>'alterar-preco'])?>" method="post">
+<?php
+if (isset($this->produtoSelecionado['id']))
+{
+?>
+Preço :
+<input name="preco" value="<?=$this->escapeHtml($this->produtoSelecionado['valor'])?>" id="preco" type="text">
+<input name="id" value="<?=$this->produtoSelecionado['id']?>" id="id" type="hidden">
+<?php
+}
+
+?>
+<input type="submit" name="alterarpreco" value="Alterar preço"/>
+</form>
+
+<a href="<?= $this->url('estoque',['action'=>'manter-produto'])?>">Inventário</a>
+</center>

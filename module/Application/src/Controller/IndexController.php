@@ -18,6 +18,7 @@ use Zend\Authentication\Adapter\DbTable\CredentialTreatmentAdapter;
 use Application\Model\Usuario;
 use Application\Model\Item;
 use Application\Model\Pedido;
+use Zend\Db\Sql\Where;
 
 class IndexController extends AbstractActionController
 {
@@ -38,14 +39,18 @@ class IndexController extends AbstractActionController
     public function indexAction()
     {
         $_SESSION['ultimaPagina'] = __METHOD__;
+        
+        $chave = (string) $this->request->getPost('nome');
+        $table = $this->container->get('ProdutoTable');
+        $where = null;
+        if (!empty($chave)){
+            $where = new Where();
+            $where->like('nome', "$chave%");
+        }
+        
         return new ViewModel([
-            'produtos' => $this->container->get('ProdutoTable')->getAll()
+            'produtos' => $table->getAll($where)
         ]);
-    }
-
-    public function buscarAction()
-    {
-        return new ViewModel();
     }
 
     public function cadastrarAction()

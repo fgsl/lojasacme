@@ -182,7 +182,6 @@ public function adicionarAction()
             return $this->redirect()->toRoute('estoque',['action' => 'baixa','id' => $id]);
         }
         $table = $this->container->get('ProdutoTable');
-        $table = $this->container->get('ProdutoTable');
         $produto = $table->getOne($id)->toArray();
         $quantidade = $quantidade + $produto['quantidade'];
         $dados = array('quantidade' => $quantidade);

@@ -60,7 +60,7 @@ class ProdutoTable
             'id' => $id
         ];
         $rowSet = $this->getAll($where);
-        if ($rowSet->count() == 0) {
+        if ($rowSet->count() == 0 || $rowSet->current() == null) {
             return new Produto();
         }
         return $rowSet->current();

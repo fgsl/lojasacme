@@ -38,7 +38,8 @@ class IndexController extends AbstractActionController
 
     public function indexAction()
     {
-        $_SESSION['ultimaPagina'] = __METHOD__;
+        $sessionManager = $this->container->get(SessionManager::class);
+        $sessionManager->getStorage()->ultimaPagina = __METHOD__;
         
         $chave = (string) $this->request->getPost('nome');
         $table = $this->container->get('ProdutoTable');
@@ -48,31 +49,37 @@ class IndexController extends AbstractActionController
             $where->like('nome', "$chave%");
         }
         
-        return new ViewModel([
+        $viewModel = new ViewModel([
             'produtos' => $table->getAll($where)
         ]);
+        
+        $viewModel->storage = $sessionManager->getStorage();
+        return $viewModel;
+        
     }
 
     public function cadastrarAction()
     {
-        $_SESSION['ultimaPagina'] = __METHOD__;
+        $sessionManager = $this->container->get(SessionManager::class);
+        $sessionManager->getStorage()->ultimaPagina = __METHOD__;
+        
         $viewModel = new ViewModel([
-            'mensagem' => (isset($_SESSION['mensagem']) ? $_SESSION['mensagem'] : '')
-        ]);
-        $_SESSION['mensagem'] = '';
+            'mensagem' => (isset($sessionManager->getStorage()->mensagem) ? $sessionManager->getStorage()->mensagem : '')]);
+        $sessionManager->getStorage()->mensagem = '';
         return $viewModel;
     }
 
     /* Persistência dos dados do cliente */
     public function gravarClienteAction()
     {
+        $sessionManager = $this->container->get(SessionManager::class);
         $cpf = $this->request->getPost('cpf');
         $email = $this->request->getPost('email');
         $senha = $this->request->getPost('senha');
         $senha2 = $this->request->getPost('senha2');
 
         if ($senha != $senha2 || ! is_numeric($cpf) || $cpf == null || $email == null || $senha == null || $senha2 == null) {
-            $_SESSION['mensagem'] = 'dados invalidos';
+            $sessionManager->getStorage()->mensagem = 'dados invalidos';
             return $this->redirect()->toRoute('application', [
                 'action' => 'cadastrar'
             ]);
@@ -85,7 +92,7 @@ class IndexController extends AbstractActionController
         $cpfExiste = ! empty($usuario);
 
         if ($cpfExiste) {
-            $_SESSION['mensagem'] = 'CPF já cadastrado';
+            $sessionManager->getStorage()->mensagem = 'CPF já cadastrado';
             return $this->redirect()->toRoute('application', [
                 'action' => 'cadastrar'
             ]);
@@ -96,7 +103,7 @@ class IndexController extends AbstractActionController
         $emailExiste = ! empty($usuario);
 
         if ($emailExiste) {
-            $_SESSION['mensagem'] = 'E-mail já cadastrado';
+            $sessionManager->getStorage()->mensagem = 'E-mail já cadastrado';
             return $this->redirect()->toRoute('application', [
                 'action' => 'cadastrar'
             ]);
@@ -114,13 +121,14 @@ class IndexController extends AbstractActionController
     /* Efetua o login do cliente */
     public function loginAction()
     {
-        $_SESSION['ultimaPagina'] = 'acessar';
+        $sessionManager = $this->container->get(SessionManager::class);
+        $sessionManager->getStorage()->ultimaPagina = __METHOD__;
         $cpf = $this->request->getPost('cpf');
         $email = $this->request->getPost('email');
         $senha = $this->request->getPost('senha');
 
         if($cpf==null && $email==null){
-            $_SESSION['mensagem'] = 'Dados inválidos';
+            $sessionManager->getStorage()->mensagem = 'Dados inválidos';
             return $this->redirect()->toRoute('application', [ 'action' => 'acessar']);
         }
          
@@ -146,10 +154,10 @@ class IndexController extends AbstractActionController
 
         $resultado = $authentication->getAdapter()->authenticate();
         if ($resultado->isValid()) {
-            $_SESSION['cliente'] = $resultado->getIdentity();
+            $sessionManager->getStorage()->cliente = $resultado->getIdentity();
             return $this->redirect()->toRoute('carrinho');
         } else {
-            $_SESSION['mensagem'] = 'Dados inválidos';
+            $sessionManager->getStorage()->mensagem = 'Dados inválidos';
             return $this->redirect()->toRoute('application', ['action' => 'acessar'
             ]);
         }
@@ -158,35 +166,31 @@ class IndexController extends AbstractActionController
     /* Identificação do cliente */
     public function acessarAction()
     {
-        $_SESSION['ultimaPagina'] = __METHOD__;
-        if (isset($_SESSION['cliente'])) {
+        $sessionManager = $this->container->get(SessionManager::class);
+        $sessionManager->getStorage()->ultimaPagina = __METHOD__;
+        
+        if (isset($sessionManager->getStorage()->cliente)) {
             return $this->redirect()->toRoute('carrinho');
         }
         $viewModel = new ViewModel();
-        $viewModel->mensagem = isset($_SESSION['mensagem']) ? $_SESSION['mensagem'] : '';
-        unset($_SESSION['mensagem']);
+        $viewModel->mensagem = isset($sessionManager->getStorage()->mensagem) ? $sessionManager->getStorage()->mensagem : '';
+        unset($sessionManager->getStorage()->mensagem);
         return $viewModel;
     }
 
     /* Encerra a sessão do cliente, destruindo o carrinho */
     public function logoutAction()
     {
-        
-        $ultimaPagina = $_SESSION['ultimaPagina'];
+        $sessionManager = $this->container->get(SessionManager::class);             
+                
+        $ultimaPagina = $sessionManager->getStorage()->ultimaPagina;
         
         $tokens = explode('::',$ultimaPagina);
-        $action = str_replace('Action','',$tokens[1]); // nome do método
+        //$action = str_replace('Action','',$tokens[1]);
+        $action = str_replace('Action','',$tokens);
         $route = str_replace('index', 'home', lcfirst(str_replace('Controller', '', str_replace('Application\Controller\\','',$tokens[0])))); // nome da classe
 
-        /* Mata todas as variáveis de sessão */
-        $_SESSION = array();
-        /* Apaga o cookie de sessão */
-        if (isset($_COOKIE[session_name()])) {
-            setcookie(session_name(), '', time() - 42000, '/');
-        }
-
-        /* Destrói a sessão. */
-        session_destroy();
+        $sessionManager->destroy();
         $this->redirect()->toRoute($route, ['action' => $action]);
     }
 }

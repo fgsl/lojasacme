@@ -1,4 +1,7 @@
 <?php
+use Zend\Session\SessionManager;
+use Zend\Session\Service\SessionManagerFactory;
+
 /**
  * Global Configuration Override
  *
@@ -15,7 +18,8 @@ return [
     // ...
     'service_manager' => [
         'factories' => [
-            'DbAdapter' => 'Zend\Db\Adapter\AdapterServiceFactory'
+            'DbAdapter' => 'Zend\Db\Adapter\AdapterServiceFactory',
+            SessionManager::class => SessionManagerFactory::class
 	]
     ]	
 ];

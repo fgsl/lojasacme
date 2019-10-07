@@ -20,7 +20,8 @@ class IndexControllerTest extends AbstractHttpControllerTestCase
         // such as sample view templates, path stacks, module_listener_options,
         // etc.
         $this->setApplicationConfig(include __DIR__ . '/../../../../config/mock.config.php');
-
+        /* session_start();
+        $_SESSION['ultimaPagina']= 'teste'; */        
         parent::setUp();
     }
 
@@ -39,4 +40,54 @@ class IndexControllerTest extends AbstractHttpControllerTestCase
         $this->dispatch('/invalid/route', 'GET');
         $this->assertResponseStatusCode(404);
     }
+    
+    public function testIndexAction(){
+        $this->dispatch('/application/index', 'GET');
+        $this->assertResponseStatusCode(200);
+        $this->assertModuleName('application');
+        $this->assertControllerName(IndexController::class);
+        $this->assertControllerClass('IndexController');
+    }
+    
+    public function testCadastrarAction(){
+        $this->dispatch('/application/Cadastrar', 'GET');
+        $this->assertResponseStatusCode(200);
+        $this->assertModuleName('application');
+        $this->assertControllerName(IndexController::class);
+        $this->assertControllerClass('IndexController');
+    }
+    
+    public function testGravarClienteAction(){
+        $this->dispatch('/application/GravarCliente', 'GET');
+        $this->assertResponseStatusCode(302);
+        $this->assertModuleName('application');
+        $this->assertControllerName(IndexController::class);
+        $this->assertControllerClass('IndexController');
+    }
+    
+    public function testLoginAction(){
+        $this->dispatch('/application/Login', 'GET');
+        $this->assertResponseStatusCode(302);
+        $this->assertModuleName('application');
+        $this->assertControllerName(IndexController::class);
+        $this->assertControllerClass('IndexController');
+    }
+    
+    public function testAcessarAction(){
+        $this->dispatch('/application/Acessar', 'GET');
+        $this->assertResponseStatusCode(200);
+        $this->assertModuleName('application');
+        $this->assertControllerName(IndexController::class);
+        $this->assertControllerClass('IndexController');
+    }
+    /**
+     * @todo https://github.com/fgsl/lojasacme/issues/74
+     public function testLogoutAction(){
+        $this->dispatch('/application/Logout', 'GET');
+        $this->assertResponseStatusCode(302);
+        $this->assertModuleName('application');
+        $this->assertControllerName(IndexController::class);
+        $this->assertControllerClass('IndexController');
+    }
+    */
 }

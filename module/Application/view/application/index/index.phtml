@@ -1,7 +1,7 @@
 <div id="menu">
 <form action="<?=$this->url('application')?>" method="post">
 <?php
-if (!isset($_SESSION['cliente']))
+if (!isset($this->storage->cliente))
 {
 ?>
 <a href="<?= $this->url('application',['action' => 'acessar']) ?>" >Acessar</a>&nbsp;

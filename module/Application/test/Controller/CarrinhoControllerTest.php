@@ -10,6 +10,7 @@ namespace ApplicationTest\Controller;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
 use Application\Controller\CarrinhoController;
+use Zend\Session\SessionManager;
 
 class CarrinhoControllerTest extends AbstractHttpControllerTestCase
 {
@@ -20,11 +21,7 @@ class CarrinhoControllerTest extends AbstractHttpControllerTestCase
         // You can override configuration here with test case specific values,
         // such as sample view templates, path stacks, module_listener_options,
         // etc.
-        
-        $container = new ServiceManager();
-        $this->carrinho = new CarrinhoController($container);
         $this->setApplicationConfig(include __DIR__ . '/../../../../config/mock.config.php');
-
         parent::setUp();
     }
 
@@ -57,6 +54,39 @@ class CarrinhoControllerTest extends AbstractHttpControllerTestCase
     public function testExcluirAction(){
         $this->dispatch('/carrinho/excluir', 'GET');
         $this->assertResponseStatusCode(302);
+        $this->assertModuleName('application');
+        $this->assertControllerName(CarrinhoController::class);
+        $this->assertControllerClass('CarrinhoController');
+    }
+    
+    public function testEditarAction(){
+        $this->dispatch('/carrinho/Editar', 'GET');
+        $this->assertResponseStatusCode(200);
+        $this->assertModuleName('application');
+        $this->assertControllerName(CarrinhoController::class);
+        $this->assertControllerClass('CarrinhoController');
+    }
+    
+    public function testAlterarAction(){
+        $this->dispatch('/carrinho/Alterar', 'GET');
+        $this->assertResponseStatusCode(302);
+        $this->assertModuleName('application');
+        $this->assertControllerName(CarrinhoController::class);
+        $this->assertControllerClass('CarrinhoController');
+    }
+    
+    public function testFecharAction(){
+        $this->dispatch('/carrinho/Fechar', 'GET');
+        $this->assertResponseStatusCode(302);
+        $this->assertModuleName('application');
+        $this->assertControllerName(CarrinhoController::class);
+        $this->assertControllerClass('CarrinhoController');
+    }
+    
+    public function testGravarCompraAction(){
+        $this->getApplication()->getServiceManager()->get(SessionManager::class)->getStorage()->carrinho = [];
+        $this->dispatch('/carrinho/GravarCompra', 'POST',['formaPagamento' => 'boleto']);
+        $this->assertResponseStatusCode(200);
         $this->assertModuleName('application');
         $this->assertControllerName(CarrinhoController::class);
         $this->assertControllerClass('CarrinhoController');

@@ -32,28 +32,34 @@ class EstoqueController extends AbstractActionController{
 
     public function defaultAction()
     {
+        $sessionManager = $this->container->get(SessionManager::class);
+        
         $viewModel = new ViewModel();
-        $viewModel->mensagem=isset($_SESSION['mensagem']) ? $_SESSION['mensagem'] : '';
-        $_SESSION['mensagem'] = '';
+        $viewModel->mensagem = isset($sessionManager->getStorage()->mensagem) ? $sessionManager->getStorage()->mensagem : '';
+        $sessionManager->getStorage()->mensagem = '';
         return $viewModel;
     }
     
  public function indexAction()
  {
+     $sessionManager = $this->container->get(SessionManager::class);
+     
      $viewModel = new ViewModel();
-     $viewModel->mensagem=isset($_SESSION['mensagem']) ? $_SESSION['mensagem'] : '';
-     $_SESSION['mensagem'] = '';
+     $viewModel->mensagem = isset($sessionManager->getStorage()->mensagem) ? $sessionManager->getStorage()->mensagem : '';
+     $sessionManager->getStorage()->mensagem = '';
      return $viewModel;
  }
 
 /* Efetua o login do estoquista */
 public function loginAction()
 {
+    $sessionManager = $this->container->get(SessionManager::class);
+    
     $cpf = (string)$this->request->getPost('cpf');
     $senha = (string)$this->request->getPost('senha');
     
     if($cpf == null && $senha == null){
-        $_SESSION['mensagem'] = 'Dados inválidos';
+        $sessionManager->getStorage()->mensagem = 'Dados inválidos';
         return $this->redirect()->toRoute('estoque');
     }
     
@@ -74,11 +80,11 @@ public function loginAction()
     
     $resultado = $authentication->getAdapter()->authenticate();
     if ($resultado->isValid()) {
-        $_SESSION['estoquista'] = [];
-        $_SESSION['estoquista'] ['cpf'] = $resultado->getIdentity();
+        $sessionManager->getStorage()->estoquista = [];
+        $sessionManager->getStorage()->estoquista ['cpf'] = $resultado->getIdentity();
         return $this->redirect()->toRoute('estoque',['action' => 'manter-produto']);
     } else {
-        $_SESSION['mensagem'] = 'Dados inválidos';
+        $sessionManager->getStorage()->mensagem = 'Dados inválidos';
         return $this->redirect()->toRoute('estoque');
     }
 }
@@ -86,32 +92,30 @@ public function loginAction()
 /* Encerra a sessão do estoquista */
 public function logoutAction()
 {
-    /* Mata todas as variáveis de sessão */
-    $_SESSION = array();
-    /* Apaga o cookie de sessão */
-    if (isset($_COOKIE[session_name()])) {
-        setcookie(session_name(), '', time()-42000,'/');
-    }
-    session_destroy();
+    $sessionManager = $this->container->get(SessionManager::class);
+    $sessionManager->destroy();
+
     $this->redirect()->toRoute('estoque');
 }
 
 /* Exibe o menu de operações de estoque */
 public function manterProdutoAction()
 {
-    if (!isset($_SESSION['estoquista']))
+    $sessionManager = $this->container->get(SessionManager::class);
+    
+    if (!isset($sessionManager->getStorage()->estoquista))
     { 
         return $this->redirect()->toRoute('estoque');}
     else
     {
-        $estoquista = $_SESSION['estoquista'];
+        $estoquista = $sessionManager->getStorage()->estoquista;
         $cpf = $estoquista['cpf'];
         $produtoTable = $this->container->get('ProdutoTable');
         $produtos = $produtoTable->getAll();
     }
     $viewModel = new ViewModel();
-    $viewModel->mensagem = isset($_SESSION['mensagem']) ? $_SESSION['mensagem'] : '';
-    $_SESSION['mensagem'] = '';
+    $viewModel->mensagem = isset($sessionManager->getStorage()->mensagem) ? $sessionManager->getStorage()->mensagem : ''; 
+    $sessionManager->getStorage()->mensagem = '';
     $viewModel->cpf = $cpf;
     $viewModel->itens = $produtos->toArray();
     return $viewModel;
@@ -128,36 +132,41 @@ private function selecionarProduto(){
 
     $produtoSelecionado = $table->getOne($id)->toArray();
     return $produtoSelecionado;
-    /* return $produtoSelecionado[0]; */
 }
 
 public function baixaAction()
 {
+    $sessionManager = $this->container->get(SessionManager::class);
     $viewModel = new ViewModel();
     $produtoSelecionado = $this->selecionarProduto();
     $viewModel->produtoSelecionado = $produtoSelecionado;
-    $viewModel->mensagem = $_SESSION ['mensagem'];
-    unset($_SESSION ['mensagem']);
+    $viewModel->mensagem = $sessionManager->getStorage()->mensagem;
+    $viewModel->storage = $sessionManager->getStorage();
+    unset($sessionManager->getStorage()->mensagem);
     return $viewModel;
 }
 
 public function entradaAction()
 {
+    $sessionManager = $this->container->get(SessionManager::class);
     $viewModel = new ViewModel();
     $produtoSelecionado = $this->selecionarProduto();
     $viewModel->produtoSelecionado = $produtoSelecionado;
-    $viewModel->mensagem = $_SESSION ['mensagem'];
-    unset($_SESSION ['mensagem']);
+    $viewModel->mensagem = $sessionManager->getStorage()->mensagem;
+    $viewModel->storage = $sessionManager->getStorage();
+    unset($sessionManager->getStorage()->mensagem);
     return $viewModel;
 }
 
 public function nomeAction()
 {
+    $sessionManager = $this->container->get(SessionManager::class);
     $viewModel = new ViewModel();
     $produtoSelecionado = $this->selecionarProduto();
     $viewModel->produtoSelecionado = $produtoSelecionado;
-    $viewModel->mensagem = $_SESSION ['mensagem'];
-    unset($_SESSION ['mensagem']);
+    $viewModel->mensagem = $sessionManager->getStorage()->mensagem;
+    $viewModel->storage = $sessionManager->getStorage();
+    unset($sessionManager->getStorage()->mensagem);
     return $viewModel;
 }
 
@@ -172,13 +181,14 @@ public function precoAction()
 /* Adição de quantidade de estoque */
 public function adicionarAction()
 {
+    $sessionManager = $this->container->get(SessionManager::class);
     $id = (int)$this->request->getPost('id');
     if (!is_null($id))
     {
         $quantidade = (int)$this->request->getPost('quantidade');
         if($quantidade <= 0 || $quantidade == null)
         {
-            $_SESSION['mensagem'] = 'valor inválido';
+            $sessionManager->getStorage()->mensagem = 'valor inválido';
             return $this->redirect()->toRoute('estoque',['action' => 'baixa','id' => $id]);
         }
         $table = $this->container->get('ProdutoTable');
@@ -196,13 +206,14 @@ public function adicionarAction()
 /* Subtração de quantidade de estoque */
 public function subtrairAction()
 {
+    $sessionManager = $this->container->get(SessionManager::class);
     $id = (int)$this->request->getPost('id');
     if (!is_null($id))
     {
         $quantidade = (int)$this->request->getPost('quantidade');
         if($quantidade <= 0 || $quantidade == null)
         {
-            $_SESSION['mensagem'] = 'valor inválido';
+            $sessionManager->getStorage()->mensagem = 'valor inválido';
             return $this->redirect()->toRoute('estoque',['action' => 'baixa','id' => $id]);
         }
         $table = $this->container->get('ProdutoTable');
@@ -220,12 +231,13 @@ public function subtrairAction()
 /* Gravação de um novo preco */
 public function alterarPrecoAction()
 {
+    $sessionManager = $this->container->get(SessionManager::class);
     $id = (int)$this->request->getPost('id');
     $preco = (string)$this->request->getPost('preco');
 
     if (is_null($id) || $preco == null || $preco <= 0)
     {
-        $_SESSION['mensagem'] = 'valor inválido';
+        $sessionManager->getStorage()->mensagem = 'valor inválido';
         return $this->redirect()->toRoute('estoque',['action' => 'baixa','id' => $id]);
     }
     else
@@ -245,11 +257,12 @@ return $this->redirect()->toRoute('estoque',['action'=>'manter-produto']);
 /* Gravação de um novo nome */
 public function alterarNomeAction()
 {
+     $sessionManager = $this->container->get(SessionManager::class);
      $id = (int)$this->request->getPost('id');
      $nome = (string)$this->request->getPost('nome');
      if (is_null($id) || $nome == null)
      {
-         $_SESSION['mensagem'] = 'nome inválido';
+         $sessionManager->getStorage()->mensagem = 'nome inválido';
          return $this->redirect()->toRoute('estoque',['action'=>'nome','id'=>$id]);
      }else{
          $table = $this->container->get('ProdutoTable');
@@ -265,6 +278,7 @@ public function alterarNomeAction()
 /* Exclusão do produto */
 public function excluirAction()
 {
+    $sessionManager = $this->container->get(SessionManager::class);
     $id = (int)$this->params('id');
     if (!is_null($id))
     {
@@ -278,7 +292,7 @@ public function excluirAction()
         }
         else
         {
-            $_SESSION['mensagem'] = 'produto consta em pedido';
+            $sessionManager->getStorage()->mensagem = 'produto consta em pedido';
         }
     }
     return $this->redirect()->toRoute('estoque',['action'=>'manter-produto']);
@@ -287,20 +301,22 @@ public function excluirAction()
 /* Inclusão de produto */
 public function incluirAction()
 {
+    $sessionManager = $this->container->get(SessionManager::class);
     $viewModel = new ViewModel();
-    $viewModel->mensagem = $_SESSION ['mensagem'];
-    unset($_SESSION ['mensagem']);
+    $viewModel->mensagem = $sessionManager->getStorage()->mensagem;
+    unset($sessionManager->getStorage()->mensagem);
     return $viewModel;
 }
 
 /* Gravação de novo produto */
 public function incluirProdutoAction()
 {
+    $sessionManager = $this->container->get(SessionManager::class);
     $nome = (string)$this->request->getPost('nome');
 
     if (!isset($nome) || $nome == null)
     {    
-    $_SESSION['mensagem'] = 'nome inválido';
+    $sessionManager->getStorage()->mensagem = 'nome inválido';
     return $this->redirect()->toRoute('estoque',['action'=>'incluir']);
     }
     else{

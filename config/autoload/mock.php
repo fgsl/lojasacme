@@ -1,4 +1,7 @@
 <?php
+use Zend\Session\SessionManager;
+use Zend\Session\Service\SessionManagerFactory;
+
 /**
  * Global Configuration Override
  *
@@ -17,9 +20,13 @@ return [
     		'driver' => 'PDO',
     		'dsn' => 'mysql:host=localhost;port=5432;dbname=acme'    		
     ],
+    'session_manager' => [
+        'storage' => Zend\Session\Storage\ArrayStorage::class
+    ],
 	'service_manager' => [
 				'factories' => [
-						'DbAdapter' => 'Fgsl\Mock\Db\Adapter\AdapterServiceFactory'
+						'DbAdapter' => 'Fgsl\Mock\Db\Adapter\AdapterServiceFactory',
+				        SessionManager::class => SessionManagerFactory::class
 				]
 	]	
 ];

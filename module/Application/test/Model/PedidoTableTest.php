@@ -1,13 +1,11 @@
 <?php
 namespace Application\Model;
 
-use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
-use Application\Model\Pedido;
-use Application\Model\PedidoTable;
 use Fgsl\Mock\Db\Adapter\Mock as Adapter;
-use Fgsl\Mock\Db\TableGateway\Mock as TableGateway;
 use Fgsl\Mock\Db\Adapter\Driver\Mock as Driver;
+use Fgsl\Mock\Db\TableGateway\Mock as TableGateway;
 use Zend\Db\Sql\Where;
+use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
 
 class PedidoTableTest extends AbstractHttpControllerTestCase
 {

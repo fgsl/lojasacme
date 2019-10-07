@@ -19,9 +19,7 @@ class IndexControllerTest extends AbstractHttpControllerTestCase
         // You can override configuration here with test case specific values,
         // such as sample view templates, path stacks, module_listener_options,
         // etc.
-        $this->setApplicationConfig(include __DIR__ . '/../../../../config/mock.config.php');
-        /* session_start();
-        $_SESSION['ultimaPagina']= 'teste'; */        
+        $this->setApplicationConfig(include __DIR__ . '/../../../../config/mock.config.php');     
         parent::setUp();
     }
 

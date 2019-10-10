@@ -41,7 +41,7 @@ return [
             'carrinho' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/carrinho[/:action[/:id]]', 
+                    'route'    => '/carrinho[/[:action[/:id]]]', 
                     'defaults' => [
                         'controller' => CarrinhoController::class,
                         'action'     => 'comprar',

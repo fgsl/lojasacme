@@ -10,7 +10,7 @@ endif;
 <?=$this->escapeHtml($this->valor)?><br/>
 <?=$this->escapeHtml('Quantidade disponível: ')?>
 <?=$this->escapeHtml($this->quantidade)?><br/>
-<a id="botao_comprar" href="<?=$this->url('carrinho',['action'=>'comprar','id'=>$this->id])?>">Comprar</a>
+<a class="btn btn-default" id="botao_comprar" href="<?=$this->url('carrinho',['action'=>'comprar','id'=>$this->id])?>">Comprar</a>
 </td>
 <?php
 if ($this->partialLoop()->getPartialCounter() % 2 == 0):

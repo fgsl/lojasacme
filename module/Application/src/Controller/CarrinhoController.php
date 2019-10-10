@@ -31,6 +31,10 @@ class CarrinhoController extends AbstractActionController
         $sessionManager->getStorage()->ultimaPagina = __METHOD__;
 
         $mensagem = '';
+        if ( isset($sessionManager->getStorage()->mensagem)) {
+            $mensagem = $sessionManager->getStorage()->mensagem;
+            unset($sessionManager->getStorage()->mensagem);
+        }        
         if (! isset($sessionManager->getStorage()->carrinho)) {
             $sessionManager->getStorage()->carrinho = array();
         }
@@ -56,7 +60,7 @@ class CarrinhoController extends AbstractActionController
             }
         }
 
-        $viewModel = $viewModel = new ViewModel();
+        $viewModel = new ViewModel();
 
         $viewModel->mensagem = $mensagem;
         $viewModel->itens = $carrinho;
@@ -97,7 +101,7 @@ class CarrinhoController extends AbstractActionController
     {
         $sessionManager = $this->container->get(SessionManager::class);
         $id = $this->params('id');
-        $produtoSelecionado = $sessionManager->getStorage()->carrinho = $id;
+        $produtoSelecionado = $sessionManager->getStorage()->carrinho[$id];
         $viewModel = new ViewModel(['produtoSelecionado' => $produtoSelecionado]);
         $viewModel->storage = $sessionManager->getStorage();
         return $viewModel;
@@ -117,28 +121,28 @@ class CarrinhoController extends AbstractActionController
         if (! is_numeric($quantidade)) {
             return $this->redirect()->toRoute('carrinho');
         }
-
-        $quantidade = (int) $this->request->getPost('quantidade');
+        $quantidade = (int)$quantidade;
         foreach ($sessionManager->getStorage()->carrinho as $chave => $produto) {
-            if (isset($produto['id'])) {
-                If ($produto['id'] == $id) {
-                    $sessionManager->getStorage()->carrinho->$chave['quantidade'] = $quantidade;
+            if ($chave == $id) {                
+                    $sessionManager->getStorage()->carrinho[$chave]['quantidade'] = $quantidade;
                     break;
                 }
-            }
         }
         return $this->redirect()->toRoute('carrinho');
     }
 
     /* Fechamento da compra */
     public function fecharAction()
-    {
+    {        
         $sessionManager = $this->container->get(SessionManager::class);
-        if (! isset($sessionManager->getStorage()->carrinho)) {
+        if (!isset($sessionManager->getStorage()->cliente)){
             return $this->redirect()->toRoute('application',['action' => 'acessar']);
+        }else if(count($sessionManager->getStorage()->carrinho) == 0){
+            $sessionManager->getStorage()->mensagem = "Selecione ao menos um produto para fechar a compra.";
+            return $this->redirect()->toRoute('carrinho');
         }
         return new ViewModel();
-    }
+    }  
 
     /* Grava o pedido de compra */
     public function gravarCompraAction()

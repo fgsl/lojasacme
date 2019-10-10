@@ -1,34 +1,19 @@
 @CHARSET "UTF-8";
 
-#cabecalho {
-    background-color: green;
-    border: 1px solid black;
-    color: white;
-    text-align: center;
-    width: 100%
+/* .navbar-default{
 }
 
-#logomarca_cliente {
-    background-color: green;
-    color: white;
+.navbar-brand{
     font-family: Verdana;
     font-size: xx-large;
     font-weight: bold;
-    text-align: center;
-}
+} */
 
-#menu {
-    background-color: yellow;
-    border: 1px solid black;
-    color: darkblue;
-    font-family: Verdana;
-    font-size: medium;
-    font-weight: bold;
-    text-align: center;
-    width: 100%
-}
-
-footer {
+.footer {
+	position: relative;
+	margin-bottom:0%;
+	left: 0;
+	bottom: 0;
     background-color: blue;
     border: 1px solid black;
     color: white;
@@ -37,9 +22,9 @@ footer {
 }
 
 #lista_de_produtos {
-    background-color: deepskyblue;
     border: 1px solid black;
-    width: 100%;
+	margin-left: 10%;
+	width:80%;
 }
 
 #produto {
@@ -49,18 +34,6 @@ footer {
     font-weight: bold;
     text-align: left;
     width: 50%;
-}
-
-#botao_comprar {
-    background-color: red;
-    border: 1px solid black;
-    color: yellow;
-    font-family: Arial;
-    font-weight: bold;
-}
-
-#warning {
-	color : red;
 }
 
 /* #carrinho th{

@@ -191,6 +191,7 @@ class IndexController extends AbstractActionController
         $route = str_replace('index', 'home', lcfirst(str_replace('Controller', '', str_replace('Application\Controller\\','',$tokens[0])))); // nome da classe
 
         $sessionManager->destroy();
-        $this->redirect()->toRoute($route, ['action' => $action]);
+        $params = (empty($action)?[]:['action' => $action]);
+        return $this->redirect()->toRoute($route, $params);
     }
 }

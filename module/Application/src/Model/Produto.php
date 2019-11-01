@@ -3,10 +3,11 @@
 namespace Application\Model;
 
 class Produto {
+    public $codigo;
 	public $id;
 	public $nome;
 	public $valor;
-	public $quantidade;
+	public $quantidade;	 
 	
  	//getters
 	public function getId(){
@@ -45,6 +46,7 @@ public function exchangeArray(array $data) {
 	}
 public function toArray() {
     $atributos = get_object_vars( $this );
+    unset($atributos['codigo']);
     $array = []; 
     foreach($atributos as $atributo => $valor){
         if (!empty($valor) || $valor === 0) {
@@ -53,5 +55,5 @@ public function toArray() {
     }
     return $array;
 }
-    
+
 }   

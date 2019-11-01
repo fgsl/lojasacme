@@ -1,2 +1,7 @@
-<h3 id="warning"><?=$this->mensagem?></h3>
-<a href="<?= $this->url('home') ?>">Página inicial</a>
+<div class="container">
+<br>
+<div class="alert alert-success">
+  <?=$this->mensagem?>
+</div>
+<a href="<?=$this->url('home')?>" class="btn-floating btn-lg btn-default"><i class="glyphicon glyphicon-share-alt"></i></a>
+</div>

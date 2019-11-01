@@ -1,11 +1,37 @@
-<h2 id="warning"><?=$this->mensagem?></h2>
-<center>
-<form action="<?= $this->url('estoque',['action'=>'login']) ?>" method="post">
-CPF:
-<input name="cpf" value="" id="cpf" type="text">
-senha:
-<input name="senha" value="" id="senha"
-type="password">
-<input type="submit" name="login" value="Login"/>
-</form>
-</center>
+<?php
+if($this->mensagem !==""){
+?>
+<br>
+<div class="row">
+<div class="col-lg-1"></div>
+    <div class="col-lg-10 alert alert-danger alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    	<h3 id="danger"><?=$this->mensagem?></h3>
+    </div>
+</div>
+
+<?php
+}
+?>
+<div class="container">
+  <h2>acessar conta:</h2>
+  <form class="form-horizontal" action="<?= $this->url('estoque',['action'=>'login']) ?>" method="post">
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="cpf">cpf:</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" id="cpf" name="cpf">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="senha">senha:</label>
+      <div class="col-sm-5">          
+        <input type="password" class="form-control" id="senha" name="senha">
+      </div>
+    </div>
+    <div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default" name="login" value="Login">acessar</button>
+      </div>
+    </div>
+  </form>
+</div>

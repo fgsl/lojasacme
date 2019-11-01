@@ -2,12 +2,12 @@
 
 global $somaTotal;
 ?>
-<td><?=$this->id?></td>
-<td><?=$this->escapeHtml($this->nome)?></td>
-<td><?=$this->escapeHtml($this->quantidade)?></td>
-<td><?=$this->escapeHtml(money_format('%.2n',$this->valor))?></td>
+<?=$this->id?>
+<?=$this->escapeHtml($this->nome)?>
+<?=$this->escapeHtml($this->quantidade)?>
+<?=$this->escapeHtml(money_format('%.2n',$this->valor))?>
 <?php
 $valorTotal  =  $this->quantidade * $this->valor;
 $somaTotal += $valorTotal;
 ?>
-<td><?=$this->escapeHtml(money_format('%.2n',$valorTotal))?></td>
+<?=$this->escapeHtml(money_format('%.2n',$valorTotal))?>

@@ -4,20 +4,45 @@ use Zend\View\Helper\HeadScript;
 $content = file_get_contents(__DIR__ . '/incluir.js');
 $this->headScript(HeadScript::SCRIPT)->appendScript($content);
 ?>
-<center><h2 id="warning"><?=$this->mensagem?></h2>
-<form action="<?= $this->url('estoque',['action'=>'alterar-nome'])?>" method="post">
+
+<?php
+if(trim($this->mensagem) !==""){
+?>
+<br>
+<div class="row">
+<div class="col-lg-1"></div>
+    <div class="col-lg-10 alert alert-danger alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    	<h3 id="danger"><?=$this->mensagem?></h3>
+    </div>
+</div>
+<?php
+}
+?>
+
+<div class="container">
+<h2>Alterar nome do produto:</h2>
+
+<form class="form-inline" action="<?= $this->url('estoque',['action'=>'alterar-nome'])?>" method="post">
 <?php
 if (isset($this->produtoSelecionado['id']))
 {
 ?>
-Nome:
-<input name="nome" value="<?=$this->escapeHtml($this->produtoSelecionado['nome'])?>" id="nome" type="text" onkeypress="validarTamanhoDoNome()">
-<input name="id" value="<?=$this->produtoSelecionado['id']?>" id="id" type="hidden">
+
+<div class="form-group">
+	<label for="nome">Nome:</label>
+	<input value="<?=$this->escapeHtml($this->produtoSelecionado['nome'])?>" class="form-control" name="nome" id="nome" type="text"onkeypress="validarTamanhoDoNome()">
+</div>
+<div class="form-group">
+	<input name="id" id="id" type="hidden" value="<?=$this->produtoSelecionado['id']?>">
+</div>
+
 <?php
 }
 ?>
-<input type="submit" name="alterarnome"value="Alterar nome"/>
-</form>
-
-<a href="<?= $this->url('estoque',['action'=>'manter-produto'])?>">Inventário</a>
-</center>
+<div class="form-group">
+<input class="form-control" type="submit" name="alterarnome"value="Alterar nome"/>
+</div>
+</form><br>
+<a href="<?= $this->url('estoque',['action' => 'manter-produto'])?>" class="btn-floating btn-lg btn-default"><i class="glyphicon glyphicon-share-alt"></i></a>
+</div>

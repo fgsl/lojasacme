@@ -1,6 +1,20 @@
-<h2 id="warning"><?=$this->mensagem?></h2>
+<div class="container-fluid">
+<?php
+if(trim($this->mensagem) !==""){
+?>
+<br>
+<div class="row">
+<div class="col-lg-1"></div>
+    <div class="col-lg-10 alert alert-danger alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    	<h3 id="danger"><?=$this->mensagem?></h3>
+    </div>
+</div>
+<?php
+}
+?>
 <h2>Estoquista: <?=$this->cpf?></h2>
-<table id="inventario">
+<table id="inventario" class="table table-hover text-center">
 <thead>
 <?php
 $titulos = array('Código',
@@ -12,7 +26,7 @@ $titulos = array('Código',
  					'Excluir');
 foreach ($titulos as $titulo)
 {
- 	echo '<th>' . $this->escapeHtml($titulo) . '</th>';
+ 	echo '<th class="text-center">' . $this->escapeHtml($titulo) . '</th>';
 }
 ?>
 
@@ -22,17 +36,17 @@ $somaTotal = 0;
 foreach ($this->itens as $item)
 {
     $codigo = $item['id'];
-    $nome = '<a href="' . $this->url('estoque',['action'=>'nome','id'=>$codigo]) . '">'.$item['nome'].'</a>';
-    
+    $nome = '<a href="' . $this->url('estoque',['action'=>'nome','id'=>$codigo]) . '" data-toggle="tooltip" data-placement="right auto" title="alterar nome">'.$item['nome'].'</a>';
+
     $quantidade = (empty($item['quantidade']) ? '0' : $item['quantidade']);
     
-    $preco ='<a href="' . $this->url('estoque',['action'=>'preco','id'=>$codigo]) . '">'.(empty($item['valor']) ? '0' : $item['valor']).'</a>';
+    $preco ='<a href="' . $this->url('estoque',['action'=>'preco','id'=>$codigo]) . '" data-toggle="tooltip" data-placement="right auto" title="alterar preço"> <b>R$ </b>'.(empty($item['valor']) ? '0' : $item['valor']).'</a>';
     
-    $entrada ='<a href="' . $this->url('estoque',['action'=>'entrada','id'=>$codigo]) . '">E</a>';
+    $entrada ='<a href="' . $this->url('estoque',['action'=>'entrada','id'=>$codigo]) . '" data-toggle="tooltip" data-placement="right auto" title="entrada do produto"><i class="glyphicon glyphicon-plus"></i></a>';
     
-    $baixa ='<a	href="' . $this->url('estoque',['action'=>'baixa','id'=>$codigo]) . '">B</a>';
+    $baixa ='<a	href="' . $this->url('estoque',['action'=>'baixa','id'=>$codigo]) . '" data-toggle="tooltip" data-placement="right auto" title="baixa do produto"><i class="glyphicon glyphicon-minus"></i></a>';
     
-    $excluir = '<a href="' . $this->url('estoque',['action'=>'excluir','id'=>$codigo]) . '"> X </a>';
+    $excluir = '<a href="' . $this->url('estoque',['action'=>'excluir','id'=>$codigo]) . '"  data-toggle="tooltip" data-placement="right auto" title="excluir produto"><i class="glyphicon glyphicon-remove"></i></a>';
 
     $colunas = array(
         $codigo,
@@ -55,6 +69,10 @@ foreach ($this->itens as $item)
 }
 ?> 	
 
-</table>
-<a href="<?= $this->url('estoque',['action' => 'logout']) ?>">Sair</a>
-<a href="<?= $this->url('estoque',['action' => 'incluir']) ?>">Inserir produto</a>
+</table><br>
+	<div>
+        <a href="<?= $this->url('estoque',['action' => 'logout'])?>" class="btn-floating btn-lg btn-default"><i class="glyphicon glyphicon-share-alt"></i></a>
+        <a href="<?= $this->url('estoque',['action' => 'incluir'])?>" class="btn-floating btn-lg btn-default"><i class="glyphicon glyphicon-plus-sign"></i></a>
+    </div>
+<br><br><br><br>
+</div>

@@ -1,3 +1,4 @@
+<body class="carrinho">
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -87,8 +88,8 @@ foreach ($this->itens as $item)
  		$valorTotal = (float)$quantidade * (float)$moeda;
  		$totalItem = $this->escapeHtml(money_format('%.2n',$valorTotal));
  		
- 		$editar= '<a href="' . $this->url('carrinho',['action'=>'editar','id'=>$item['id']]) . '"><i class="glyphicon glyphicon-pencil"></i></a></a>';
- 		$excluir= '<a href="' . $this->url('carrinho',['action'=>'excluir','id'=>$item['id']]) . '"><i class="glyphicon glyphicon-remove"></i></a>';
+ 		$editar= '<a href="' . $this->url('carrinho',['action'=>'editar','id'=>$item['id']]) . ' "data-toggle="tooltip" data-placement="right auto" title="editar quantidade"><i class="glyphicon glyphicon-pencil"></i></a></a>';
+ 		$excluir= '<a href="' . $this->url('carrinho',['action'=>'excluir','id'=>$item['id']]) . ' "data-toggle="tooltip" data-placement="right auto" title="retirar produto do carrinho"><i class="glyphicon glyphicon-remove"></i></a>';
  		
  		$somaTotal += $valorTotal;
 
@@ -117,3 +118,4 @@ echo '<tr>';
 <a href="<?=$this->url('home')?>" class="btn-floating btn-lg btn-default"><i class="glyphicon glyphicon-home"></i></a>
 <a href="<?=$this->url('carrinho',['action'=>'fechar'])?> "class="btn-floating btn-lg btn-default"><i class="glyphicon glyphicon-usd"></i></a>
 </div>
+</body>

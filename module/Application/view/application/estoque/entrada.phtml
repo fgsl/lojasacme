@@ -1,20 +1,51 @@
-<center><h2 id="warning"><?=$this->mensagem?></h2>
-<form action="<?= $this->url('estoque',['action'=>'adicionar'])?>" method="post">
 <?php
-if (isset($this->produtoSelecionado['id']))
-{
-echo '<b>Produto: '.$this->escapeHtml($this->produtoSelecionado['nome']).'</b><br/>';
-echo '<b>'.$this->escapeHtml('Preço: ').$this->produtoSelecionado['valor'].'</b><br/>';
-echo '<b>'.$this->escapeHtml('Posição de estoque:').$this->produtoSelecionado['quantidade'].'</b><br/>';
+if(trim($this->mensagem) !==""){
+?>
+<br>
+<div class="row">
+<div class="col-lg-1"></div>
+    <div class="col-lg-10 alert alert-danger alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    	<h3 id="danger"><?=$this->mensagem?></h3>
+    </div>
+</div>
+<?php
 }
 ?>
+<div class="container-fluid">
+<form class="form-inline" action="<?=$this->url('estoque',['action'=>'adicionar'])?>" method="post">
 
-Quantidade:
-<input name="quantidade" value="" id="quantidade" type="text">
-<input name="id" value="<?=$this->produtoSelecionado['id']?>" id="id" type="hidden">
-<input type="submit" name="darentrada" value="Dar entrada"/>
+<div class="col-lg-offset-1 col-lg-7">
+	<div id="imgbg">
+		<img src="../../img/produtos/produto.png" class="img-responsive" alt="imagem indisponivel" id="imagem">
+	</div>
+</div>
+<div class="col-lg-4">
+    <div class="row">
+        <?php
+        if (isset($this->produtoSelecionado['id']))
+        {
+        echo '<h2><b>Produto: '.$this->escapeHtml($this->produtoSelecionado['nome']).'</b></h2><hr>';
+        echo '<h2><b>'.$this->escapeHtml('Preço:  R$').$this->produtoSelecionado['valor'].'</b></h2>';
+        echo '<hr><h3><b>'.$this->escapeHtml('Posição de estoque:').$this->produtoSelecionado['quantidade'].'</b></h3>';
+        }
+        ?>
+<div class="form-group">
+    <label for="quantidade">quantidade:</label>
+    <input type="number" value="1" min="1" class="form-control" id="quantidade" name="quantidade">
+</div>
+<div class="form-group">
+    <input type="hidden" class="form-control" id="id" name="id" value="<?=$this->produtoSelecionado['id']?>">
+    </div><br><br>
+<div class="form-group">
+	<button type="submit" class="btn btn-default" name="darentrada">Dar entrada</button>
+</div>        
+     
+        
+    </div>
+</div>
 </form>
-</center>
-
-<a href="<?= $this->url('estoque',['action'=>'manter-produto'])?>">Inventário</a>
-</center>
+<div class="row col-lg-12">
+<a href="<?= $this->url('estoque',['action'=>'manter-produto'])?>" class="btn-floating btn-lg btn-default"><i class="glyphicon glyphicon-share-alt"></i></a>
+</div>
+</div>

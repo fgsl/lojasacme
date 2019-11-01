@@ -12,6 +12,7 @@
 namespace Application\Model;
 
 use Zend\Db\TableGateway\TableGatewayInterface;
+use Zend\Db\Sql\Select;
 
 class ProdutoTable
 {
@@ -42,6 +43,17 @@ class ProdutoTable
     public function delete($where)
     {
         return $this->tableGateway->delete($where);
+    }
+    
+    public function getLastCodigo()
+    {
+        $select = new Select();
+        $select->from('produtos')
+        ->columns([ 'codigo' => new \Zend\Db\Sql\Expression('max(id)')]);
+        
+        $resultSet = $this->tableGateway->selectWith($select);
+
+        return $resultSet->current()->codigo;
     }
 
     /**

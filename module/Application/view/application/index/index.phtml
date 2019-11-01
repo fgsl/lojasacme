@@ -36,11 +36,12 @@
 </nav>
 
 <form action="<?=$this->url('application')?>" method="post">
-	<table id="lista_de_produtos" class="table">
-		<?=$this->partialLoop('produtos.phtml',$this->produtos)?>
-	</table>  
-</form>
+	<div class="jumbotron container">
+		<center><?=$this->partialLoop('produtos.phtml',$this->produtos)?></center>
+	</div><br>
+</form><br>
 
-<!-- ir pro carrinho sem comprar nenhum produto
+<!-- 
+ir pro carrinho sem comprar nenhum produto
 <a id="botao_comprar" href="<?=$this->url('carrinho',['action'=>'comprar'])?>">Comprar</a>
 -->

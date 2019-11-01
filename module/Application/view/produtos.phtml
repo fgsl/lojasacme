@@ -1,21 +1,24 @@
 <?php
-if ($this->partialLoop()->getPartialCounter() % 2 !== 0):
+if ($this->partialLoop()->getPartialCounter() == 3):
 ?>
-<tr>
+<div class="row">
 <?php
 endif;
 ?>
-<td id="produto">
-<?=htmlentities($this->nome,0,'iso-8859-1')?><br/>
-<?=$this->escapeHtml($this->valor)?><br/>
-<?=$this->escapeHtml('Quantidade disponível: ')?>
-<?=$this->escapeHtml($this->quantidade)?><br/>
-<a class="btn btn-default" id="botao_comprar" href="<?=$this->url('carrinho',['action'=>'comprar','id'=>$this->id])?>">Comprar</a>
-</td>
+<div class="col-lg-4 card" id="card">
+  <img src="img/produtos/produto.png" id="imagem" class="card-img-top" style="width: 18rem;" alt="imagem não disponivel">
+  <div class="card-body">
+    <h3 class="card-title"><?=substr(htmlentities($this->nome,0,'iso-8859-1'), 0, 32)?><br/></h3>
+    <p class="card-text"><?=$this->escapeHtml('Quantidade disponível: ')?>
+    <?=$this->escapeHtml($this->quantidade)?></p>
+    <p class="card-text">R$<?=$this->escapeHtml($this->valor)?></p>
+    <a href="<?=$this->url('carrinho',['action'=>'comprar','id'=>$this->id])?>" class="btn btn-default">Comprar</a>
+  </div>
+</div>
 <?php
-if ($this->partialLoop()->getPartialCounter() % 2 == 0):
+if ($this->partialLoop()->getPartialCounter() == 3):
 ?>
-</tr>
+</div>
 <?php
 endif;
 ?>

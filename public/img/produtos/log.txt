@@ -1,0 +1,12 @@
+Array
+(
+    [img] => Array
+        (
+            [name] => produto2.png
+            [type] => 
+            [tmp_name] => 
+            [error] => 2
+            [size] => 0
+        )
+
+)

@@ -1,3 +1,8 @@
+<html lang="en">
+    <head><title>acessar</title></head>
+        <meta charset="UTF-8">
+        
+<body>
 <?php
 if($this->mensagem !==""){
 ?>
@@ -9,11 +14,10 @@ if($this->mensagem !==""){
     	<h3 id="danger"><?=$this->mensagem?></h3>
     </div>
 </div>
-
 <?php
 }
 ?>
-<div class="container">
+<div class="container" id="conteudo">
   <h2>acessar conta:</h2>
   <form class="form-horizontal" action="<?=$this->url('application',['action'=>'login'])?>" method="post">
     <div class="form-group">
@@ -43,3 +47,6 @@ if($this->mensagem !==""){
 <a href="<?=$this->url('home')?>" class="btn-floating btn-lg btn-default"><i class="glyphicon glyphicon-share-alt"></i></a>  
 <a href="<?=$this->url('carrinho')?>" class="btn-floating btn-lg btn-default"><i class="glyphicon glyphicon-shopping-cart"></i></a>
 </div>
+<br>
+</body>
+</html>

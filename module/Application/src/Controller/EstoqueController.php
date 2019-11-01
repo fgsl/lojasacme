@@ -58,7 +58,7 @@ public function loginAction()
     $cpf = (string)$this->request->getPost('cpf');
     $senha = (string)$this->request->getPost('senha');
     
-    if($cpf == null && $senha == null){
+    if($cpf == null || $senha == null || !is_numeric($cpf)){
         $sessionManager->getStorage()->mensagem = 'Dados inválidos';
         return $this->redirect()->toRoute('estoque');
     }
@@ -172,9 +172,13 @@ public function nomeAction()
 
 public function precoAction()
 {
+    $sessionManager = $this->container->get(SessionManager::class);
     $viewModel = new ViewModel();
     $produtoSelecionado = $this->selecionarProduto();
     $viewModel->produtoSelecionado = $produtoSelecionado;
+    $viewModel->mensagem = $sessionManager->getStorage()->mensagem;
+    $viewModel->storage = $sessionManager->getStorage();
+    unset($sessionManager->getStorage()->mensagem);
     return $viewModel;
 }
 
@@ -189,7 +193,7 @@ public function adicionarAction()
         if($quantidade <= 0 || $quantidade == null)
         {
             $sessionManager->getStorage()->mensagem = 'valor inválido';
-            return $this->redirect()->toRoute('estoque',['action' => 'baixa','id' => $id]);
+            return $this->redirect()->toRoute('estoque',['action' => 'entrada','id' => $id]);
         }
         $table = $this->container->get('ProdutoTable');
         $produto = $table->getOne($id)->toArray();
@@ -235,10 +239,10 @@ public function alterarPrecoAction()
     $id = (int)$this->request->getPost('id');
     $preco = (string)$this->request->getPost('preco');
 
-    if (is_null($id) || $preco == null || $preco <= 0)
+    if (is_null($id) || $preco == null || $preco <= 0 || !is_numeric($preco))
     {
         $sessionManager->getStorage()->mensagem = 'valor inválido';
-        return $this->redirect()->toRoute('estoque',['action' => 'baixa','id' => $id]);
+        return $this->redirect()->toRoute('estoque',['action' => 'preco','id' => $id]);
     }
     else
     {
@@ -296,7 +300,7 @@ public function excluirAction()
         }
     }
     return $this->redirect()->toRoute('estoque',['action'=>'manter-produto']);
-}
+} 
 
 /* Inclusão de produto */
 public function incluirAction()
@@ -329,7 +333,11 @@ public function incluirProdutoAction()
         $novoProduto = new Produto();
         $novoProduto->exchangeArray($dados);
         $table->insert($novoProduto);
+        
+        $codigo = $table->getLastCodigo();
+        file_put_contents(PUBLIC_DIR . '/img/produtos/' . $codigo . '.png', file_get_contents($_FILES['img']['tmp_name'] . '/'. $_FILES['img']['name']));
     }
+    file_put_contents(PUBLIC_DIR . '/img/produtos/log.txt', print_r($_FILES,true));
     return $this->redirect()->toRoute('estoque',['action'=>'manter-produto']);
 } 	
 

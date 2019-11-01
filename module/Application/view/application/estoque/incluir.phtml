@@ -4,12 +4,36 @@ use Zend\View\Helper\HeadScript;
 $content = file_get_contents(__DIR__ . '/incluir.js');
 $this->headScript(HeadScript::SCRIPT)->appendScript($content);
 ?>
-<center>
-<h2 id="warning"><?=$this->mensagem?></h2>
-<form action="<?= $this->url('estoque',['action'=>'incluir-produto']) ?>" method="post">
-Nome:
-<input name="nome" value="" id="nome" type="text" onkeypress="validarTamanhoDoNome()">
-<input type="submit" name="incluir" value="Incluir"/>
-</form>
-</center>
-<a href="<?= $this->url('estoque',['action'=>'manter-produto']) ?>">Inventário</a>
+
+<?php
+if(trim($this->mensagem) !==""){
+?>
+<br>
+<div class="row">
+<div class="col-lg-1"></div>
+    <div class="col-lg-10 alert alert-danger alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    	<h3 id="danger"><?=$this->mensagem?></h3>
+    </div>
+</div>
+<?php
+}
+?>
+
+<div class="container">
+<h2>Inserir novo produto:</h2>
+<form enctype="multipart/form-data" class="form-inline" action="<?= $this->url('estoque',['action'=>'incluir-produto']) ?>" method="post">
+<div class="form-group">
+    <label for="nome">Nome:</label>
+    <input name="nome" value="" class="form-control" id="nome" type="text" onkeypress="validarTamanhoDoNome()">
+</div>
+<div><br>
+	<input type="hidden" name="MAX_FILE_SIZE" value="30000">
+    <input class="form-control" type="file" name="img" value="img"/>
+</div><br>
+<div class="form-group">
+    <input class="form-control" type="submit" name="incluir" value="Incluir"/>
+</div><br><br>
+</form><br>
+<a href="<?= $this->url('estoque',['action' => 'manter-produto'])?>" class="btn-floating btn-lg btn-default"><i class="glyphicon glyphicon-share-alt"></i></a>
+</div>

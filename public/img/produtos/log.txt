@@ -2,10 +2,10 @@ Array
 (
     [img] => Array
         (
-            [name] => produto2.png
+            [name] => 
             [type] => 
             [tmp_name] => 
-            [error] => 2
+            [error] => 4
             [size] => 0
         )
 

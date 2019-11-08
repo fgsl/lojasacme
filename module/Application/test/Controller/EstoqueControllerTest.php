@@ -29,7 +29,7 @@ class EstoqueControllerTest extends AbstractHttpControllerTestCase
         $this->assertTrue($this->getApplication()
             ->getServiceManager()
             ->has(SessionManager::class));
-        $this->dispatch('/estoque/Default', 'GET');
+        $this->dispatch('/estoque', 'GET');
         $this->assertResponseStatusCode(200);
         $this->assertModuleName('application');
         $this->assertControllerName(EstoqueController::class);

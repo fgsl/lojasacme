@@ -6,7 +6,13 @@ if ($this->partialLoop()->getPartialCounter() == 3):
 endif;
 ?>
 <div class="col-lg-4 card" id="card">
-  <img src="img/produtos/produto.png" id="imagem" class="card-img-top" style="width: 18rem;" alt="imagem não disponivel">
+<?php
+$img = file_get_contents(__DIR__ . '/../../../public/img/produtos/' . $this->id . ".base64");
+?>
+
+<a href="<?= $this->url('carrinho',['action'=>'detalhes','id'=> $this->id])?>">
+<img src="<?= $img ?>" class="card-img-top" style="height: 18rem;" id="cardimg" alt="imagem não disponivel">
+</a>
   <div class="card-body">
     <h3 class="card-title"><?=substr(htmlentities($this->nome,0,'iso-8859-1'), 0, 32)?><br/></h3>
     <p class="card-text"><?=$this->escapeHtml('Quantidade disponível: ')?>

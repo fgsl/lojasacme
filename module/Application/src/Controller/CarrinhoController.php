@@ -7,6 +7,7 @@ use Zend\Session\SessionManager;
 use Zend\View\Model\ViewModel;
 use Application\Model\Pedido;
 use Application\Model\Item;
+use Zend\Db\Sql\Where;
 
 class CarrinhoController extends AbstractActionController
 {
@@ -172,5 +173,34 @@ class CarrinhoController extends AbstractActionController
         unset($sessionManager->getStorage()->carrinho);
         $mensagem = "O pedido $codigo pago com {$formasPagamento[$formaEscolhida]} foi finalizado com sucesso";
         return new ViewModel(['mensagem' => $mensagem]);
+    }
+    
+    public function detalhesAction()
+    {
+        $codigo = $this->params('id');
+        
+        $produtoTable = $this->container->get('ProdutoTable');
+        $item = $produtoTable->getOne($codigo)->toArray();
+        //[id] => 112 [nome] => ocarina do tempo [valor] => 45 [quantidade] => 100  
+        $sessionManager = $this->container->get(SessionManager::class);
+        
+        $lista = [
+            $codigo - 3,
+            $codigo - 2,
+            $codigo - 1,
+            $codigo + 1,
+            $codigo + 2,
+            $codigo + 3,
+        ];
+        
+        $where = new Where();
+        $where->in("id", $lista);
+        
+        $outrosProdutos = $produtoTable->getAll($where)->toArray();
+        
+        //echo print_r($outrosProdutos);exit;
+        
+        $viewModel = new ViewModel(['item' => $item, 'produtos' => $outrosProdutos]); 
+        return $viewModel;
     }
 }

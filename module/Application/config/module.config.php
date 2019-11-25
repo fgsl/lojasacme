@@ -24,14 +24,14 @@ return [
                     'route'    => '/',
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
-                        'action'     => 'index',
-                    ],
-                ],
+                        'action' => 'index'
+                    ]
+                ]
             ],
             'application' => [
-                'type'    => Segment::class,
+                'type' => Segment::class,
                 'options' => [
-                    'route'    => '/application[/:action]',
+                    'route' => '/application[/:action]',
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
                         'action'     => 'index',
@@ -54,7 +54,6 @@ return [
                     'route'    => '/estoque[/:action[/:id]]',
                     'defaults' => [
                         'controller' => EstoqueController::class,
-                        /* 'controller' => Controller\EstoqueController::class, */
                         'action'     => 'index',
                     ],
                 ],

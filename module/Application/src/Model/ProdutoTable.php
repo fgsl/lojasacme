@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Modelo da classe ProdutoTable
  * @filesource
@@ -53,7 +52,7 @@ class ProdutoTable
         
         $resultSet = $this->tableGateway->selectWith($select);
 
-        return $resultSet->current()->codigo;
+        return $resultSet->current()->codigo;        
     }
 
     /**

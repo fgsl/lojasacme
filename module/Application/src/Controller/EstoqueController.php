@@ -317,6 +317,7 @@ public function incluirProdutoAction()
 {
     $sessionManager = $this->container->get(SessionManager::class);
     $nome = (string)$this->request->getPost('nome');
+    $imgb64 = (string)$this->request->getPost('imgb64');
 
     if (!isset($nome) || $nome == null)
     {    
@@ -335,8 +336,7 @@ public function incluirProdutoAction()
         $table->insert($novoProduto);
         
         $codigo = $table->getLastCodigo();
-        file_put_contents(PUBLIC_DIR . '/img/produtos/' . $codigo . '.png', file_get_contents($_FILES['img']['tmp_name'] . '/'. $_FILES['img']['name']));
-        
+        file_put_contents(PUBLIC_DIR . '/img/produtos/' . $codigo . '.base64', $imgb64);
     }
     //file_put_contents(PUBLIC_DIR . '/img/produtos/log.txt', print_r($_FILES,true));
     return $this->redirect()->toRoute('estoque',['action'=>'manter-produto']);

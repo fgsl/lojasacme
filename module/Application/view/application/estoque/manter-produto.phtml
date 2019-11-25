@@ -69,6 +69,29 @@ foreach ($this->itens as $item)
 }
 ?> 	
 
+<div class="container">
+<a onclick="topFunction()" id="myBtn" title="voltar ao topo" class="btn-floating btn-lg btn-default"><i class="glyphicon glyphicon-chevron-up"></i></a>
+</div>
+
+<script>
+var mybutton = document.getElementById("myBtn");
+
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+</script>
+
 </table><br>
 	<div>
         <a href="<?= $this->url('estoque',['action' => 'logout'])?>" class="btn-floating btn-lg btn-default"><i class="glyphicon glyphicon-share-alt"></i></a>

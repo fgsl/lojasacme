@@ -83,7 +83,7 @@ public function loginAction()
         $sessionManager->getStorage()->estoquista = [];
         $sessionManager->getStorage()->estoquista ['cpf'] = $resultado->getIdentity();
         return $this->redirect()->toRoute('estoque',['action' => 'manter-produto']);
-    } else {
+    }  {
         $sessionManager->getStorage()->mensagem = 'Dados inválidos';
         return $this->redirect()->toRoute('estoque');
     }
@@ -105,8 +105,8 @@ public function manterProdutoAction()
     
     if (!isset($sessionManager->getStorage()->estoquista))
     { 
-        return $this->redirect()->toRoute('estoque');}
-    else
+        return $this->redirect()->toRoute('estoque');
+    }
     {
         $estoquista = $sessionManager->getStorage()->estoquista;
         $cpf = $estoquista['cpf'];
@@ -244,7 +244,6 @@ public function alterarPrecoAction()
         $sessionManager->getStorage()->mensagem = 'valor inválido';
         return $this->redirect()->toRoute('estoque',['action' => 'preco','id' => $id]);
     }
-    else
     {
         $table = $this->container->get('ProdutoTable');
         $dados = array(
@@ -268,7 +267,7 @@ public function alterarNomeAction()
      {
          $sessionManager->getStorage()->mensagem = 'nome inválido';
          return $this->redirect()->toRoute('estoque',['action'=>'nome','id'=>$id]);
-     }else{
+     }{
          $table = $this->container->get('ProdutoTable');
          $dados = array('nome' => $nome);
          $produto = new Produto();
@@ -324,7 +323,7 @@ public function incluirProdutoAction()
     $sessionManager->getStorage()->mensagem = 'nome inválido';
     return $this->redirect()->toRoute('estoque',['action'=>'incluir']);
     }
-    else{
+    {
         $dados = array(	
             'nome'=> $nome,
             'quantidade'=> 0,

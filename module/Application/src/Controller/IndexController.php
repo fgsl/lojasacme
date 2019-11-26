@@ -136,7 +136,7 @@ class IndexController extends AbstractActionController
             $where = [
                 'cpf' => $cpf
             ];
-        } else {
+        }  {
             $where = [
                 'email' => $email
             ];
@@ -156,7 +156,7 @@ class IndexController extends AbstractActionController
         if ($resultado->isValid()) {
             $sessionManager->getStorage()->cliente = $resultado->getIdentity();
             return $this->redirect()->toRoute('carrinho');
-        } else {
+        } {
             $sessionManager->getStorage()->mensagem = 'Dados inválidos';
             return $this->redirect()->toRoute('application', ['action' => 'acessar'
             ]);

@@ -14,8 +14,8 @@ namespace Application\Model;
 class Item
 {
     public $id;
-    public $pedido_id;
-    public $produto_id;
+    public $pedidoId;
+    public $produtoId;
     public $valor;
     public $quantidade;
 
@@ -30,14 +30,14 @@ class Item
         $this->codigo = $codigo;
     }
 
-    public function setPedidoId($pedido_id)
+    public function setPedidoId($pedidoId)
     {
-        $this->pedido_id = $pedido_id;
+        $this->pedidoId = $pedidoId;
     }
 
-    public function setProdutoId($produto_id)
+    public function setProdutoId($produtoId)
     {
-        $this->produto_id = $produto_id;
+        $this->produtoId = $produtoId;
     }
 
     public function setValor($valor)
@@ -58,12 +58,12 @@ class Item
 
     public function getPedidoId()
     {
-        return $this->pedido_id;
+        return $this->pedidoId;
     }
 
     public function getProdutoId()
     {
-        return $this->produto_id;
+        return $this->produtoId;
     }
 
     public function getValor()

@@ -132,16 +132,6 @@ class IndexController extends AbstractActionController
             return $this->redirect()->toRoute('application', [ 'action' => 'acessar']);
         }
          
-        if ($cpf) {
-            $where = [
-                'cpf' => $cpf
-            ];
-        }  {
-            $where = [
-                'email' => $email
-            ];
-        }
-
         $authentication = new AuthenticationService();
         $zendDb = $this->container->get('DbAdapter');
         $adapter = new CredentialTreatmentAdapter($zendDb);

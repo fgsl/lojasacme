@@ -34,7 +34,7 @@ class UsuarioTable {
 		return $this->tableGateway->update($set, $where);	
 	}
 	
-	public function delete($usuario, $where) {
+	public function delete($where) {
 		return $this->tableGateway->delete($where);
 	}
 	

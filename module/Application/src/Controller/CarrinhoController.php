@@ -123,9 +123,9 @@ class CarrinhoController extends AbstractActionController
             return $this->redirect()->toRoute('carrinho');
         }
         $quantidade = (int)$quantidade;
-        foreach ($sessionManager->getStorage()->carrinho as $chave => $produto) {
+        foreach ($sessionManager->getStorage()->carrinho as $chave => $produto){
             if ($chave == $id) {                
-                    $sessionManager->getStorage()->carrinho[$chave]['quantidade'] = $quantidade;
+                $sessionManager->getStorage()->carrinho[$chave]['quantidade'] = $quantidade;
                     break;
                 }
         }
@@ -181,8 +181,6 @@ class CarrinhoController extends AbstractActionController
         
         $produtoTable = $this->container->get('ProdutoTable');
         $item = $produtoTable->getOne($codigo)->toArray();
-        //[id] => 112 [nome] => ocarina do tempo [valor] => 45 [quantidade] => 100  
-        $sessionManager = $this->container->get(SessionManager::class);
         
         $lista = [
             $codigo - 3,

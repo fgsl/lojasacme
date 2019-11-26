@@ -13,10 +13,6 @@ class Produto {
 	public function getCodigo(){
 	    return $this->codigo;
 	}
-	public function setCodigo(){
-	    $this->codigo = $codigo;
-	}
- 	//getters
 	public function getId(){
 	    return $this->id;
 	}
@@ -30,8 +26,11 @@ class Produto {
 	    return $this->quantidade;
 	}
 	
-	//setters
-	
+	//setters	
+	public function setCodigo($codigo){
+	    $this->codigo = $codigo;
+	}
+
 	public function setId($id){
 	    $this->id = $id;
 	}

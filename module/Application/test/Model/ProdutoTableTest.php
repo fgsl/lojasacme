@@ -20,7 +20,6 @@ class ProdutoTableTest extends AbstractHttpControllerTestCase
     private $adapter;
     private $tableGateway;
     private $where;
-    private $container;
 
     public function setUp()
     {

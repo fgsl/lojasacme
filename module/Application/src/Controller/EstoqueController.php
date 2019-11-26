@@ -63,11 +63,6 @@ public function loginAction()
         return $this->redirect()->toRoute('estoque');
     }
     
-    if ($cpf) {
-        $where = [
-            'cpf' => $cpf
-        ];
-    }
     $authentication = new AuthenticationService();
     $zendDb = $this->container->get('DbAdapter');
     $adapter = new CredentialTreatmentAdapter($zendDb);

@@ -8,6 +8,8 @@ use Fgsl\Mock\Db\Adapter\Mock as Adapter;
 use Fgsl\Mock\Db\TableGateway\Mock as TableGateway;
 use Fgsl\Mock\Db\Adapter\Driver\Mock as Driver;
 use Zend\Db\Sql\Where;
+use Zend\Db\Sql\Select;
+use Fgsl\Mock\Db\Platform\Mock;
 
 class ProdutoTableTest extends AbstractHttpControllerTestCase
 {
@@ -32,7 +34,7 @@ class ProdutoTableTest extends AbstractHttpControllerTestCase
         $this->produtoTable = new ProdutoTable($this->tableGateway);
         $this->where = new Where();
     }
-
+    
     public function testToArray()
     {
         $this->assertContainsOnly('array', [
@@ -74,5 +76,21 @@ class ProdutoTableTest extends AbstractHttpControllerTestCase
     {
         $this->assertObjectHasAttribute("id", $this->produtoTable->getOne(1));
     }
+        
+/**
+ * TODO melhorar componente de Mock para emular o selectWith
+ *
+         
+    public function testGetLastCodigo()
+    {
+        $select = new Select();
+        $select->from('produtos')
+        ->columns([ 'codigo' => new \Zend\Db\Sql\Expression('max(id)')]);
+        
+        echo $select->getSqlString(new Mock());
+        
+        $this->assertEquals('integer',gettype($this->produtoTable->getLastCodigo()));
+    }
+**/        
 }
 ?>

@@ -9,7 +9,10 @@ class Produto {
 	public $valor;
 	public $quantidade;	 
 	
- 	//getters
+	//getters
+	public function getCodigo(){
+	    return $this->codigo;
+	}
 	public function getId(){
 	    return $this->id;
 	}
@@ -23,8 +26,11 @@ class Produto {
 	    return $this->quantidade;
 	}
 	
-	//setters
-	
+	//setters	
+	public function setCodigo($codigo){
+	    $this->codigo = $codigo;
+	}
+
 	public function setId($id){
 	    $this->id = $id;
 	}
@@ -39,6 +45,7 @@ class Produto {
 	}
 	
 public function exchangeArray(array $data) {
+        $this->codigo= (isset ( $data ['codigo'] ) ? $data ['codigo'] : null);
 		$this->id = (isset ( $data ['id'] ) ? $data ['id'] : null);
 		$this->nome = (isset ( $data ['nome'] ) ? $data ['nome'] : null);
 		$this->valor = (isset ( $data ['valor'] ) ? $data ['valor'] : null);
@@ -56,4 +63,4 @@ public function toArray() {
     return $array;
 }
 
-}   
+}

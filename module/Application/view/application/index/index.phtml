@@ -41,6 +41,29 @@
 	</div><br>
 </form><br>
 
+<div class="container">
+<a onclick="topFunction()" id="myBtn" title="voltar ao topo" class="btn-floating btn-lg btn-default"><i class="glyphicon glyphicon-chevron-up"></i></a>
+</div>
+
+<script>
+var mybutton = document.getElementById("myBtn");
+
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+</script>
+
 <!-- 
 ir pro carrinho sem comprar nenhum produto
 <a id="botao_comprar" href="<?=$this->url('carrinho',['action'=>'comprar'])?>">Comprar</a>

@@ -63,11 +63,6 @@ public function loginAction()
         return $this->redirect()->toRoute('estoque');
     }
     
-    if ($cpf) {
-        $where = [
-            'cpf' => $cpf
-        ];
-    }
     $authentication = new AuthenticationService();
     $zendDb = $this->container->get('DbAdapter');
     $adapter = new CredentialTreatmentAdapter($zendDb);
@@ -83,7 +78,7 @@ public function loginAction()
         $sessionManager->getStorage()->estoquista = [];
         $sessionManager->getStorage()->estoquista ['cpf'] = $resultado->getIdentity();
         return $this->redirect()->toRoute('estoque',['action' => 'manter-produto']);
-    } else {
+    }  {
         $sessionManager->getStorage()->mensagem = 'Dados inválidos';
         return $this->redirect()->toRoute('estoque');
     }
@@ -105,8 +100,8 @@ public function manterProdutoAction()
     
     if (!isset($sessionManager->getStorage()->estoquista))
     { 
-        return $this->redirect()->toRoute('estoque');}
-    else
+        return $this->redirect()->toRoute('estoque');
+    }
     {
         $estoquista = $sessionManager->getStorage()->estoquista;
         $cpf = $estoquista['cpf'];
@@ -244,7 +239,6 @@ public function alterarPrecoAction()
         $sessionManager->getStorage()->mensagem = 'valor inválido';
         return $this->redirect()->toRoute('estoque',['action' => 'preco','id' => $id]);
     }
-    else
     {
         $table = $this->container->get('ProdutoTable');
         $dados = array(
@@ -268,7 +262,7 @@ public function alterarNomeAction()
      {
          $sessionManager->getStorage()->mensagem = 'nome inválido';
          return $this->redirect()->toRoute('estoque',['action'=>'nome','id'=>$id]);
-     }else{
+     }{
          $table = $this->container->get('ProdutoTable');
          $dados = array('nome' => $nome);
          $produto = new Produto();
@@ -317,13 +311,14 @@ public function incluirProdutoAction()
 {
     $sessionManager = $this->container->get(SessionManager::class);
     $nome = (string)$this->request->getPost('nome');
+    $imgb64 = (string)$this->request->getPost('imgb64');
 
     if (!isset($nome) || $nome == null)
     {    
     $sessionManager->getStorage()->mensagem = 'nome inválido';
     return $this->redirect()->toRoute('estoque',['action'=>'incluir']);
     }
-    else{
+    {
         $dados = array(	
             'nome'=> $nome,
             'quantidade'=> 0,
@@ -335,8 +330,7 @@ public function incluirProdutoAction()
         $table->insert($novoProduto);
         
         $codigo = $table->getLastCodigo();
-        file_put_contents(PUBLIC_DIR . '/img/produtos/' . $codigo . '.png', file_get_contents($_FILES['img']['tmp_name'] . '/'. $_FILES['img']['name']));
-        
+        file_put_contents(PUBLIC_DIR . '/img/produtos/' . $codigo . '.base64', $imgb64);
     }
     //file_put_contents(PUBLIC_DIR . '/img/produtos/log.txt', print_r($_FILES,true));
     return $this->redirect()->toRoute('estoque',['action'=>'manter-produto']);

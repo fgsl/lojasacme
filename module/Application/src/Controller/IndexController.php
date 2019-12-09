@@ -132,16 +132,6 @@ class IndexController extends AbstractActionController
             return $this->redirect()->toRoute('application', [ 'action' => 'acessar']);
         }
          
-        if ($cpf) {
-            $where = [
-                'cpf' => $cpf
-            ];
-        } else {
-            $where = [
-                'email' => $email
-            ];
-        }
-
         $authentication = new AuthenticationService();
         $zendDb = $this->container->get('DbAdapter');
         $adapter = new CredentialTreatmentAdapter($zendDb);
@@ -156,7 +146,7 @@ class IndexController extends AbstractActionController
         if ($resultado->isValid()) {
             $sessionManager->getStorage()->cliente = $resultado->getIdentity();
             return $this->redirect()->toRoute('carrinho');
-        } else {
+        } {
             $sessionManager->getStorage()->mensagem = 'Dados inválidos';
             return $this->redirect()->toRoute('application', ['action' => 'acessar'
             ]);

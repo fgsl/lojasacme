@@ -14,7 +14,6 @@ use Zend\Session\SessionManager;
 
 class CarrinhoControllerTest extends AbstractHttpControllerTestCase
 {
-    private $carrinho;
     public function setUp()
     {
         // The module configuration should still be applicable for tests.

@@ -78,6 +78,11 @@ class Item
 
     public function toArray()
     {
-        return get_object_vars($this);
+        $attributes = get_object_vars($this);
+        $attributes['pedido_id'] = $attributes['pedidoId'];
+        $attributes['produto_id'] = $attributes['produtoId'];
+        unset($attributes['pedidoId']);
+        unset($attributes['produtoId']);
+        return $attributes;
     }
 }

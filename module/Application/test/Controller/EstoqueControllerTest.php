@@ -66,6 +66,7 @@ class EstoqueControllerTest extends AbstractHttpControllerTestCase
      *       $this->assertControllerClass('EstoqueController');
      *       }
      */
+    
     public function testManterProdutoAction()
     {
         $this->dispatch('/estoque/ManterProduto', 'GET');
@@ -75,23 +76,4 @@ class EstoqueControllerTest extends AbstractHttpControllerTestCase
         $this->assertControllerClass('EstoqueController');
     }
 
-    public function testBaixaAction()
-    {
-        $this->getApplication()->getServiceManager()->setFactory('ProdutoTable','ApplicationTest\Model\ProdutoTableMockFactory');
-        $this->dispatch('/estoque/Baixa', 'GET',['id' => 1]);
-        $this->assertResponseStatusCode(200);
-        $this->assertModuleName('application');
-        $this->assertControllerName(EstoqueController::class);
-        $this->assertControllerClass('EstoqueController');
-    }
-
-    public function testEntradaAction()
-    {
-        $this->getApplication()->getServiceManager()->setFactory('ProdutoTable','ApplicationTest\Model\ProdutoTableMockFactory');
-        $this->dispatch('/estoque/Entrada', 'GET');
-        $this->assertResponseStatusCode(200);
-        $this->assertModuleName('application');
-        $this->assertControllerName(EstoqueController::class);
-        $this->assertControllerClass('EstoqueController');
-    }
 }

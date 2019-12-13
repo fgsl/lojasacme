@@ -11,7 +11,7 @@ $img = file_get_contents(__DIR__ . '/../../../public/img/produtos/' . $this->id 
 ?>
 
 <a href="<?= $this->url('carrinho',['action'=>'detalhes','id'=> $this->id])?>">
-<img src="<?= $img ?>" class="card-img-top" style="height: 18rem;" id="cardimg" alt="imagem não disponivel">
+<img src="<?= $img ?>" class="card-img-top" id="cardimg" alt="imagem não disponivel">
 </a>
   <div class="card-body">
     <h3 class="card-title"><?=substr(htmlentities($this->nome,0,'iso-8859-1'), 0, 32)?><br/></h3>

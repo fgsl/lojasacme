@@ -1,87 +1,190 @@
-<div class="container-fluid">
 <?php
-if(trim($this->mensagem) !==""){
-?>
+if (trim($this->mensagem) !== "") {
+    ?>
 <br>
-<div class="row">
-<div class="col-lg-1"></div>
-    <div class="col-lg-10 alert alert-danger alert-dismissible">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    	<h3 id="danger"><?=$this->mensagem?></h3>
-    </div>
+<div
+	class="col-lg-10 col-lg-offset-1 alert alert-danger alert-dismissible">
+	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+	<h3 id="danger"><?=$this->mensagem?></h3>
 </div>
 <?php
 }
 ?>
 <h2>Estoquista: <?=$this->cpf?></h2>
-<table id="inventario" class="table table-hover text-center">
-<thead>
+<div>
+	<ul class="nav nav-tabs">
+		<li class="active"><a data-toggle="tab" href="#produtos">Produtos</a></li>
+		<li><a data-toggle="tab" href="#inserir">Inserir</a></li>
+		<li><a href="<?= $this->url('estoque',['action' => 'logout'])?>">logout</a></li>
+	</ul>
+
+	<div class="tab-content">
+		<div id="produtos" class="tab-pane fade in active">
+			<br>
+			<table class="table table-hover text-center" style="empty-cells: hide;">
+				<thead>
+				<tr>
+    <?php
+    $titulos = array(
+        'imagem',
+        'Código',
+        'Nome',
+        'Preço Unitário',
+        'Quantidade',
+        'entrada',
+        'baixa',
+        'alterar',
+        'Excluir'
+    );
+    foreach ($titulos as $titulo):
+        echo '<th class="text-center">' . $this->escapeHtml($titulo) . '</th>';
+    endforeach;
+    ?>
+    </tr>
+    </thead>
+    <?php
+
+    foreach ($this->itens as $item):
+        $codigo = $item['id'];
+
+        $nome = $item['nome'];
+
+        $quantidade = $item['quantidade'];
+
+        $preco = $item['valor'];
+
+        $excluir = '<a href="' . $this->url('estoque', ['action' => 'excluir','id' => $codigo]) . '" class="btn-floating btn-lg btn-warning" title="excluir produto" id="actBtn"><i class="glyphicon glyphicon-remove"></i></a>';
+
+        $entrada = '<a href="#" id="actBtn" class="btn-floating btn-lg btn-success" data-toggle="modal" data-target="#entrada' . $codigo . '" ><i class="glyphicon glyphicon-plus" title="dar entrada"></i></a>';
+        
+        $baixa = '<a href="#" id="actBtn" class="btn-floating btn-lg btn-danger" data-toggle="modal" data-target="#baixa' . $codigo . '"><i class="glyphicon glyphicon-minus" title="dar baixa"></i></a>';
+        
+        $alterar = '<a href="' . $this->url('estoque', ['action' => 'alterar-produto','id' => $codigo]) . '" id="actBtn" data-toggle="tooltip" data-placement="auto" title="alterar produto" class="btn-floating btn-lg btn-info"><i class="glyphicon glyphicon-wrench"></i></a>';
+
+
+        $imgName = __DIR__ . '/../../../../../public/img/produtos/' . $codigo . ".base64";
+        $img = '';
+        if (file_exists($imgName)) {
+            $imgb64 = file_get_contents(__DIR__ . '/../../../../../public/img/produtos/' . $codigo . ".base64");
+        }
+
+        $imgthumb = '<img src="' . $imgb64 . '" class="img-responsive" id="imgEstoque" alt="imagem não disponivel"/>';
+
+        $colunas = array(
+            $imgthumb,
+            $codigo,
+            $nome,
+            $preco,
+            $quantidade,
+            $entrada,
+            $baixa,
+            $alterar,
+            $excluir
+        );
+        echo '<tr>';
+
+        foreach ($colunas as $coluna):
+            echo '<td>';
+            echo $coluna;
+            echo '</td>';
+        endforeach;
+?>        
+      
+         <div class="modal fade" id="entrada<?= $codigo ?>" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <h2>entrada</h2>
+          <p>Quantidade: <?= $quantidade ?></p>
+          <form action="<?= $this->url('estoque',['action'=>'alterar','id' => $codigo])?>" method="post">
+              <input type="hidden" value="<?= $codigo?>" name="id">
+              <input type="hidden" value="<?= $preco?>" name="preco">
+              <input type="hidden" value="<?= $nome?>" name="nome">
+              <input type="hidden" value="<?= $quantidade?>" name="quantidade">
+              <input type="number" min="0" name="entrada">
+              <input type="submit" name="funcao" value="entrada">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="baixa<?= $codigo ?>" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <h2>entrada</h2>
+          <p>Quantidade: <?= $quantidade ?></p>
+          <form action="<?= $this->url('estoque',['action'=>'alterar','id' => $codigo])?>" method="post">
+              <input type="hidden" value="<?= $codigo?>" name="id">
+              <input type="hidden" value="<?= $preco?>" name="preco">
+              <input type="hidden" value="<?= $nome?>" name="nome">
+              <input type="hidden" value="<?= $quantidade?>" name="quantidade">
+              <input type="number" min="0" name="baixa">
+              <input type="submit" name="funcao" value="baixa">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</tr>    
 <?php
-$titulos = array('Código',
- 					'Nome',
- 					'Quantidade',
- 					'Preço Unitário',
- 					'Dar entrada',
- 					'Dar baixa',
- 					'Excluir');
-foreach ($titulos as $titulo)
-{
- 	echo '<th class="text-center">' . $this->escapeHtml($titulo) . '</th>';
-}
+endforeach;
+?> 	
+    </table>
+  </div>   
+    
+<div id="inserir" class="tab-pane fade">
+<div class="container">
+				<h2>Inserir novo produto:</h2>
+<?php
+use Zend\View\Helper\HeadScript;
+
+$content = file_get_contents(__DIR__ . '/incluir.js');
+$this->headScript(HeadScript::SCRIPT)->appendScript($content);
 ?>
 
-</thead>
-<?php
-$somaTotal = 0;
-foreach ($this->itens as $item)
-{
-    $codigo = $item['id'];
-    $nome = '<a href="' . $this->url('estoque',['action'=>'nome','id'=>$codigo]) . '" data-toggle="tooltip" data-placement="right auto" title="alterar nome">'.$item['nome'].'</a>';
+				<form enctype="multipart/form-data"	action="<?= $this->url('estoque',['action'=>'incluir-produto']) ?>" method="post">
+					<div class="form-group">
+						<input type="hidden" class="form-control" id="id" name="id"	value="<?=$this->produtoSelecionado['id']?>">
+					</div>
+					<div class="form-group col-lg-4">
+						<input type="file" id="files" name="files[]" /> 
+						<input type="hidden" name="imgb64" id="imgb64" />
+						<output id="list"></output>
+					</div>
 
-    $quantidade = (empty($item['quantidade']) ? '0' : $item['quantidade']);
-    
-    $preco ='<a href="' . $this->url('estoque',['action'=>'preco','id'=>$codigo]) . '" data-toggle="tooltip" data-placement="right auto" title="alterar preço"> <b>R$ </b>'.(empty($item['valor']) ? '0' : $item['valor']).'</a>';
-    
-    $entrada ='<a href="' . $this->url('estoque',['action'=>'entrada','id'=>$codigo]) . '" data-toggle="tooltip" data-placement="right auto" title="entrada do produto"><i class="glyphicon glyphicon-plus"></i></a>';
-    
-    $baixa ='<a	href="' . $this->url('estoque',['action'=>'baixa','id'=>$codigo]) . '" data-toggle="tooltip" data-placement="right auto" title="baixa do produto"><i class="glyphicon glyphicon-minus"></i></a>';
-    
-    $excluir = '<a href="' . $this->url('estoque',['action'=>'excluir','id'=>$codigo]) . '"  data-toggle="tooltip" data-placement="right auto" title="excluir produto"><i class="glyphicon glyphicon-remove"></i></a>';
-
-    $colunas = array(
-        $codigo,
-        $nome,
-        $quantidade,
-        $preco,
-        $entrada,
-        $baixa,
-        $excluir
-    );
-    echo '<tr>';
-
-    foreach ($colunas as $coluna) {
-        echo '<td>';
-        echo $coluna;
-        echo '</td>';
-    }
-
-    echo '</tr>';
-}
-?> 	
-
-<div class="container">
-<a onclick="topFunction()" id="myBtn" title="voltar ao topo" class="btn-floating btn-lg btn-default"><i class="glyphicon glyphicon-chevron-up"></i></a>
+					<div class="col-lg-4 col-lg-offset-4">
+						<div class="form-group col-lg-12">
+							<label for="nome">Nome:</label> <input name="nome" class="form-control" id="nome" type="text" onkeypress="validarTamanhoDoNome()">
+						</div>			
+						<div class="form-group col-lg-12">
+							<label for="quantidade">quantidade:</label> <input type="number" value="1" min="1" class="form-control" name="quantidade" id="quantidade">
+						</div>
+						<div class="form-group col-lg-12">
+							<label for="preco">Preço:</label> <input class="form-control" name="preco" value="<?=$this->escapeHtml($this->produtoSelecionado['valor'])?>" id="preco" type="text" required>
+						</div>
+						<div class="col-lg-4">
+							<input class="form-control" type="submit" name="incluir" value="Incluir" onkeypress="submitImg()" />
+						</div>
+					</div>
+				</form>
+			</div>
+	</div>
+</div>
 </div>
 
+<a onclick="topFunction()" id="myBtn" title="voltar ao topo" class="btn-floating btn-lg btn-default">
+	<i class="glyphicon glyphicon-chevron-up"></i>
+</a>
 <script>
 var mybutton = document.getElementById("myBtn");
 
-window.onscroll = function() {scrollFunction()};
+window.onscroll = function(){scrollFunction()};
 
 function scrollFunction() {
   if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
     mybutton.style.display = "block";
-  } else {
+  } else {            
     mybutton.style.display = "none";
   }
 }
@@ -91,11 +194,5 @@ function topFunction() {
   document.documentElement.scrollTop = 0;
 }
 </script>
-
-</table><br>
-	<div>
-        <a href="<?= $this->url('estoque',['action' => 'logout'])?>" class="btn-floating btn-lg btn-default"><i class="glyphicon glyphicon-share-alt"></i></a>
-        <a href="<?= $this->url('estoque',['action' => 'incluir'])?>" class="btn-floating btn-lg btn-default"><i class="glyphicon glyphicon-plus-sign"></i></a>
-    </div>
-<br><br><br><br>
-</div>
+<br>
+<br>

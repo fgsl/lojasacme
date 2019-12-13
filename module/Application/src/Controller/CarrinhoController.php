@@ -25,7 +25,7 @@ class CarrinhoController extends AbstractActionController
         $sessionManager->start();
     }
 
-    /* Página do carrinho de compras */
+    // Página do carrinho de compras
     public function comprarAction()
     {
         $sessionManager = $this->container->get(SessionManager::class);
@@ -110,7 +110,7 @@ class CarrinhoController extends AbstractActionController
 
     public function alterarAction()
     {
-        /* Alteração de quantidade de um item do carrinho */
+        // Alteração de quantidade de um item do carrinho
         $sessionManager = $this->container->get(SessionManager::class);
         $id = (int) $this->request->getPost('id');
 
@@ -132,7 +132,7 @@ class CarrinhoController extends AbstractActionController
         return $this->redirect()->toRoute('carrinho');
     }
 
-    /* Fechamento da compra */
+    // Fechamento da compra
     public function fecharAction()
     {        
         $sessionManager = $this->container->get(SessionManager::class);
@@ -145,7 +145,7 @@ class CarrinhoController extends AbstractActionController
         return new ViewModel();
     }  
 
-    /* Grava o pedido de compra */
+    // Grava o pedido de compra
     public function gravarCompraAction()
     {
         $sessionManager = $this->container->get(SessionManager::class);    
@@ -195,8 +195,6 @@ class CarrinhoController extends AbstractActionController
         $where->in("id", $lista);
         
         $outrosProdutos = $produtoTable->getAll($where)->toArray();
-        
-        //echo print_r($outrosProdutos);exit;
         
         $viewModel = new ViewModel(['item' => $item, 'produtos' => $outrosProdutos]); 
         return $viewModel;

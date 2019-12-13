@@ -69,7 +69,7 @@ class IndexController extends AbstractActionController
         return $viewModel;
     }
 
-    /* Persistência dos dados do cliente */
+    // Persistência dos dados do cliente
     public function gravarClienteAction()
     {
         $sessionManager = $this->container->get(SessionManager::class);
@@ -118,7 +118,7 @@ class IndexController extends AbstractActionController
         ]);
     }
 
-    /* Efetua o login do cliente */
+    // Efetua o login do cliente
     public function loginAction()
     {
         $sessionManager = $this->container->get(SessionManager::class);
@@ -153,7 +153,7 @@ class IndexController extends AbstractActionController
         }
     }
 
-    /* Identificação do cliente */
+    // Identificação do cliente
     public function acessarAction()
     {
         $sessionManager = $this->container->get(SessionManager::class);
@@ -168,7 +168,7 @@ class IndexController extends AbstractActionController
         return $viewModel;
     }
 
-    /* Encerra a sessão do cliente, destruindo o carrinho */
+    // Encerra a sessão do cliente, destruindo o carrinho
     public function logoutAction()
     {
         $sessionManager = $this->container->get(SessionManager::class);             

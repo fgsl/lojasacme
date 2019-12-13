@@ -71,8 +71,8 @@ class ItemTableTest extends AbstractHttpControllerTestCase
     public function testGetOne()
     {
         $this->assertObjectHasAttribute("id", $this->itemTable->getOne(1));
-        $this->assertObjectHasAttribute("pedido_id", $this->itemTable->getOne(1));
-        $this->assertObjectHasAttribute("produto_id", $this->itemTable->getOne(1));
+        $this->assertObjectHasAttribute("pedidoId", $this->itemTable->getOne(1));
+        $this->assertObjectHasAttribute("produtoId", $this->itemTable->getOne(1));
         $this->assertObjectHasAttribute("quantidade", $this->itemTable->getOne(1));
         $this->assertObjectHasAttribute("valor", $this->itemTable->getOne(1));
     }

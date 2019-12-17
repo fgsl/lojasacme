@@ -14,7 +14,7 @@ use Zend\Session\SessionManager;
 class EstoqueControllerTest extends AbstractHttpControllerTestCase
 {
 
-    public function setUp()
+    public function setUp():void
     {
         // The module configuration should still be applicable for tests.
         // You can override configuration here with test case specific values,

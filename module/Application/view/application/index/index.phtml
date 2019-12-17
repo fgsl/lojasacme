@@ -18,7 +18,7 @@
         {
         ?>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="<?= $this->url('application',['action' => 'acessar']) ?>" >Acessar</a>&nbsp</li>
+      <li><a href="<?= $this->url('application',['action' => 'acessar']) ?>" >Acessar</a></li>
       <li><a href="<?= $this->url('application',['action' => 'cadastrar']) ?>" >Cadastrar</a></li>
     </ul>
     <?php
@@ -36,8 +36,8 @@
 </nav>
 
 <form action="<?=$this->url('application')?>" method="post">
-	<div class="jumbotron container">
-		<center><?=$this->partialLoop('produtos.phtml',$this->produtos)?></center>
+	<div class="jumbotron container" style="margin: auto;">
+		<?=$this->partialLoop('produtos.phtml',$this->produtos)?>
 	</div><br>
 </form><br>
 

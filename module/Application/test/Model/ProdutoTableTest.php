@@ -21,7 +21,7 @@ class ProdutoTableTest extends AbstractHttpControllerTestCase
     private $tableGateway;
     private $where;
 
-    public function setUp()
+    public function setUp():void
     {
         $this->produto = new Produto();
         $this->driver = new Driver();

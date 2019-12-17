@@ -6,3 +6,4 @@ data/cache/
 vendor/
 local.php
 config/development.config.php
+.phpunit.result.cache

@@ -1,6 +1,12 @@
 <?php
 use Zend\Session\SessionManager;
 use Zend\Session\Service\SessionManagerFactory;
+use Zend\Session\Service\SessionConfigFactory;
+use Zend\Session\Config\ConfigInterface;
+use Zend\Session\Config\SessionConfig;
+use Zend\Session\Storage\ArrayStorage;
+use Zend\Session\Storage\SessionArrayStorage;
+use Zend\Session\Storage\SessionStorage;
 
 /**
  * Global Configuration Override
@@ -19,7 +25,20 @@ return [
     'service_manager' => [
         'factories' => [
             'DbAdapter' => 'Zend\Db\Adapter\AdapterServiceFactory',
-            SessionManager::class => SessionManagerFactory::class
-	]
-    ]	
+            SessionManager::class => SessionManagerFactory::class,
+            ConfigInterface::class => SessionConfigFactory::class
+	   ]
+    ],
+    'session_manager' => [
+        'config' => [
+            'class' => SessionConfig::class,
+            'options' => [
+                'name' => 'myapp',
+            ],
+        ],
+	],
+	'session_config' => [],
+    'session_storage' => [
+        'type' => SessionArrayStorage::class
+    ]
 ];

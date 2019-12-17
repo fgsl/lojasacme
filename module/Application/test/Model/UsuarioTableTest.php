@@ -20,7 +20,8 @@ private $tableGateway;
 private $usuarioTable;
 private $where;
 
-public function setUp(){
+public function setUp():void
+{
 	$this->usuario = new Usuario();
 	$this->driver = new Driver();
 	$this->adapter = new Adapter($this->driver);

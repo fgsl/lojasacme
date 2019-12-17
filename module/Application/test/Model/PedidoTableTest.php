@@ -16,7 +16,7 @@ class PedidoTableTest extends AbstractHttpControllerTestCase
     private $tableGateway;
     private $where;
 
-    public function setUp()
+    public function setUp():void
     {
         $this->pedido = new Pedido();
         $this->driver = new Driver();

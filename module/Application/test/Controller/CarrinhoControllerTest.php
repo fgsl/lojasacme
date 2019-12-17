@@ -13,13 +13,14 @@ use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
 
 class CarrinhoControllerTest extends AbstractHttpControllerTestCase
 {
-    public function setUp()
+    public function setUp():void
     {
         // The module configuration should still be applicable for tests.
         // You can override configuration here with test case specific values,
         // such as sample view templates, path stacks, module_listener_options,
         // etc.
         $this->setApplicationConfig(include __DIR__ . '/../../../../config/mock.config.php');
+        $config = $this->getApplicationConfig();
         parent::setUp();
     }
 

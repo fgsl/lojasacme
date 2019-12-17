@@ -1,6 +1,11 @@
 <?php
 use Zend\Session\SessionManager;
 use Zend\Session\Service\SessionManagerFactory;
+use Zend\Session\Config\ConfigInterface;
+use Zend\Session\Config\SessionConfig;
+use Zend\Session\Service\SessionConfigFactory;
+use Zend\Session\Storage\SessionArrayStorage;
+use Fgsl\Mock\Db\Adapter\Mock;
 
 /**
  * Global Configuration Override
@@ -16,17 +21,25 @@ use Zend\Session\Service\SessionManagerFactory;
 
 return [
     // ...
-    'db' => [
-    		'driver' => 'PDO',
-    		'dsn' => 'mysql:host=localhost;port=5432;dbname=acme'    		
+    'service_manager' => [
+        'factories' => [
+            'DbAdapter' => function(){
+                return new Mock();
+            },
+            SessionManager::class => SessionManagerFactory::class,
+            ConfigInterface::class => SessionConfigFactory::class
+	   ]
     ],
     'session_manager' => [
-        'storage' => Zend\Session\Storage\ArrayStorage::class
-    ],
-	'service_manager' => [
-				'factories' => [
-						'DbAdapter' => 'Fgsl\Mock\Db\Adapter\AdapterServiceFactory',
-				        SessionManager::class => SessionManagerFactory::class
-				]
-	]	
+        'config' => [
+            'class' => SessionConfig::class,
+            'options' => [
+                'name' => 'myapp',
+            ],
+        ],
+	],
+	'session_config' => [],
+    'session_storage' => [
+        'type' => SessionArrayStorage::class
+    ]
 ];

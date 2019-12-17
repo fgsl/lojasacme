@@ -7,18 +7,15 @@
  */
 namespace Application\Controller;
 
+use Application\Model\Usuario;
+use Interop\Container\ContainerInterface;
+use Zend\Authentication\AuthenticationService;
+use Zend\Authentication\Adapter\DbTable\CredentialTreatmentAdapter;
+use Zend\Db\Sql\Where;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Session\SessionManager;
 use Zend\View\Model\ViewModel;
 use Zend\ServiceManager\ServiceManager;
-use Interop\Container\ContainerInterface;
-use Zend\Session\SessionManager;
-use Zend\Authentication\AuthenticationService;
-use Zend\Authentication\Adapter\DbTable;
-use Zend\Authentication\Adapter\DbTable\CredentialTreatmentAdapter;
-use Application\Model\Usuario;
-use Application\Model\Item;
-use Application\Model\Pedido;
-use Zend\Db\Sql\Where;
 
 class IndexController extends AbstractActionController
 {

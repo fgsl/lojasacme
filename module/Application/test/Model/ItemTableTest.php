@@ -18,7 +18,7 @@ class ItemTableTest extends AbstractHttpControllerTestCase
     private $tableGateway;
     private $where;
 
-    public function setUp()
+    public function setUp():void
     {
         $this->item = new Item();
         $this->driver = new Driver();

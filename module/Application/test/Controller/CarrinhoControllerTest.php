@@ -20,7 +20,6 @@ class CarrinhoControllerTest extends AbstractHttpControllerTestCase
         // such as sample view templates, path stacks, module_listener_options,
         // etc.
         $this->setApplicationConfig(include __DIR__ . '/../../../../config/mock.config.php');
-        $config = $this->getApplicationConfig();
         parent::setUp();
     }
 

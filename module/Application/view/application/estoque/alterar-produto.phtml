@@ -35,10 +35,11 @@ if (file_exists($imgName)){
 <div class="form-group">
 	<input type="hidden" class="form-control" id="id" name="id"	value="<?=$this->produtoSelecionado['id']?>">
 </div>
+
 <div class="form-group col-lg-4">
-	<input type="file" id="files" name="files[]" />
+	<input type="file" id="files" name="files[]"/>
 	<input type="hidden" name="imgb64" id="imgb64" />
-	<output id="list"><img src="<?= $img ?>" class="img-responsive" alt="imagem não disponivel"></output>
+	<output id="list"><img src="<?= $img ?>" class="img-responsive"></output>
 </div>	
 
 <div class="col-lg-4 col-lg-offset-4">	
@@ -46,17 +47,11 @@ if (file_exists($imgName)){
 	<label for="nome">Nome:</label>
 	<input name="nome" value="<?= $this->escapeHtml($this->produtoSelecionado['nome'])?>" class="form-control" id="nome" type="text" onkeypress="validarTamanhoDoNome()">
 </div>
-<?php
-if ($this->alterarQuantidade):
-?>					
 
 <div class="form-group col-lg-12">
-	<label for="quantidade">quantidade: <?= $this->escapeHtml($this->produtoSelecionado['quantidade'])?></label>
-	<input type="number" class="form-control" name="quantidade" id="quantidade">
+	<input type="hidden" class="form-control" name="quantidade" id="quantidade" value="<?= $this->escapeHtml($this->produtoSelecionado['quantidade'])?>">
 </div>
-<?php
-endif;
-?>
+
 <div class="form-group col-lg-12">
 	<label for="preco">Preço:</label>
 	<input class="form-control" name="preco" value="<?=$this->escapeHtml($this->produtoSelecionado['valor'])?>" id="preco" type="text"  required>

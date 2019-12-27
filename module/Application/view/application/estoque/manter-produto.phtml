@@ -1,4 +1,50 @@
 <?php
+
+function setUp($item,$view){
+    $codigo = $item['id'];
+    $nome = $item['nome'];
+    $quantidade = $item['quantidade'];
+    $preco = $item['valor'];
+    $excluir = '<a href="' . $view->url('estoque', ['action' => 'excluir','id' => $codigo]) . '" class="btn-floating btn-lg btn-warning" title="excluir produto" id="actBtn"><i class="glyphicon glyphicon-remove"></i></a>';
+    $entrada = '<a href="#" id="actBtn" class="btn-floating btn-lg btn-success" data-toggle="modal" data-target="#entrada' . $codigo . '" ><i class="glyphicon glyphicon-plus" title="dar entrada"></i></a>';
+    $baixa = '<a href="#" id="actBtn" class="btn-floating btn-lg btn-danger" data-toggle="modal" data-target="#baixa' . $codigo . '"><i class="glyphicon glyphicon-minus" title="dar baixa"></i></a>';
+    $alterar = '<a href="' . $view->url('estoque', ['action' => 'alterar-produto','id' => $codigo]) . '" id="actBtn" data-toggle="tooltip" data-placement="auto" title="alterar produto" class="btn-floating btn-lg btn-info"><i class="glyphicon glyphicon-wrench"></i></a>';
+    
+    $imgName = __DIR__ . '/../../../../../public/img/produtos/' . $codigo . ".base64";
+    $img = '';
+    if (file_exists($imgName)) {
+        $imgb64 = file_get_contents(__DIR__ . '/../../../../../public/img/produtos/' . $codigo . ".base64");
+    }
+    $imgthumb = '<img src="' . $imgb64 . '" class="img-responsive" id="imgEstoque" alt="imagem não disponivel"/>';
+    
+    $colunas = array(
+        $imgthumb,
+        $codigo,
+        $nome,
+        $preco,
+        $quantidade,
+        $entrada,
+        $baixa,
+        $alterar,
+        $excluir
+    );
+    return $colunas;
+}
+
+function setUpTitulos(){
+    return $titulos = array(
+        'imagem',
+        'Código',
+        'Nome',
+        'Preço Unitário',
+        'Quantidade',
+        'entrada',
+        'baixa',
+        'alterar',
+        'Excluir'
+    );
+}
+
 if (trim($this->mensagem) !== "") {
     ?>
 <br>
@@ -17,7 +63,7 @@ if (trim($this->mensagem) !== "") {
 		<li><a data-toggle="tab" href="#inserir">Inserir</a></li>
 		<li><a href="<?= $this->url('estoque',['action' => 'logout'])?>">logout</a></li>
 	</ul>
-
+    	
 	<div class="tab-content">
 		<div id="produtos" class="tab-pane fade in active">
 			<br>
@@ -25,18 +71,7 @@ if (trim($this->mensagem) !== "") {
 				<thead>
 				<tr>
     <?php
-    $titulos = array(
-        'imagem',
-        'Código',
-        'Nome',
-        'Preço Unitário',
-        'Quantidade',
-        'entrada',
-        'baixa',
-        'alterar',
-        'Excluir'
-    );
-    foreach ($titulos as $titulo):
+    foreach (setUpTitulos() as $titulo):
         echo '<th class="text-center">' . $this->escapeHtml($titulo) . '</th>';
     endforeach;
     ?>
@@ -45,44 +80,11 @@ if (trim($this->mensagem) !== "") {
     <?php
 
     foreach ($this->itens as $item):
-        $codigo = $item['id'];
-
-        $nome = $item['nome'];
-
-        $quantidade = $item['quantidade'];
-
-        $preco = $item['valor'];
-
-        $excluir = '<a href="' . $this->url('estoque', ['action' => 'excluir','id' => $codigo]) . '" class="btn-floating btn-lg btn-warning" title="excluir produto" id="actBtn"><i class="glyphicon glyphicon-remove"></i></a>';
-
-        $entrada = '<a href="#" id="actBtn" class="btn-floating btn-lg btn-success" data-toggle="modal" data-target="#entrada' . $codigo . '" ><i class="glyphicon glyphicon-plus" title="dar entrada"></i></a>';
         
-        $baixa = '<a href="#" id="actBtn" class="btn-floating btn-lg btn-danger" data-toggle="modal" data-target="#baixa' . $codigo . '"><i class="glyphicon glyphicon-minus" title="dar baixa"></i></a>';
-        
-        $alterar = '<a href="' . $this->url('estoque', ['action' => 'alterar-produto','id' => $codigo]) . '" id="actBtn" data-toggle="tooltip" data-placement="auto" title="alterar produto" class="btn-floating btn-lg btn-info"><i class="glyphicon glyphicon-wrench"></i></a>';
-
-
-        $imgName = __DIR__ . '/../../../../../public/img/produtos/' . $codigo . ".base64";
-        $img = '';
-        if (file_exists($imgName)) {
-            $imgb64 = file_get_contents(__DIR__ . '/../../../../../public/img/produtos/' . $codigo . ".base64");
-        }
-
-        $imgthumb = '<img src="' . $imgb64 . '" class="img-responsive" id="imgEstoque" alt="imagem não disponivel"/>';
-
-        $colunas = array(
-            $imgthumb,
-            $codigo,
-            $nome,
-            $preco,
-            $quantidade,
-            $entrada,
-            $baixa,
-            $alterar,
-            $excluir
-        );
         echo '<tr>';
 
+        $colunas = setUp($item,$this);
+        
         foreach ($colunas as $coluna):
             echo '<td>';
             echo $coluna;
@@ -90,7 +92,7 @@ if (trim($this->mensagem) !== "") {
         endforeach;
 ?>        
       
-         <div class="modal fade" id="entrada<?= $codigo ?>" role="dialog">
+<div class="modal fade" id="entrada<?= $codigo ?>" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">

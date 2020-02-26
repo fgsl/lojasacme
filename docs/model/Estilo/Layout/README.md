@@ -1,0 +1,39 @@
+```
+
+<?= $this->doctype() ?>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <script>$(document).ready(function(){
+          $('[data-toggle="tooltip"]').tooltip();
+        });
+        </script>
+
+<?=$this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
+            ->prependStylesheet($this->basePath('css/generic.css'))
+        ?>
+        <?=$this->headScript();?>
+        <title>Lojas Acme</title>
+    </head>
+    <body>
+		<div class="conteudo">
+            <?= $this->content ?>
+            <footer class="container-fluid footer text-center">
+              <p>&copy; <?= date('Y') ?> by CORPORAÇÃO NF. All rights reserved.</p>
+            </footer>
+        </div>
+        <?= $this->inlineScript() ?>
+    </body>
+</html>
+
+```

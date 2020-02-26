@@ -1,0 +1,130 @@
+###Comprar.phtml
+
+* Está referente principalamente na compra dos itens que você escolheu para você comprar, onde estará se referindo em id, valor, quantidade e o taltal que está no item.
+
+```
+
+<body class="carrinho">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="<?=$this->url('home')?>">Lojas Acme</a>
+    </div>
+    <form class="navbar-form navbar-right" action="<?=$this->url('application')?>" method="post">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="" name="nome" id="nome">
+        <div class="input-group-btn">
+          <button class="btn btn-default" type="submit">
+            <i class="glyphicon glyphicon-search"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+    <?php
+        if (!isset($this->storage->cliente))
+        {
+        ?>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="<?= $this->url('application',['action' => 'acessar']) ?>" >Acessar</a></li>
+      <li><a href="<?= $this->url('application',['action' => 'cadastrar']) ?>" >Cadastrar</a></li>
+    </ul>
+    <?php
+        }
+        else
+        {
+    ?>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="<?= $this->url('application', ['action' => 'logout']) ?>" >Sair</a></li>
+    </ul>
+    <?php
+        }
+    ?>    
+  </div>
+</nav>
+
+<?php
+if($this->mensagem !==""){
+?>    
+<div class="row">
+<div class="col-lg-1"></div>
+    <div class="col-lg-10 alert alert-danger alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    	<h3 id="danger"><?=$this->mensagem?></h3>
+    </div>
+</div>
+
+<?php
+}
+?>
+
+
+<div class="container">
+<table id="carrinho" class="table table-hover text-center">
+	<thead>
+<?php
+$titulos = array ('Codigo',
+'Nome',
+'Quantidade',
+'Preço Unitário',
+'Total',
+'Editar',
+'Excluir');
+ 
+foreach ($titulos as $titulo)
+{
+ 			echo '<td><b>'.$this->escapeHtml($titulo).'</b></td>';
+}
+?>
+</thead>
+<?php
+$somaTotal = 0;
+
+foreach ($this->itens as $item)
+{
+ 		$codigo = $item['id'];
+ 		$nome = htmlentities($item['nome'],0,'iso-8859-1');
+ 		$quantidade = $this->escapeHtml($item['quantidade']);
+ 		$preco = $this->escapeHtml($item['valor']);
+
+ 		// Aqui foi necessário forçar o preço a assumir o formato americano
+ 		// porque ele não estava convertendo a moeda corretamente
+
+ 		$moeda = str_replace('.','',$preco); //$moeda = str_replace('.','',substr($preco,2));
+ 		$moeda = str_replace(',','.',$moeda);
+ 		$valorTotal = (float)$quantidade * (float)$moeda;
+ 		$totalItem = $this->escapeHtml(money_format('%.2n',$valorTotal));
+ 		
+ 		$editar= '<a href="' . $this->url('carrinho',['action'=>'editar','id'=>$item['id']]) . ' "data-toggle="tooltip" data-placement="right auto" title="editar quantidade"><i class="glyphicon glyphicon-pencil"></i></a></a>';
+ 		$excluir= '<a href="' . $this->url('carrinho',['action'=>'excluir','id'=>$item['id']]) . ' "data-toggle="tooltip" data-placement="right auto" title="retirar produto do carrinho"><i class="glyphicon glyphicon-remove"></i></a>';
+ 		
+ 		$somaTotal += $valorTotal;
+
+		$colunas= array($codigo,
+ 				$nome,
+ 				$quantidade,
+ 				$preco,
+ 				$totalItem,
+ 				$editar,
+ 				$excluir);
+
+echo '<tr>';
+ 		foreach ($colunas as $coluna)
+ 		{
+ 			echo '<td>';
+ 			echo $coluna;
+ 			echo '</td>';
+
+ 		}
+ 		
+ 		echo '</tr>';
+}
+?>
+</table>
+<strong>total: </strong><?='R$'.money_format('%.2n',$somaTotal)?><br/><br>
+<a href="<?=$this->url('home')?>" class="btn-floating btn-lg btn-default"><i class="glyphicon glyphicon-home"></i></a>
+<a href="<?=$this->url('carrinho',['action'=>'fechar'])?> "class="btn-floating btn-lg btn-default"><i class="glyphicon glyphicon-usd"></i></a>
+</div>
+</body>
+
+```
+

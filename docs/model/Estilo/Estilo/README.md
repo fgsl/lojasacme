@@ -1,0 +1,121 @@
+###Estilo da pagina
+
+Para que a página inicial tenha a aparência definida neste tutorial é preciso criar um arquivo de folhas de estilo.
+
+Dentro de public/css vamos criar um arquivo chamado generic.css.
+
+Definiremos alguns identificadores de estilo CSS.
+
+```
+
+.btn-primary {
+	background-color: dodgerblue;
+	border: hidden;
+	color: white;
+}
+
+#btnExcluir:link{
+	color: white;
+}
+
+#actBtn{
+	color:white;
+	position: relative;
+	top: 8px;
+}
+
+.thumb {
+	max-width: 400px;
+	max-hight: 400px;
+	padding-bottom: 150px;
+}
+
+.returnbtn{
+	position: absolute;
+	bottom: 0px;
+	left: 75px;
+	margin-bottom: 75px;	
+}
+
+#card {
+	padding-top: 10px;
+}
+
+#btnEstoque{
+	position: absolute;
+	right: 25px;
+	top: 15px;
+}
+
+#cardimg {
+	max-width: 800px;
+	max-hight: 800px;
+	height: 18rem;
+}
+
+#imgb {
+	position: relative;
+	width: 50%;
+	height: 100%;
+	margin: auto;
+	margin-top: 5%;
+	margin-bottom: 15%;
+	border: 1px solid #eeeeee;
+	box-shadow: 10px 10px #eeeeee;
+}
+
+#imgMini {
+	position: relative;
+	float: right;
+	margin-top: 10px;
+	width: 100px;
+	height: 100px;
+	border: 1px solid #eeeeee;
+	box-shadow: 2px 2px #eeeeee;
+}
+
+#imgEstoque{
+	margin: auto;
+	width: 50px;
+	height: 50px;
+	border: 1px solid #eeeeee;
+}
+
+#myBtn {
+	display: none;
+	position: fixed;
+	bottom: 20px;
+	right: 30px;
+	z-index: 99;
+	font-size: 18px;
+	border: none;
+	outline: none;
+	background-color: #bbb;
+	cursor: pointer;
+	padding: 15px;
+	border-radius: 4px;
+}
+
+footer {
+	z-index: 1;
+	background-color: dodgerblue;
+	color: white;
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+	height: 50px;
+}
+
+html, body {
+	box-sizing: border-box;
+	height: 100%;
+	width: 100%;
+}
+
+.conteudo {
+	min-height: 100%;
+	position: relative;
+}
+
+```
+

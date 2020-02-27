@@ -24,15 +24,15 @@ Cada tópico tera um subtópico, onde levara para outra pagina que haverá o sub
 
 <h1>Introdução</h1>
 
-[Introdução](model/Introdução/README.md)
+[Introdução](model/Introducao/README.md)
 
 <h1>Como Acessar</h1>
 
-[1º passo](model/Passos/1ºPasso/README.md)
+[1º passo](model/Passos/1_Passo/README.md)
 
-[2º passo](model/Passos/2ºPasso/README.md)
+[2º passo](model/Passos/2_Passo/README.md)
 
-[3º passo](model/Passos/3ºPasso/README.md)
+[3º passo](model/Passos/3_Passo/README.md)
 
 
 <h1>Estilo da Pagina</h1>

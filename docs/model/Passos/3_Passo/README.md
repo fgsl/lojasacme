@@ -1,37 +1,12 @@
-# lojasacme
-Exemplo de loja virtual
+<h1>3º Passo</h1>
 
-# Configuração do banco de dados
+O segundo passo está referente como podemos acessar o site com alguns comandos dentro do terminal.
 
-Criar arquivo local.php em config/autoload. 
+Para iniciar a aplicação, use o servidor embutido do PHP. No diretório lojasacme, digite:
 
-Para usar um banco MySQL, o conteúdo do arquivo deve ser este:
+<h4>php -S localhost:8000 -t public/</h4>
 
-```php
-<?php
-return [
-	'db' => [
-    	'driver' => 'PDO',
-		'dsn' => 'mysql:host=localhost;port=5432;dbname=acme',
-		'username' => '[USUÁRIO DO BANCO]',
-		'password' => '[SENHA DO USUÁRIO DO BANCO]'
-	],
-]
-```
+Neste momento, a aplicação não funcionará porque faltam as dependências.
+Pare o servidor (CTRL+C) e execute o composer no diretório lojasacme:
 
-O script para geração das tabelas para MySQL está no arquivo data/lojasacme.mysql.sql
-
-Para usar um banco SQLite, o conteúdo do arquivo deve ser este:
-
-```php
-<?php
-return [
-    'db' => [
-        'driver' => 'Pdo_Sqlite',
-        'database' => __DIR__ . '/../../data/acme.db'
-    ]
-];
-```
-
-O script para geração das tabelas para SQLite está no arquivo data/lojasacme.sqlite.sql
-
+<h4>composer install</h4>

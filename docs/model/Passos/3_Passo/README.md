@@ -9,12 +9,14 @@ Para usar um banco MySQL, o conteúdo do arquivo deve ser este:
 
 ```php
 <?php
-'db' => [
-    'driver' => 'PDO',
-    'dsn' => 'mysql:host=localhost;port=5432;dbname=acme',
-    'username' => '[USUÁRIO DO BANCO]',
-    'password' => '[SENHA DO USUÁRIO DO BANCO]'
-],
+return [
+	'db' => [
+    	'driver' => 'PDO',
+		'dsn' => 'mysql:host=localhost;port=5432;dbname=acme',
+		'username' => '[USUÁRIO DO BANCO]',
+		'password' => '[SENHA DO USUÁRIO DO BANCO]'
+	],
+]
 ```
 
 O script para geração das tabelas para MySQL está no arquivo data/lojasacme.mysql.sql

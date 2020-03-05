@@ -114,3 +114,6 @@ Cada tópico tera um subtópico, onde levara para outra pagina que haverá o sub
 
 [MarkDown](https://blog.da2k.com.br/2015/02/08/aprenda-markdown/)
 
+* No link está representando um pouco sobre SQL, onde estão coisas básicas para aprender apenas para resolver alguns sistemas.
+
+[SQL](https://www.devmedia.com.br/comandos-basicos-em-sql-insert-update-delete-e-select/37170)
